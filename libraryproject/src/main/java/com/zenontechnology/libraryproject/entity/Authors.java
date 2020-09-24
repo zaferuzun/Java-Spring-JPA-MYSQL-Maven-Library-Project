@@ -1,5 +1,6 @@
 package com.zenontechnology.libraryproject.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,17 +9,25 @@ import javax.persistence.Id;
 @Entity
 public class Authors {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long AuthorId;
+
+	@Column(name = "AuthorName")
 	private String AuthorName;
+
+	@Column(name = "AuthorSurname")
 	private String AuthorSurname;
+
+	@Column(name = "AuthorContact")
 	private String AuthorContact;
+
+	@Column(name = "AuthorDefination")
 	private String AuthorDefination;
 
 	protected Authors() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getAuthorId() {
 		return AuthorId;
 	}

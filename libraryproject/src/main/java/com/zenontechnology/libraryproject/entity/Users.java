@@ -2,28 +2,43 @@ package com.zenontechnology.libraryproject.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class Users {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long UserId;
+
+	@Column(name = "Username")
 	private String UserName;
+
+	@Column(name = "UserSurname")
 	private String UserSurname;
+
+	@Column(name = "UserEmail")
 	private String UserEmail;
+
+	@Column(name = "UserRegisterDate")
 	private Date UserRegisterDate;
+
+	@Column(name = "UserPermission")
 	private Boolean UserPermission;
+
+	@Column(name = "UserPassword")
 	private String UserPassword;
 
 	protected Users() {
 
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getUserId() {
 		return UserId;
 	}

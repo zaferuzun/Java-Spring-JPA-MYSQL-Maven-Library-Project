@@ -1,5 +1,6 @@
 package com.zenontechnology.libraryproject.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,9 +9,17 @@ import javax.persistence.Id;
 @Entity
 public class Publishers {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long PublisherId;
+
+	@Column(name = "PublisherName")
 	private String PublisherName;
+
+	@Column(name = "PublisherContact")
 	private String PublisherContact;
+
+	@Column(name = "PublisherDefination")
 	private String PublisherDefination;
 
 	protected Publishers() {

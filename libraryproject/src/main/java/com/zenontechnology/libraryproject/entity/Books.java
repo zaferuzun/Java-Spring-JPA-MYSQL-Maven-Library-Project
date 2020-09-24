@@ -2,6 +2,7 @@ package com.zenontechnology.libraryproject.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,22 +11,40 @@ import javax.persistence.Id;
 @Entity
 public class Books {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long BookId;
+
+	@Column(name = "PublisherId")
 	private Long PublisherId;
+
+	@Column(name = "AuthorId")
 	private Long AuthorId;
+
+	@Column(name = "BookName")
 	private String BookName;
+
+	@Column(name = "BookSubName")
 	private String BookSubName;
+
+	@Column(name = "BookSeriesName")
 	private String BookSeriesName;
+
+	@Column(name = "BookIsbnNo")
 	private String BookIsbnNo;
+
+	@Column(name = "BookLanguage")
 	private String BookLanguage;
+
+	@Column(name = "BookReleaseDate")
 	private Date BookReleaseDate;
+
+	@Column(name = "BookDefination")
 	private String BookDefination;
 
 	protected Books() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getBookId() {
 		return BookId;
 	}
