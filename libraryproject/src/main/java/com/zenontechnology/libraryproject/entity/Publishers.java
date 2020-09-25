@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "publishers")
 public class Publishers {
 
 	@Id
@@ -22,7 +24,7 @@ public class Publishers {
 	@Column(name = "PublisherDefination")
 	private String PublisherDefination;
 
-	protected Publishers() {
+	public Publishers() {
 
 	}
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="html_head (pageTitle)">
+		<meta charset="UTF-8">
+		<title> [[${pageTitle}]]-
+			Library Project
+		</title>
+	</head>
+	<body>
+		<div th:fragment="menu">
+			<h1>
+				Menü kısmı
+			</h1>
+			<span>
+				<a href="/authors"><h1>Authors</h1></a>			
+				<a href="/users"><h1>Users</h1></a>
+				<a href="/publishers"><h1>Publishers</h1></a>	
+				<a href="/books"><h1>Books</h1></a>		
+					
+			</span>			
+		</div>
+		<div th:fragment="footer">
+			<h1>
+				Footer kısmı
+			</h1>
+		</div>
+	</body>
+</html>

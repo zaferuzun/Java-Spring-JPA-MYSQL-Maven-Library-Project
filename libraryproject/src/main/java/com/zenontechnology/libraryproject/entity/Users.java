@@ -1,6 +1,6 @@
 package com.zenontechnology.libraryproject.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class Users {
 	private String UserEmail;
 
 	@Column(name = "UserRegisterDate")
-	private Date UserRegisterDate;
+	private LocalDate UserRegisterDate;
 
 	@Column(name = "UserPermission")
 	private Boolean UserPermission;
@@ -35,7 +35,7 @@ public class Users {
 	@Column(name = "UserPassword")
 	private String UserPassword;
 
-	protected Users() {
+	public Users() {
 
 	}
 
@@ -71,11 +71,11 @@ public class Users {
 		UserEmail = userEmail;
 	}
 
-	public Date getUserRegisterDate() {
+	public LocalDate getUserRegisterDate() {
 		return UserRegisterDate;
 	}
 
-	public void setUserRegisterDate(Date userRegisterDate) {
+	public void setUserRegisterDate(LocalDate userRegisterDate) {
 		UserRegisterDate = userRegisterDate;
 	}
 

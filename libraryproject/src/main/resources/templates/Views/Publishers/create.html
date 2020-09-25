@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
+	<body>
+		<div th:replace="./Layout/libraryfragment :: menu">
+		</div>
+		<form action="#" th:action="@{/publishers/save}" th:object="${publisher}" method="post">
+            <table border="0" cellpadding="10">
+                <tr>
+                    <td>PublisherName:</td>
+                    <td><input type="text" th:field="*{PublisherName}" /></td>
+                </tr>
+                <tr>
+                    <td>PublisherContact:</td>
+                    <td><input type="text" th:field="*{PublisherContact}" /></td>
+                </tr>    
+                <tr>
+                    <td>PublisherDefination:</td>
+                    <td><input type="text" th:field="*{PublisherDefination}" /></td>
+                </tr>                      
+                <tr>
+                    <td colspan="2"><button type="submit">Save</button> </td>
+                </tr>
+            </table>
+		</form>
+		<div th:replace="./Layout/libraryfragment :: footer">
+		</div>		  
+	</body>
+</html>

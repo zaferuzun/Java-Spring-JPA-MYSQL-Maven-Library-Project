@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
+	<body>
+		<div th:replace="./Layout/libraryfragment :: menu">
+		</div>
+		<div align="center">
+		    <h1>User List</h1>
+		    <a href="/authors/create">Create New User</a>
+		    <br/><br/>
+		    <table border="1" cellpadding="10">
+		        <thead>
+		            <tr>
+		                <th>Author Id</th>
+		                <th>Author Name</th>
+		                <th>Author Surname</th>
+		                <th>Author Contact</th>
+		                <th>Author Defination</th>
+		                
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="author : ${listAuthors}">
+		                <td th:text="${author.AuthorId}"> Author Id</td>
+		                <td th:text="${author.AuthorName}">Author Name</td>
+		                <td th:text="${author.AuthorSurname}">Author Surname</td>
+		                <td th:text="${author.AuthorContact}">Author Contact</td>
+		                <td th:text="${author.AuthorDefination}">Author Defination</td>
+		                
+		                <td>
+							<a th:href="@{'/authors/edit/' + ${author.AuthorId}}">Edit</a>                    
+							&nbsp;&nbsp;&nbsp;
+							<a th:href="@{'/authors/delete/' + ${author.AuthorId}}">Delete</a>                
+						</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div> 
+		<div th:replace="./Layout/libraryfragment :: footer">
+		</div>		  
+	</body>
+</html>

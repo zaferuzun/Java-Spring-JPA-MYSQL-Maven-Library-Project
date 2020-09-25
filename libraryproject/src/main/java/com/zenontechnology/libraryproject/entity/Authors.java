@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "authors")
 public class Authors {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "AuthorId")
 	private Long AuthorId;
 
 	@Column(name = "AuthorName")
@@ -25,7 +28,7 @@ public class Authors {
 	@Column(name = "AuthorDefination")
 	private String AuthorDefination;
 
-	protected Authors() {
+	public Authors() {
 	}
 
 	public Long getAuthorId() {

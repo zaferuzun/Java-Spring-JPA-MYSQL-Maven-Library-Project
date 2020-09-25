@@ -1,0 +1,59 @@
+package com.zenontechnology.libraryproject.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.zenontechnology.libraryproject.entity.Authors;
+import com.zenontechnology.libraryproject.service.AuthorsService;
+
+@Controller
+public class AuthorsController {
+
+	@Autowired
+	private AuthorsService authorsService;
+
+	@RequestMapping("/authors")
+	public String viewAuthorsPage(Model model) {
+		List<Authors> listAuthors = authorsService.listAll();
+		model.addAttribute("listAuthors", listAuthors);
+		return "./Views/Authors/index";
+	}
+
+	@RequestMapping("/authors/create")
+	public String showNewUserForm(Model model) {
+		Authors author = new Authors();
+		model.addAttribute("author", author);
+
+		return "./Views/Authors/create";
+	}
+
+	@RequestMapping(value = "/authors/save", method = RequestMethod.POST)
+	public String saveUser(@ModelAttribute("author") Authors author) {
+		authorsService.save(author);
+
+		return "redirect:/authors";
+	}
+
+	@RequestMapping("/authors/edit/{id}")
+	public ModelAndView showEditProductPage(@PathVariable(name = "id") Long id) {
+		ModelAndView mav = new ModelAndView("./Views/Authors/edit");
+		Authors author = authorsService.get(id);
+		mav.addObject("author", author);
+		author.setAuthorId(id);
+		return mav;
+	}
+
+	@RequestMapping("/authors/delete/{id}")
+	public String deleteProduct(@PathVariable(name = "id") Long id) {
+		authorsService.delete(id);
+		return "redirect:/authors";
+	}
+}
