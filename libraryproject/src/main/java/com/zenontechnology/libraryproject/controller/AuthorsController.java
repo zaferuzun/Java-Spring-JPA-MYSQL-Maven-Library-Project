@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zenontechnology.libraryproject.entity.Authors;
@@ -27,6 +28,20 @@ public class AuthorsController {
 		return "./Views/Authors/index";
 	}
 
+//deneme
+	/*
+	 * @RequestMapping(value = "/getAuthors", method = RequestMethod.GET) public
+	 * List<Authors> deneme() { List<Authors> listAuthors =
+	 * authorsService.listAll(); return listAuthors; }
+	 */
+	@RequestMapping(value = "/getAuthors", method = RequestMethod.GET)
+	public @ResponseBody List<Authors> getAuthors() {
+		List<Authors> authors = authorsService.listAll();
+
+		return authors;
+	}
+
+//deneme	
 	@RequestMapping("/authors/create")
 	public String showNewUserForm(Model model) {
 		Authors author = new Authors();

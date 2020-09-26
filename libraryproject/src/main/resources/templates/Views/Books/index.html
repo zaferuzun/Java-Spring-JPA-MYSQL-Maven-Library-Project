@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='books')" />
+	<body>
+		<div th:replace="./Layout/libraryfragment :: menu">
+		</div>
+		<div align="center">
+		    <h1>User List</h1>
+		    <a href="/books/create">Create New User</a>
+		    <br/><br/>
+		    <table border="1" cellpadding="10">
+		        <thead>
+		            <tr>
+		                <th>BookId</th>
+		                <th>PublisherId</th>
+		                <th>AuthorId</th>
+		                <th>BookName</th>
+		                <th>BookSubName</th>
+		                <th>BookSeriesName</th>
+		                <th>BookIsbnNo</th>
+		                <th>BookLanguage</th>
+		                <th>BookReleaseDate</th>
+		                <th>BookDefination</th>		                
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="book : ${listBooks}">
+		                <td th:text="${book.BookId}"> book Id</td>
+		                <td th:text="${book.PublisherId}">PublisherId</td>
+		                <td th:text="${book.AuthorId}">AuthorId</td>
+		                <td th:text="${book.BookName}">BookName</td>
+		                <td th:text="${book.BookSubName}">BookSubName</td>
+		                <td th:text="${book.BookSeriesName}">BookSeriesName</td>
+		                <td th:text="${book.BookIsbnNo}">BookIsbnNo</td>
+		                <td th:text="${book.BookLanguage}">BookLanguage</td>
+		                <td th:text="${book.BookReleaseDate}">BookReleaseDate</td>
+		                <td th:text="${book.BookDefination}">BookDefination</td>		                
+		                <td>
+							<a th:href="@{'/books/edit/' + ${book.BookId}}">Edit</a>                    
+							&nbsp;&nbsp;&nbsp;
+							<a th:href="@{'/books/delete/' + ${book.BookId}}">Delete</a>                
+						</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div> 
+		<div th:replace="./Layout/libraryfragment :: footer">
+		</div>		  
+	</body>
+</html>

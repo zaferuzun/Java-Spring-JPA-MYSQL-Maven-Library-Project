@@ -3,6 +3,7 @@ package com.zenontechnology.libraryproject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,48 +11,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zenontechnology.libraryproject.entity.Publishers;
-import com.zenontechnology.libraryproject.service.PublisherService;
+import com.zenontechnology.libraryproject.entity.Books;
+import com.zenontechnology.libraryproject.service.BooksService;
 
+@Controller
 public class BooksController {
 
 	@Autowired
-	private PublisherService publisherService;
+	private BooksService booksService;
 
-	@RequestMapping("/publishers")
-	public String viewpublishersPage(Model model) {
-		List<Publishers> listPublishers = publisherService.listAll();
-		model.addAttribute("listPublishers", listPublishers);
-		return "./Views/Publishers/index";
+	@RequestMapping("/books")
+	public String viewbookssPage(Model model) {
+		List<Books> listBooks = booksService.listAll();
+		model.addAttribute("listBooks", listBooks);
+		return "./Views/Books/index";
 	}
 
-	@RequestMapping("/publishers/create")
+	@RequestMapping("/books/create")
 	public String showNewUserForm(Model model) {
-		Publishers publisher = new Publishers();
-		model.addAttribute("publisher", publisher);
+		Books book = new Books();
+		model.addAttribute("book", book);
 
-		return "./Views/Publishers/create";
+		return "./Views/Books/create";
 	}
 
-	@RequestMapping(value = "/publishers/save", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("publisher") Publishers publisher) {
-		publisherService.save(publisher);
+	@RequestMapping(value = "/books/save", method = RequestMethod.POST)
+	public String saveUser(@ModelAttribute("book") Books book) {
+		booksService.save(book);
 
-		return "redirect:/publishers";
+		return "redirect:/books";
 	}
 
-	@RequestMapping("/publishers/edit/{id}")
+	@RequestMapping("/books/edit/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") Long id) {
-		ModelAndView mav = new ModelAndView("./Views/Publishers/edit");
-		Publishers publisher = publisherService.get(id);
-		mav.addObject("publisher", publisher);
-		publisher.setPublisherId(id);
+		ModelAndView mav = new ModelAndView("./Views/Books/edit");
+		Books book = booksService.get(id);
+		mav.addObject("book", book);
+		book.setBookId(id);
 		return mav;
 	}
 
-	@RequestMapping("/publishers/delete/{id}")
+	@RequestMapping("/books/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Long id) {
-		publisherService.delete(id);
-		return "redirect:/publishers";
+		booksService.delete(id);
+		return "redirect:/books";
 	}
 }

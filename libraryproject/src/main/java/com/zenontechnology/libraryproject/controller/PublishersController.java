@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zenontechnology.libraryproject.entity.Publishers;
@@ -55,5 +56,12 @@ public class PublishersController {
 	public String deleteProduct(@PathVariable(name = "id") Long id) {
 		publisherService.delete(id);
 		return "redirect:/publishers";
+	}
+
+	@RequestMapping(value = "/getPublishers", method = RequestMethod.GET)
+	public @ResponseBody List<Publishers> getPublishers() {
+		List<Publishers> publishers = publisherService.listAll();
+
+		return publishers;
 	}
 }

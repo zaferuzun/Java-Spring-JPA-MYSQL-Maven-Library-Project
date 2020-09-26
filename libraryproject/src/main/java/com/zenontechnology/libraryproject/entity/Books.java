@@ -44,7 +44,7 @@ public class Books {
 	@Column(name = "BookDefination")
 	private String BookDefination;
 
-	protected Books() {
+	public Books() {
 	}
 
 	public Long getBookId() {
