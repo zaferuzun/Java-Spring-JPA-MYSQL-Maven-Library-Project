@@ -22,6 +22,20 @@ public class BooksService {
 		booksRepository.save(book);
 	}
 
+	/**/
+	public int findAllActiveUsers() {
+		return booksRepository.findAllActiveUsers();
+	}
+
+	public int AuthorBookNumber(Long AuthorId) {
+		return booksRepository.AuthorBookNumber(AuthorId);
+	}
+
+	public int PublisherBookNumber(Long PublisherId) {
+		return booksRepository.PublisherBookNumber(PublisherId);
+	}
+
+	/**/
 	public Books get(Long id) {
 		return booksRepository.findById(id).get();
 	}
