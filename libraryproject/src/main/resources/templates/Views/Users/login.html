@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+	<head th:replace="./Layout/homefragment :: html_head (pageTitle='Authors')" />
+	<body>
+		<div th:replace="./Layout/homefragment :: menu">
+		</div>
+		<form th:action="@{/doLogin}" method="post">
+			<p>
+				Email:<input type="email" name="UserEmail" required />
+			</p>
+			<p>
+				Password:<input type="password" name="UserPassword" required />
+			</p>
+			<input  type="submit" value ="Log Me In"/>
+		</form>
+		<div th:replace="./Layout/homefragment :: footer">
+		</div>		  
+	</body>
+</html>

@@ -6,7 +6,7 @@
 		</div>
 		<div align="center">
 		    <h1>User List</h1>
-		    <a href="/authors/create">Create New User</a>
+		    <a href="/authors/create" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Create New User</a>
 		    <br/><br/>
 		    <table border="1" cellpadding="10">
 		        <thead>
@@ -27,7 +27,7 @@
 		                <td th:text="${author.AuthorContact}">Author Contact</td>
 		                <td th:text="${author.AuthorDefination}">Author Defination</td>
 		                
-		                <td>
+		                <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
 							<a th:href="@{'/authors/edit/' + ${author.AuthorId}}">Edit</a>                    
 							&nbsp;&nbsp;&nbsp;
 							<a th:href="@{'/authors/delete/' + ${author.AuthorId}}">Delete</a>                

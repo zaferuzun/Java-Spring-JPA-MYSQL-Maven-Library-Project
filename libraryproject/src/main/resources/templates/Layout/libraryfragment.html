@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head th:fragment="html_head (pageTitle)">
 		<meta charset="UTF-8">
 		<title> [[${pageTitle}]]-
@@ -7,7 +8,16 @@
 		</title>
 	</head>
 	<body>
+
 		<div th:fragment="menu">
+			<div sec:authorize ="isAuthenticated()">
+				Hoşgeldiniz <span sec:authentication="name"> Username</span>
+				&nbsp;
+				<span sec:authentication="principal.authorities"> Roles</span>
+			</div>
+			<form th:action="@{/logout}" method="post">
+    			<input type="submit" value="Logout" />
+			</form>
 			<h1>
 				Menü kısmı
 			</h1>

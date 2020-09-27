@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head th:fragment="html_head (pageTitle)">
 		<meta charset="UTF-8">
 		<title> [[${pageTitle}]]-
@@ -15,6 +16,7 @@
 				<a href="/"><h1>Home</h1></a>			
 				<a href="/about"><h1>About</h1></a>
 				<a href="/contact"><h1>Contact</h1></a>		
+				<a href="/login"> Login</a>
 			</span>			
 		</div>
 		<div th:fragment="footer">
