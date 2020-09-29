@@ -10,21 +10,22 @@ import com.zenontechnology.libraryproject.repository.LibraryUserDetails;
 import com.zenontechnology.libraryproject.repository.UserRepository;
 
 public class LibraryUserDetailsService implements UserDetailsService {
-
 	@Autowired
 	private UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String UserEmail) throws UsernameNotFoundException {
-
 		Users user = userRepository.getByUserName(UserEmail);
 
 		if (user == null) {
 			throw new UsernameNotFoundException("User bulunamadı");
-
 		}
 
 		return new LibraryUserDetails(user);
+	}
+
+	public void save(Users user) {
+		userRepository.save(user);
 	}
 
 }

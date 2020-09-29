@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/homefragment :: html_head (pageTitle='Home')" />
+	
+	<body>
+		<div id="colorlib-page" >
+			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+		
+			<aside th:replace="./Layout/homefragment :: menu">
+			</aside>
+			<div id="colorlib-main">
+				<div class="limiter">
+					<div class="container-login100" style="background-image: url('/Login/images/bg-01.jpg');">
+						<div class="wrap-login100 p-t-30 p-b-50">
+							<span class="login100-form-title p-b-41">
+								Uye Ol
+							</span>
+							<form action="#" th:action="@{/save}" th:object="${user}" method="post" class="login100-form validate-form p-b-33 p-t-5">
+		
+								<div class="wrap-input100 validate-input" data-validate = "Enter Email">
+									<input class="input100" type="text" th:field="*{UserName}" placeholder="User Name">
+									<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+								</div>								
+								<div class="wrap-input100 validate-input" data-validate = "User Surname">
+									<input class="input100" type="text" th:field="*{UserSurname}"  placeholder="User email">
+									<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+								</div>
+								<div class="wrap-input100 validate-input" data-validate="User Email">
+									<input class="input100" type="email" th:field="*{UserEmail}" placeholder="User Email">
+									<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+								</div>									
+								<div class="wrap-input100 validate-input" data-validate="User Password">
+									<input class="input100" type="password" th:field="*{UserPassword}" placeholder="User Password">
+									<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+								</div>						
+		
+								<div class="container-login100-form-btn m-t-32">
+									<button class="login100-form-btn">
+										Kayit Ol
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>							
+				<footer th:replace="./Layout/homefragment :: footer">
+				</footer>
+			
+			</div>
+			<!-- loader -->
+  			<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+			</div>
+		</div>
+		<div th:replace="./Layout/homefragment :: script">
+		
+		</div>
+		<div th:replace="./Layout/userfragment :: userCss">
+		</div>
+		<div th:replace="./Layout/userfragment :: userJs">
+		</div>		
+	</body>
+</html>
+

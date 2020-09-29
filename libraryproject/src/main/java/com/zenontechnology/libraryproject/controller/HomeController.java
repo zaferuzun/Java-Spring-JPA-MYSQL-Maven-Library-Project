@@ -11,6 +11,11 @@ public class HomeController {
 		return "./Views/Home/home";
 	}
 
+	@RequestMapping("/index")
+	public String HomesPage() {
+		return "./Views/Home/index";
+	}
+
 	@RequestMapping("/contact")
 	public String ContactPage() {
 		return "./Views/Home/contact";
