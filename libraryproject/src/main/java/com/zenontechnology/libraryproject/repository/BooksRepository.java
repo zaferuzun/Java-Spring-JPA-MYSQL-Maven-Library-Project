@@ -1,5 +1,7 @@
 package com.zenontechnology.libraryproject.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +18,11 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
 
 	@Query("SELECT Count(PublisherId) FROM Books b WHERE b.PublisherId = :PublisherId")
 	int PublisherBookNumber(@Param("PublisherId") Long PublisherId);
+
+	@Query("SELECT Count(BookId) FROM Books")
+	int AllBookNumbers();
+
+	@Query(value = "SELECT * FROM Books  ORDER BY RAND() LIMIT :limitNumber", nativeQuery = true)
+	public List<Books> listRandomBooks(@Param("limitNumber") int limitNumber);
+
 }

@@ -41,6 +41,12 @@ public class AuthorsController {
 		return authors;
 	}
 
+	@RequestMapping(value = "/getAuthor/{id}", method = RequestMethod.GET)
+	public @ResponseBody Authors getAuthorById(@PathVariable("id") Long id) {
+		Authors author = authorsService.get(id);
+		return author;
+	}
+
 //deneme	
 	@RequestMapping("/authors/create")
 	public String showNewUserForm(Model model) {

@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Authors')" />
 	<body>
-		<div th:replace="./Layout/libraryfragment :: menu">
+	     <div th:replace="./Layout/userpanelfragment :: search">
+     	</div>
+		<div class="main-content-wrapper d-flex clearfix">
+     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
+     		</div>
+     		<div th:replace="./Layout/userpanelfragment :: header-area">
+     		</div>		     		
+		    <div class="products-catagories-area clearfix">
+            	<div class="amado-pro-catagory clearfix" >
+            	
+	            	<!-- Single Catagory -->
+	                <div class="single-products-catagory clearfix" th:each="author : ${listAuthors}">
+	                    <a href="shop.html">
+	                        <img src="/UserPanel/img/bg-img/1.jpg" width="500" height="700" alt="">
+	                        <!-- Hover Content -->
+	                        <div class="hover-content">
+	                            <div class="line"></div>
+	                            <h4 th:text="${author.AuthorName}"></h4>	                            
+	                        </div>
+	                    </a>
+	                </div>
+
+            	</div>
+	     		<div th:replace="./Layout/userpanelfragment :: row">
+	     		</div>	            	
+		    </div>			
 		</div>
-		<div align="center">
-		    <h1>User List</h1>
-		    <a href="/authors/create" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Create New User</a>
-		    <br/><br/>
-		    <table border="1" cellpadding="10">
-		        <thead>
-		            <tr>
-		                <th>Author Id</th>
-		                <th>Author Name</th>
-		                <th>Author Surname</th>
-		                <th>Author Contact</th>
-		                <th>Author Defination</th>
-		                
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <tr th:each="author : ${listAuthors}">
-		                <td th:text="${author.AuthorId}"> Author Id</td>
-		                <td th:text="${author.AuthorName}">Author Name</td>
-		                <td th:text="${author.AuthorSurname}">Author Surname</td>
-		                <td th:text="${author.AuthorContact}">Author Contact</td>
-		                <td th:text="${author.AuthorDefination}">Author Defination</td>
-		                
-		                <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-							<a th:href="@{'/authors/edit/' + ${author.AuthorId}}">Edit</a>                    
-							&nbsp;&nbsp;&nbsp;
-							<a th:href="@{'/authors/delete/' + ${author.AuthorId}}">Delete</a>                
-						</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		</div> 
-		<div th:replace="./Layout/libraryfragment :: footer">
-		</div>		  
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>			
+
+     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
 	</body>
 </html>

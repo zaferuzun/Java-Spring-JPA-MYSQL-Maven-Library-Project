@@ -11,24 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.zenontechnology.libraryproject.dto.UsersDto;
 import com.zenontechnology.libraryproject.entity.Users;
 import com.zenontechnology.libraryproject.repository.UserRepository;
-import com.zenontechnology.libraryproject.repository.UserRolesRepository;
 
 @Controller
 public class UsersController {
 
 	@Autowired
 	private UserRepository usersService;
-	private UserRolesRepository userRolesRepository;
 
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-	@ModelAttribute("user")
-	public UsersDto usersDto() {
-		return new UsersDto();
-	}
 
 	@RequestMapping("/login")
 	public String viewusersPage() {

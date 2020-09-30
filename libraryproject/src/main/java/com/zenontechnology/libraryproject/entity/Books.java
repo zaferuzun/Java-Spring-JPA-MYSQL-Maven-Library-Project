@@ -1,6 +1,6 @@
 package com.zenontechnology.libraryproject.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +39,7 @@ public class Books {
 	private String BookLanguage;
 
 	@Column(name = "BookReleaseDate")
-	private Date BookReleaseDate;
+	private LocalDate BookReleaseDate;
 
 	@Column(name = "BookDefination")
 	private String BookDefination;
@@ -111,12 +111,12 @@ public class Books {
 		BookLanguage = bookLanguage;
 	}
 
-	public Date getBookReleaseDate() {
+	public LocalDate getBookReleaseDate() {
 		return BookReleaseDate;
 	}
 
-	public void setBookReleaseDate(Date bookReleaseDate) {
-		BookReleaseDate = bookReleaseDate;
+	public void setBookReleaseDate(LocalDate localDate) {
+		BookReleaseDate = localDate;
 	}
 
 	public String getBookDefination() {

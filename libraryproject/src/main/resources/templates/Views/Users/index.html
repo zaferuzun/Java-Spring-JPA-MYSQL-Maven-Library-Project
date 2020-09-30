@@ -1,46 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Authors')" />
 	<body>
-		<div th:replace="./Layout/libraryfragment :: menu">
+	     <div th:replace="./Layout/userpanelfragment :: search">
+     	</div>
+		<div class="main-content-wrapper d-flex clearfix">
+     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
+     		</div>
+     		<div th:replace="./Layout/userpanelfragment :: header-area">
+     		</div>		     		
+		    <div class="products-catagories-area clearfix">
+            	<div class="amado-pro-catagory clearfix" >
+            	
+	            	<!-- Single Catagory -->
+	                <div class="single-products-catagory clearfix" th:each="user : ${listUsers}">
+	                    <a href="shop.html">
+	                        <img src="/UserPanel/img/bg-img/1.jpg" width="500" height="700" alt="">
+	                        <!-- Hover Content -->
+	                        <div class="hover-content">
+	                            <div class="line"></div>
+	                            <h4 th:text="${user.UserName}"></h4>	                            
+	                        </div>
+	                    </a>
+	                </div>
+
+            	</div>
+	     		<div th:replace="./Layout/userpanelfragment :: row">
+	     		</div>	            	
+		    </div>			
 		</div>
-		<div align="center">
-		    <h1>User List</h1>
-		    <a href="/users/create">Create New User</a>
-		    <br/><br/>
-		    <table border="1" cellpadding="10">
-		        <thead>
-		            <tr>
-		                <th>UserId</th>
-		                <th>UserName</th>
-		                <th>UserSurname</th>
-		                <th>UserEmail</th>
-		                <th>UserRegisterDate</th>
-		                <th>UserPermission</th>		                		              
-		                <th>UserPassword</th>
-		                
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <tr th:each="user : ${listUsers}">
-		                <td th:text="${user.UserId}"> User Id</td>
-		                <td th:text="${user.UserName}">User Name</td>
-		                <td th:text="${user.UserSurname}">UserSurname</td>
-		                <td th:text="${user.UserEmail}">UserEmail</td>
-		                <td th:text="${user.UserRegisterDate}">UserRegisterDate</td>
-		                <td th:text="${user.UserPermission}">UserPermission</td>
-		                <td th:text="${user.UserPassword}">UserPassword</td>
-		                
-		                <td>
-							<a th:href="@{'/users/edit/' + ${user.UserId}}">Edit</a>                    
-							&nbsp;&nbsp;&nbsp;
-							<a th:href="@{'/users/delete/' + ${user.UserId}}">Delete</a>                
-						</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		</div> 
-		<div th:replace="./Layout/libraryfragment :: footer">
-		</div>		  
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>			
+
+     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
 	</body>
 </html>

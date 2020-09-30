@@ -35,6 +35,14 @@ public class BooksService {
 		return booksRepository.PublisherBookNumber(PublisherId);
 	}
 
+	public int AllBookNumbers() {
+		return booksRepository.AllBookNumbers();
+	}
+
+	public List<Books> listRandomBooks(int limitNumber) {
+		return booksRepository.listRandomBooks(limitNumber);
+	}
+
 	/**/
 	public Books get(Long id) {
 		return booksRepository.findById(id).get();

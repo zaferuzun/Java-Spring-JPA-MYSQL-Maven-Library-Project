@@ -64,4 +64,10 @@ public class PublishersController {
 
 		return publishers;
 	}
+
+	@RequestMapping(value = "/getPublisher/{id}", method = RequestMethod.GET)
+	public @ResponseBody Publishers getPublisherById(@PathVariable("id") Long id) {
+		Publishers publisher = publisherService.get(id);
+		return publisher;
+	}
 }
