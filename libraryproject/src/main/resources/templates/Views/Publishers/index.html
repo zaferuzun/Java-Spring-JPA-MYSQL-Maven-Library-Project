@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yayýn Evleri')" />
 	<body>
-		<div th:replace="./Layout/libraryfragment :: menu">
+	     <div th:replace="./Layout/userpanelfragment :: search">
+     	</div>
+		<div class="main-content-wrapper d-flex clearfix">
+     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
+     		</div>
+     		<div th:replace="./Layout/userpanelfragment :: header-area">
+     		</div>		     		
+		    <div class="products-catagories-area clearfix">
+            	<div class="amado-pro-catagory clearfix" >
+            	
+	            	<!-- Single Catagory -->
+	                <div class="single-products-catagory clearfix" th:each="publisher : ${listPublishers}">
+	                    <a th:href="@{'/publishers/details/' + ${publisher.PublisherId}}">
+	                        <img src="/UserPanel/img/bg-img/1.jpg" width="500" height="700" alt="">
+	                        <!-- Hover Content -->
+	                        <div class="hover-content">
+	                            <div class="line"></div>
+	                            <h4 th:text="${publisher.PublisherName}"></h4>	                            
+	                        </div>
+	                    </a>
+	                </div>
+
+            	</div>
+	     		<div th:replace="./Layout/userpanelfragment :: row">
+	     		</div>	            	
+		    </div>			
 		</div>
-		<div align="center">
-		    <h1>User List</h1>
-		    <a href="/publishers/create">Create New User</a>
-		    <br/><br/>
-		    <table border="1" cellpadding="10">
-		        <thead>
-		            <tr>
-		                <th>Publisher Id</th>
-		                <th>Publisher Name</th>
-		                <th>Publisher Contact</th>
-		                <th>Publisher Defination</th>
-		                
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <tr th:each="publisher : ${listPublishers}">
-		                <td th:text="${publisher.PublisherId}"> Publisher Id</td>
-		                <td th:text="${publisher.PublisherName}">Publisher Name</td>
-		                <td th:text="${publisher.PublisherContact}">Publisher Contact</td>
-		                <td th:text="${publisher.PublisherDefination}">Publisher Defination</td>
-		                
-		                <td>
-							<a th:href="@{'/publishers/edit/' + ${publisher.PublisherId}}">Edit</a>                    
-							&nbsp;&nbsp;&nbsp;
-							<a th:href="@{'/publishers/delete/' + ${publisher.PublisherId}}">Delete</a>                
-						</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		</div> 
-		<div th:replace="./Layout/libraryfragment :: footer">
-		</div>		  
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>			
+
+     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
 	</body>
 </html>

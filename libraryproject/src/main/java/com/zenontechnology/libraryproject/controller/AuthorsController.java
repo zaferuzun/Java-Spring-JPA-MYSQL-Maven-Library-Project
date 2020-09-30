@@ -37,7 +37,7 @@ public class AuthorsController {
 	}
 
 	// AUTHOR DETAILS
-	/*********** http://localhost:8080/details/{id} *************/
+	/*********** http://localhost:8080/authors/details/{id} *************/
 	/******************************************************/
 	/** LIST BOOKS BY AUTHOR ID WITH BOOKS SERVICE **/
 	@RequestMapping("/authors/details/{id}")
