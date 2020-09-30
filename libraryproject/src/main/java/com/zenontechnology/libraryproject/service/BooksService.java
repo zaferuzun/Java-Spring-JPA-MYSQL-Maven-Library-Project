@@ -43,6 +43,10 @@ public class BooksService {
 		return booksRepository.listRandomBooks(limitNumber);
 	}
 
+	public List<Books> listBooksByAuthorId(Long AuthorId) {
+		return booksRepository.listBooksByAuthorId(AuthorId);
+	}
+
 	/**/
 	public Books get(Long id) {
 		return booksRepository.findById(id).get();

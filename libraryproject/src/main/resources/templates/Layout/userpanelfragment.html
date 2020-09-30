@@ -62,11 +62,21 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="index.html">KİTAPLAR</a></li>
-                    <li><a href="shop.html">YAZARLAR</a></li>
-                    <li><a href="product-details.html">YAYIN EVLERİ</a></li>
+                    <li class="active" sec:authorize ="isAuthenticated()"><a span sec:authentication="name">Username</a></li>
+                    <li><a href="/books">KİTAPLAR</a></li>
+                    <li><a href="/authors">YAZARLAR</a></li>
+                    <li><a href="/publishers">YAYIN EVLERİ</a></li>
                     <li><a href="cart.html">KİTAPLARIM</a></li>
                     <li><a href="checkout.html">BAĞIŞ</a></li>
+					<li><a href="checkout.html" sec:authorize="hasAnyAuthority('ADMIN','EDITOR')">EDİTOR PANEL</a></li>
+					<li><a href="checkout.html" sec:authorize="hasAnyAuthority('ADMIN')">ADMİN PANEL</a></li>
+                   	<li><form th:action="@{/logout}" method="post">
+    						<input type="submit" value="Logout" />
+						</form>
+					</li>					
+					
+
+
                 </ul>
             </nav>
             <!-- Cart Menu -->
@@ -158,6 +168,22 @@
 			<script src="/UserPanel/js/plugins.js"></script>
 			<!-- Active js -->
 			<script src="/UserPanel/js/active.js"></script>
+			<script type="text/javascript">
+			 	function logout()
+			 	{
+			 		$(document).ready(function () {
+			 			console.log("logout");
+			 			event.preventDefault(); //prevent default action 
+			 			var post_url = "http://localhost:8080/logout"; //get form action url
+			 			var form_data = $(this).serialize(); //Encode form elements for submission
+			 			
+			 			$.post( post_url, form_data, function( response ) {
+							console.log(response);
+			 			});
+			 		});
+			 	}
+
+			</script>
 		</div>
 	</body>
 </html>

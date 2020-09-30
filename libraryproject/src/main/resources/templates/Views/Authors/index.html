@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Authors')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" />
 	<body>
 	     <div th:replace="./Layout/userpanelfragment :: search">
      	</div>
@@ -14,7 +14,7 @@
             	
 	            	<!-- Single Catagory -->
 	                <div class="single-products-catagory clearfix" th:each="author : ${listAuthors}">
-	                    <a href="shop.html">
+	                    <a th:href="@{'/authors/details/' + ${author.AuthorId}}">
 	                        <img src="/UserPanel/img/bg-img/1.jpg" width="500" height="700" alt="">
 	                        <!-- Hover Content -->
 	                        <div class="hover-content">

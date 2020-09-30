@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zenontechnology.libraryproject.entity.Authors;
+import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.service.AuthorsService;
+import com.zenontechnology.libraryproject.service.BooksService;
 
 @Controller
 public class AuthorsController {
@@ -21,11 +23,31 @@ public class AuthorsController {
 	@Autowired
 	private AuthorsService authorsService;
 
+	@Autowired
+	private BooksService booksService;
+
+	// AUTHORS LIST
+	/*********** http://localhost:8080/authors *************/
+	/******************************************************/
 	@RequestMapping("/authors")
 	public String viewAuthorsPage(Model model) {
 		List<Authors> listAuthors = authorsService.listAll();
 		model.addAttribute("listAuthors", listAuthors);
 		return "./Views/Authors/index";
+	}
+
+	// AUTHOR DETAILS
+	/*********** http://localhost:8080/details/{id} *************/
+	/******************************************************/
+	/** LIST BOOKS BY AUTHOR ID WITH BOOKS SERVICE **/
+	@RequestMapping("/authors/details/{id}")
+	public String detailssPage(@PathVariable(name = "id") Long id, Model model) {
+		Authors author = authorsService.get(id);
+		List<Books> listBooks = booksService.listBooksByAuthorId(author.getAuthorId());
+		model.addAttribute("author", author);
+		model.addAttribute("listBooks", listBooks);
+
+		return "./Views/Authors/details";
 	}
 
 //deneme

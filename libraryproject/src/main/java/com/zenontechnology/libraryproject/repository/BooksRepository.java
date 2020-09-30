@@ -25,4 +25,7 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
 	@Query(value = "SELECT * FROM Books  ORDER BY RAND() LIMIT :limitNumber", nativeQuery = true)
 	public List<Books> listRandomBooks(@Param("limitNumber") int limitNumber);
 
+	@Query("SELECT b FROM Books b WHERE b.AuthorId = :AuthorId")
+	public List<Books> listBooksByAuthorId(@Param("AuthorId") Long AuthorId);
+
 }
