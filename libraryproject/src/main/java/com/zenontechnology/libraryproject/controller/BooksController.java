@@ -90,6 +90,12 @@ public class BooksController {
 
 	@RequestMapping(value = "/books/save", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("book") Books book) {
+		booksService.save(book);
+		return "redirect:/books";
+	}
+
+	@RequestMapping(value = "/books/save2", method = RequestMethod.POST)
+	public String saveUser2(@ModelAttribute("book") Books book) {
 		for (int i = 0; i < 20; i++) {
 			Books book2 = new Books();
 			book2.setAuthorId((long) 9);

@@ -28,4 +28,9 @@ public class LibraryUserDetailsService implements UserDetailsService {
 		userRepository.save(user);
 	}
 
+	public Users getUserByEmail(String UserEmail) {
+		Users user = userRepository.getByUserName(UserEmail);
+		return user;
+	}
+
 }

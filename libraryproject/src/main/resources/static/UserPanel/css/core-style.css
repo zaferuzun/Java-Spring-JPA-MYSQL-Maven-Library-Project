@@ -321,7 +321,10 @@ img {
     font-size: 18px;
     color: #ffffff;
     background-color: #131212; }
-
+  .amado-btn.cancel {
+    font-size: 18px;
+    color: #ffffff;
+    background-color: red; }
 /* :: 4.0 Search Wrapper Area CSS */
 .search-wrapper {
   position: fixed;

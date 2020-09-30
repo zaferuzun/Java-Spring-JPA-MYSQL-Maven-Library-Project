@@ -4,7 +4,7 @@
 	</head> 
 	
 	
-	<body onload="getAuthor();getPublisher();">
+	<body onload="getAuthor();getPublisher();checkBook()">
 	     <div th:replace="./Layout/userpanelfragment :: search">
      	</div>
 		<div class="main-content-wrapper d-flex clearfix">
@@ -55,7 +55,7 @@
 		                                            <h5>Yazar: </h5>
 		                                        </td>
 		                                        <td class="price">
-		                                            <a th:href="@{'/authors/edit/' + ${book.AuthorId}}" id="AuthorId" th:text="${book.AuthorId}" style="font-size: 16px;"></a>
+		                                            <u><a th:href="@{'/authors/details/' + ${book.AuthorId}}" id="AuthorId" th:text="${book.AuthorId}" style="font-size: 16px;"></a></u>
 		                                        </td>
 		                                    </tr>
 		                                    <tr>
@@ -63,7 +63,7 @@
 		                                            <h5>Yayıncı: </h5>
 		                                        </td>
 		                                        <td class="price">
-		                                            <a th:href="@{'/publishers/edit/' + ${book.PublisherId}}" id="PublisherId" th:text="${book.PublisherId}"   style="font-size: 16px;"  ></a>
+		                                            <u><a th:href="@{'/publishers/details/' + ${book.PublisherId}}" id="PublisherId" th:text="${book.PublisherId}"   style="font-size: 16px;"  ></a><u>
 		                                        </td>
 		                                    </tr>
 		                                    <tr>
@@ -111,12 +111,20 @@
 		                        </div>
 	
 	                            <!-- Add to Cart Form -->
-	                            <form class="cart clearfix" method="post">
+	                            <div class="cart clearfix" >
 	                                <div class="amado-btn-group mt-30 mb-100">
-	                                    <a href="#" class="btn amado-btn mb-15">Ekle</a>
+	                                	<form id="BookBorrow" action="#" th:action="@{/orders/save}" th:object="${book}" method="post">
+	                                		<input type="hidden" th:field="*{BookId}" />
+	  										<button  class="btn amado-btn mb-15"  type="submit">Kitap Al</button>
+	                                	</form>
+	                                	<form id="BookReturn" action="#" th:action="@{'/orders/delete2/' + ${book.BookId}}" method="get">
+	                                		<input type="hidden" th:field="*{BookId}" />
+	  										<button class="btn amado-btn cancel" type="submit">İade Et</button>
+	                                	</form>	                          
+	                                    <a href="#" class="btn amado-btn mb-15" sec:authorize="hasAnyAuthority('ADMIN')">Ekle</a>
 	                                    <a href="#" class="btn amado-btn active" sec:authorize="hasAnyAuthority('ADMIN')">Edit</a>
 	                                </div>
-	                            </form>
+	                            </div>
 	
 	                        </div>
 	                    </div>
@@ -149,7 +157,7 @@
 
      	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
      	</div>
-     	<script type="text/javascript">
+     	<script type="text/javascript" >
 	     	function getAuthor()
 	     	{
 	     		id=document.getElementById("AuthorId").innerText;
@@ -183,6 +191,38 @@
 		    	});     		
 	     	}
 
+     	</script>
+     	<script th:inline="javascript">
+	     	function checkBook()
+	     	{
+	     	    var bookObject = /*[[${book}]]*/ 'default';
+	     	    var BookId= bookObject.bookId
+		    	$(document).ready(function () {
+		    		$.ajax({
+		    		    type: "GET", //Made Change
+		    		    url: "http://localhost:8080/orders/checkBook",
+		    		    data: {"BookId" : BookId},
+		    		    success: function (result) {
+		    		    	DisplayForm(result);
+		    		    } 
+		    		});
+		    	});     		
+	     	}
+	     	function DisplayForm(checkResult)
+	     	{
+		     	var formBookBorrow = document.getElementById("BookBorrow");
+		     	var formBookReturn = document.getElementById("BookReturn");
+				console.log(checkResult)
+		     	if (checkResult) {
+		     		formBookReturn.style.display = "block";
+		     		formBookBorrow.style.display = "none";
+		     		
+		     	} else {
+		     		formBookBorrow.style.display = "block";
+		     		formBookReturn.style.display = "none";
+		     				     		
+		     	}    		
+	     	}
      	</script>
 	</body>
 	
