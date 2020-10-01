@@ -94,23 +94,34 @@ public class BooksController {
 		return "redirect:/books";
 	}
 
-	@RequestMapping(value = "/books/save2", method = RequestMethod.POST)
-	public String saveUser2(@ModelAttribute("book") Books book) {
-		for (int i = 0; i < 20; i++) {
+	@RequestMapping(value = "/books2/save2", method = RequestMethod.GET)
+	public String saveUser2() {
+		for (int i = 0; i < 10; i++) {
 			Books book2 = new Books();
-			book2.setAuthorId((long) 9);
+			book2.setAuthorId((long) 11);
 			book2.setBookDefination("Defination" + i);
-			book2.setBookIsbnNo("bookIsbnNo" + i);
-			book2.setBookLanguage("bookLanguage" + i);
-			book2.setBookName("bookName" + i);
+			book2.setBookIsbnNo("ISBN" + i);
+			book2.setBookLanguage("Dil" + i);
+			book2.setBookName("Kitap" + i);
 			book2.setBookReleaseDate(LocalDate.now());
-			book2.setBookSeriesName("bookSeriesName" + i);
-			book2.setBookSubName("bookSubName" + i);
-			book2.setPublisherId((long) 3);
+			book2.setBookSeriesName("Seri" + i);
+			book2.setBookSubName("Alt Adı" + i);
+			book2.setPublisherId((long) 15);
 			booksService.save(book2);
-
 		}
-		booksService.save(book);
+		for (int i = 10; i < 20; i++) {
+			Books book2 = new Books();
+			book2.setAuthorId((long) 18);
+			book2.setBookDefination("Defination" + i);
+			book2.setBookIsbnNo("ISBN" + i);
+			book2.setBookLanguage("Dil" + i);
+			book2.setBookName("Kitap" + i);
+			book2.setBookReleaseDate(LocalDate.now());
+			book2.setBookSeriesName("Seri" + i);
+			book2.setBookSubName("Alt Adı" + i);
+			book2.setPublisherId((long) 21);
+			booksService.save(book2);
+		}
 
 		return "redirect:/books";
 	}

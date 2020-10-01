@@ -92,4 +92,27 @@ public class PublishersController {
 		Publishers publisher = publishersService.get(id);
 		return publisher;
 	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * **/
+	@RequestMapping(value = "/publishers/save2", method = RequestMethod.GET)
+	public String saveUser2() {
+		for (int i = 0; i < 20; i++) {
+			Publishers publisher = new Publishers();
+			publisher.setPublisherName("name " + i);
+			publisher.setPublisherContact("iletişim " + i);
+			publisher.setPublisherDefination("açıklama " + i);
+
+			publishersService.save(publisher);
+		}
+		return "redirect:/books";
+	}
 }

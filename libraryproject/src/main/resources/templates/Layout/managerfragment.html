@@ -58,27 +58,18 @@
 			      <li class="nav-item dropdown">
 			        <a class="nav-link" data-toggle="dropdown" href="#">
 			          <i class="far fa-bell"></i>
-			          <span class="badge badge-warning navbar-badge">15</span>
+			          <span class="badge badge-warning navbar-badge"></span>
 			        </a>
 			        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-			          <span class="dropdown-item dropdown-header">15 Notifications</span>
 			          <div class="dropdown-divider"></div>
-			          <a href="#" class="dropdown-item">
-			            <i class="fas fa-envelope mr-2"></i> 4 new messages
-			            <span class="float-right text-muted text-sm">3 mins</span>
+			          <a href="/books" class="dropdown-item">
+			            <i class="fas fa-envelope mr-2"></i> Siteye Dön
 			          </a>
 			          <div class="dropdown-divider"></div>
-			          <a href="#" class="dropdown-item">
-			            <i class="fas fa-users mr-2"></i> 8 friend requests
-			            <span class="float-right text-muted text-sm">12 hours</span>
-			          </a>
+
 			          <div class="dropdown-divider"></div>
-			          <a href="#" class="dropdown-item">
-			            <i class="fas fa-file mr-2"></i> 3 new reports
-			            <span class="float-right text-muted text-sm">2 days</span>
-			          </a>
+
 			          <div class="dropdown-divider"></div>
-			          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 			        </div>
 			      </li>
 			    </ul>
@@ -110,7 +101,7 @@
 			      <nav class="mt-2">
 			        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 			          
-			          <li class="nav-item has-treeview">
+			          <li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ADMIN')">
 			            <a href="#" class="nav-link">
 			              <i class="nav-icon fas fa-chart-pie"></i>
 			              <p>
@@ -120,13 +111,13 @@
 			            </a>
 			            <ul class="nav nav-treeview">
 			              <li class="nav-item">
-			                <a href="pages/charts/chartjs.html" class="nav-link">
+			                <a href="/manager/user" class="nav-link">
 			                  <i class="far fa-circle nav-icon"></i>
 			                  <p>Kullanıcılar</p>
 			                </a>
 			              </li>
 			              <li class="nav-item">
-			                <a href="pages/charts/flot.html" class="nav-link">
+			                <a href="/manager/userCreate" class="nav-link">
 			                  <i class="far fa-circle nav-icon"></i>
 			                  <p>Kullanıcı Ekle</p>
 			                </a>
@@ -144,13 +135,13 @@
 			            </a>
 			            <ul class="nav nav-treeview">
 			              <li class="nav-item">
-			                <a href="pages/charts/chartjs.html" class="nav-link">
+			                <a href="/manager/author" class="nav-link">
 			                  <i class="far fa-circle nav-icon"></i>
 			                  <p>Yazarlar</p>
 			                </a>
 			              </li>
 			              <li class="nav-item">
-			                <a href="pages/charts/flot.html" class="nav-link">
+			                <a href="/manager/authorCreate" class="nav-link">
 			                  <i class="far fa-circle nav-icon"></i>
 			                  <p>Yazar Ekle</p>
 			                </a>
@@ -168,13 +159,13 @@
 			            </a>
 			            <ul class="nav nav-treeview">
 			              <li class="nav-item">
-			                <a href="pages/charts/chartjs.html" class="nav-link">
+			                <a href="/manager/publisher" class="nav-link">
 			                  <i class="far fa-circle nav-icon"></i>
 			                  <p>Yayın Evleri</p>
 			                </a>
 			              </li>
 			              <li class="nav-item">
-			                <a href="pages/charts/flot.html" class="nav-link">
+			                <a href="/manager/publisherCreate" class="nav-link">
 			                  <i class="far fa-circle nav-icon"></i>
 			                  <p>Yayın Evi Ekle</p>
 			                </a>

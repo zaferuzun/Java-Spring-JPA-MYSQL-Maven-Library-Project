@@ -17,7 +17,7 @@
 			      <div class="container-fluid">
 			        <div class="row mb-2">
 			          <div class="col-sm-6">
-			            <h1>Kitap Güncelle</h1>
+			            <h1>Yazar Ekle</h1>
 			          </div>
 			          <div class="col-sm-6">
 			          </div>
@@ -36,56 +36,22 @@
 
 			              <!-- /.card-header -->
 			              <!-- form start -->
-			              <form role="form" action="#" th:action="@{/manager/bookSave}" th:object="${book}" method="post">
+			              <form role="form" action="#" th:action="@{/manager/authorSave}" th:object="${author}" method="post">
 			                <div class="card-body">
 			                
- 								<input type="hidden" th:field="*{BookId}" />
-			                  <div class="row">
-			                    <div class="col-sm-6">
-
-				              <div class="form-group">
-				                <label>Yazar Adı</label>
-				                <select class="form-control select2" style="width: 100%;"  id="AuthorId" th:field="*{AuthorId}">
-				              	</select>
-				              </div>
-	
-				              <div class="form-group">
-				                <label>Yayın Evi Adı</label>
-				                <select class="form-control select2" style="width: 100%;" id="PublisherId" th:field="*{PublisherId}">
-				              	</select>
-				              </div>
-			                  
 			                  <div class="form-group">
-			                    <label for="exampleInputEmail1">Kitap Adı</label>
-			                    <input type="text" th:field="*{BookName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <label for="exampleInputEmail1">Yazar Adı</label>
+			                    <input type="text" th:field="*{AuthorName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                  </div>
+			                	<div class="form-group">
+			                    <label for="exampleInputEmail1">Yazar Soyadı</label>
+			                    <input type="text" th:field="*{AuthorSurname}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 			                  </div>
 
 			                  <div class="form-group">
-			                    <label for="exampleInputEmail1">Kitap Alt Adı</label>
-			                    <input type="text" th:field="*{BookSubName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-			                  </div>			                    
-			                    </div>
-			                    <div class="col-sm-6">
-			                  <div class="form-group">
-			                    <label for="exampleInputEmail1">Kitap Seri Adı</label>
-			                    <input type="text" th:field="*{BookSeriesName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <label for="exampleInputEmail1">Yazar İletişim</label>
+			                    <input type="text" th:field="*{AuthorContact}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 			                  </div>
-			                  <div class="form-group">
-			                    <label for="exampleInputEmail1">ISBN No</label>
-			                    <input type="text" th:field="*{BookIsbnNo}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-			                  </div>
-			                  <div class="form-group">
-			                    <label for="exampleInputEmail1">Kitap Dili</label>
-			                    <input type="text" th:field="*{BookLanguage}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-			                  </div>
-			                  <div class="form-group">
-			                    <label for="exampleInputEmail1">Yayın Tarihi</label>
-			                    <input type="text" th:field="*{BookReleaseDate}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-			                  </div>			                    
-			                    </div>
-			                  </div>
-
-			                  
 			                  <div class="form-group">
 			                    <label for="exampleInputFile">File input</label>
 			                    <div class="input-group">
@@ -99,11 +65,10 @@
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
-		                        <label>Kitap Açıklama</label>
-		                        <textarea class="form-control" rows="3" placeholder="Enter ..." th:field="*{BookDefination}"></textarea>
+		                        <label>Yazar Açıklama</label>
+		                        <textarea class="form-control" rows="3" placeholder="Enter ..." th:field="*{AuthorDefination}"></textarea>
 		                   		</div>
-			                </div>			               
-
+			                </div>	
 			                <!-- /.card-body -->
 			
 			                <div class="card-footer">

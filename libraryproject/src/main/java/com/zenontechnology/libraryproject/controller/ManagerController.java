@@ -1,5 +1,6 @@
 package com.zenontechnology.libraryproject.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zenontechnology.libraryproject.entity.Authors;
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.entity.Publishers;
+import com.zenontechnology.libraryproject.entity.Users;
 import com.zenontechnology.libraryproject.repository.UserRepository;
+import com.zenontechnology.libraryproject.service.AuthorsService;
 import com.zenontechnology.libraryproject.service.BooksService;
 import com.zenontechnology.libraryproject.service.PublisherService;
 
@@ -28,6 +32,9 @@ public class ManagerController {
 
 	@Autowired
 	private PublisherService publishersService;
+
+	@Autowired
+	private AuthorsService authorsService;
 
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -118,6 +125,94 @@ public class ManagerController {
 	public String detct(@PathVariable(name = "id") Long id) {
 		publishersService.delete(id);
 		return "redirect:/manager/publisher";
+	}
+
+	/**
+	 * Author
+	 * 
+	 * 
+	 **/
+	@RequestMapping("/manager/author")
+	public String shoUF4rm(Model model) {
+		List<Authors> listAuthors = authorsService.listAll();
+		model.addAttribute("listAuthors", listAuthors);
+		return "./Views/Manager/authorIndex";
+	}
+
+	@RequestMapping("/manager/authorCreate")
+	public String shoewrForm(Model model) {
+		Authors author = new Authors();
+		model.addAttribute("author", author);
+
+		return "./Views/Manager/authorCreate";
+	}
+
+	@RequestMapping("/manager/authorEdit/{id}")
+	public ModelAndView shage(@PathVariable(name = "id") Long id) {
+		ModelAndView mav = new ModelAndView("./Views/Manager/authorEdit");
+		Authors author = authorsService.get(id);
+		mav.addObject("author", author);
+		author.setAuthorId(id);
+		return mav;
+	}
+
+	@RequestMapping(value = "/manager/authorSave", method = RequestMethod.POST)
+	public String saUer(@ModelAttribute("author") Authors author) {
+		authorsService.save(author);
+		return "redirect:/manager/author";
+	}
+
+	@RequestMapping("/manager/authorDelete/{id}")
+	public String dt(@PathVariable(name = "id") Long id) {
+		authorsService.delete(id);
+		return "redirect:/manager/author";
+	}
+
+	/**
+	 * 
+	 * User
+	 * 
+	 * 
+	 **/
+	@RequestMapping("/manager/user")
+	public String showNrm(Model model) {
+		List<Users> listUsers = usersService.listAll();
+		model.addAttribute("listUsers", listUsers);
+		return "./Views/Manager/userIndex";
+	}
+
+	@RequestMapping("/manager/userCreate")
+	public String showUForm(Model model) {
+		Users user = new Users();
+		model.addAttribute("user", user);
+
+		return "./Views/Manager/userCreate";
+	}
+
+	@RequestMapping(value = "/manager/userSave", method = RequestMethod.POST)
+	public String savser(@ModelAttribute("users") Users user) {
+		user.setUserRegisterDate(LocalDate.now());
+		user.setUserPermission(true);
+		String encodedPassword = encoder.encode(user.getUserPassword());
+
+		user.setUserPassword(encodedPassword);
+		usersService.save(user);
+		return "redirect:/manager/user";
+	}
+
+	@RequestMapping("/manager/userEdit/{id}")
+	public ModelAndView showEroductPage(@PathVariable(name = "id") Long id) {
+		ModelAndView mav = new ModelAndView("./Views/Manager/userEdit");
+		Users user = usersService.getByUserId(id);
+		mav.addObject("user", user);
+		user.setUserId(id);
+		return mav;
+	}
+
+	@RequestMapping("/manager/userDelete/{id}")
+	public String deletroduct(@PathVariable(name = "id") Long id) {
+		usersService.deleteById(id);
+		return "redirect:/manager/user";
 	}
 
 }

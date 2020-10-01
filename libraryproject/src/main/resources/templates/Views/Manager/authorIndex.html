@@ -17,7 +17,7 @@
 			      <div class="container-fluid">
 			        <div class="row mb-2">
 			          <div class="col-sm-6">
-			            <h1>Kitaplar</h1>
+			            <h1>Yazarlar</h1>
 			          </div>
 			        </div>
 			      </div><!-- /.container-fluid -->
@@ -37,29 +37,28 @@
 			                <table id="example1" class="table table-bordered table-striped">
 			                  <thead>
 			                  <tr>
-			                    <th sec:authorize="hasAnyAuthority('ADMIN')">User Id</th>
-			                    <th>Adı</th>
-			                    <th>Soyadı</th>
-			                    <th>Email</th>
-			                    <th>Kayıt Tarihi</th>
-			                    <th>Yetki</th>
+			                    <th sec:authorize="hasAnyAuthority('ADMIN')">Yazar Id</th>
+			                    <th>Yazar Adı</th>
+			                    <th>Yazar Soyadı</th>
+			                    <th>Yazar İletişim</th>
+			                    <th>Yazar Açıklama</th>
 			                    <th></th>
 			                    <th></th>	                    
 			                  </tr>
 			                  </thead>
 			                  <tbody>
-			                  <tr th:each="user : ${listUsers}">
-			                    <td th:text="${user.UserId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
-			                    <td th:text="${user.UserName}"></td>
-			                    <td th:text="${user.UserSurname}"></td>
-			                    <td th:text="${user.UserEmail}"></td>
-			                    <td th:text="${user.UserRegisterDate}"></td>
-			                    <td th:text="${user.UserPermission}"></td>
+			                  <tr th:each="author : ${listAuthors}">
+			                    <td th:text="${author.AuthorId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
+			                    <td th:text="${author.AuthorName}"></td>	
+			                    <td th:text="${author.AuthorSurname}"></td>			                    
+			                    		                    
+			                    <td th:text="${author.AuthorContact}"></td>
+			                    <td th:text="${author.AuthorDefination}"></td>
 			                    <td>
-									<a th:href="@{'/manager/userEdit/' + ${user.UserId}}" class="btn btn-block btn-warning btn-sm">Edit</a>                 
+									<a th:href="@{'/manager/authorEdit/' + ${author.AuthorId}}" class="btn btn-block btn-warning btn-sm">Edit</a>                 
 			                    </td>
 			                    <td sec:authorize="hasAnyAuthority('ADMIN')">
-									<a th:href="@{'/manager/userDelete/' + ${user.UserId}}" class="btn btn-block btn-danger btn-sm">Sil</a>                 
+									<a th:href="@{'/manager/authorDelete/' + ${author.AuthorId}}" class="btn btn-block btn-danger btn-sm">Sil</a>                 
 			                    </td>
 			                  </tr>
 			                  </tbody>

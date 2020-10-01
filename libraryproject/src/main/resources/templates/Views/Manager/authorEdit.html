@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/managerfragment :: html_head (pageTitle='Authors')" >
+				<meta charset="utf-8">
+	
+	</head>
+	<body  class="hold-transition sidebar-mini layout-fixed">
+ 		<div class="wrapper" >
+	 		<nav th:replace="./Layout/managerfragment :: topNavbar">
+	 		</nav>
+ 			<aside th:replace="./Layout/managerfragment :: leftNavbar">
+ 			</aside>
+			  <!-- Content Wrapper. Contains page content -->
+			  <div class="content-wrapper">
+			    <!-- Content Header (Page header) -->
+			    <section class="content-header">
+			      <div class="container-fluid">
+			        <div class="row mb-2">
+			          <div class="col-sm-6">
+			            <h1>Yazar Güncelle</h1>
+			          </div>
+			          <div class="col-sm-6">
+			          </div>
+			        </div>
+			      </div><!-- /.container-fluid -->
+			    </section>
+			
+			    <!-- Main content -->
+			    <section class="content">
+			      <div class="container-fluid">
+			        <div class="row">
+			          <!-- left column -->
+			          <div class="col-md-9" style="margin-left: 10%;">
+			            <!-- general form elements -->
+			            <div class="card card-primary">
+
+			              <!-- /.card-header -->
+			              <!-- form start -->
+			              <form role="form" action="#" th:action="@{/manager/authorSave}" th:object="${author}" method="post">
+			                <div class="card-body">
+			                
+ 								<input type="hidden" th:field="*{AuthorId}" />
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Yazar Adı</label>
+			                    <input type="text" th:field="*{AuthorName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                  </div>
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Yazar Soy Adı</label>
+			                    <input type="text" th:field="*{AuthorSurname}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                  </div>
+
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Yazar İletişim</label>
+			                    <input type="text" th:field="*{AuthorContact}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                  </div>
+			                  <div class="form-group">
+		                        <label>Yazar Açıklama</label>
+		                        <textarea class="form-control" rows="3" placeholder="Enter ..." th:field="*{AuthorDefination}"></textarea>
+		                   		</div>
+			                </div>			               
+
+			                <!-- /.card-body -->
+			
+			                <div class="card-footer">
+			                  <button type="submit" class="btn btn-primary">Submit</button>
+			                </div>
+			              </form>
+			            </div>
+			            <!-- /.card -->
+			          </div>
+			          <!--/.col (left) -->
+			        </div>
+			        <!-- /.row -->
+			      </div><!-- /.container-fluid -->
+			    </section>
+			    <!-- /.content -->
+			  </div>
+			  <!-- /.content-wrapper -->
+			<footer th:replace="./Layout/managerfragment :: footer">
+			</footer>
+ 		</div>
+		<div th:replace="./Layout/managerfragment :: managerPanelScript">
+		</div>
+	</body>
+</html>

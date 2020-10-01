@@ -99,4 +99,28 @@ public class AuthorsController {
 		authorsService.delete(id);
 		return "redirect:/authors";
 	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * **/
+	@RequestMapping(value = "/authors/save2", method = RequestMethod.GET)
+	public String saveUser2() {
+		for (int i = 0; i < 20; i++) {
+			Authors author = new Authors();
+			author.setAuthorName("name " + i);
+			author.setAuthorSurname("surname " + i);
+			author.setAuthorContact("iletişim " + i);
+			author.setAuthorDefination("açıklama " + i);
+
+			authorsService.save(author);
+		}
+		return "redirect:/books";
+	}
 }

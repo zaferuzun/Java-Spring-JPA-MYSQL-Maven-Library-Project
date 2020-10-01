@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/homefragment :: html_head (pageTitle='Home')" />
+	<head th:replace="./Layout/homefragment :: html_head (pageTitle='Login')">
+					<meta charset="utf-8">
 	
+	</head>
 	<body>
 		<div id="colorlib-page" >
 			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
@@ -13,7 +15,7 @@
 					<div class="container-login100" style="background-image: url('/HomeUserPage/images/bg-01.jpg')">
 						<div class="wrap-login100 p-t-30 p-b-50">
 							<span class="login100-form-title p-b-41">
-								Account Login
+								Giriş Yap
 							</span>
 							<form th:action="@{/doLogin}" method="post" class="login100-form validate-form p-b-33 p-t-5">
 		

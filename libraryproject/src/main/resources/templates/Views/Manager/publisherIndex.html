@@ -37,29 +37,25 @@
 			                <table id="example1" class="table table-bordered table-striped">
 			                  <thead>
 			                  <tr>
-			                    <th sec:authorize="hasAnyAuthority('ADMIN')">User Id</th>
-			                    <th>Adı</th>
-			                    <th>Soyadı</th>
-			                    <th>Email</th>
-			                    <th>Kayıt Tarihi</th>
-			                    <th>Yetki</th>
+			                    <th sec:authorize="hasAnyAuthority('ADMIN')">Publisher Id</th>
+			                    <th>Yayın Evi Adı</th>
+			                    <th>Yayın Evi İletişim</th>
+			                    <th>Yayın Evi Açıklama</th>
 			                    <th></th>
 			                    <th></th>	                    
 			                  </tr>
 			                  </thead>
 			                  <tbody>
-			                  <tr th:each="user : ${listUsers}">
-			                    <td th:text="${user.UserId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
-			                    <td th:text="${user.UserName}"></td>
-			                    <td th:text="${user.UserSurname}"></td>
-			                    <td th:text="${user.UserEmail}"></td>
-			                    <td th:text="${user.UserRegisterDate}"></td>
-			                    <td th:text="${user.UserPermission}"></td>
+			                  <tr th:each="publisher : ${listPublishers}">
+			                    <td th:text="${publisher.PublisherId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
+			                    <td th:text="${publisher.PublisherName}"></td>			                    
+			                    <td th:text="${publisher.PublisherContact}"></td>
+			                    <td th:text="${publisher.PublisherDefination}"></td>
 			                    <td>
-									<a th:href="@{'/manager/userEdit/' + ${user.UserId}}" class="btn btn-block btn-warning btn-sm">Edit</a>                 
+									<a th:href="@{'/manager/publisherEdit/' + ${publisher.PublisherId}}" class="btn btn-block btn-warning btn-sm">Edit</a>                 
 			                    </td>
 			                    <td sec:authorize="hasAnyAuthority('ADMIN')">
-									<a th:href="@{'/manager/userDelete/' + ${user.UserId}}" class="btn btn-block btn-danger btn-sm">Sil</a>                 
+									<a th:href="@{'/manager/publisherDelete/' + ${publisher.PublisherId}}" class="btn btn-block btn-danger btn-sm">Sil</a>                 
 			                    </td>
 			                  </tr>
 			                  </tbody>
