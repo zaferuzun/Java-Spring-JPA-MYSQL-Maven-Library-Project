@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/managerfragment :: html_head (pageTitle='Authors')" />
+	<body  class="hold-transition sidebar-mini layout-fixed">
+ 		<div class="wrapper" >
+	 		<nav th:replace="./Layout/managerfragment :: topNavbar">
+	 		</nav>
+ 			<aside th:replace="./Layout/managerfragment :: leftNavbar">
+ 			</aside>
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				
+			</div>
+			<!-- /.content-wrapper -->
+			<footer th:replace="./Layout/managerfragment :: footer">
+			</footer>
+ 		</div>
+	</body>
+	<div th:replace="./Layout/managerfragment :: managerPanelScript">
+	</div>
+</html>

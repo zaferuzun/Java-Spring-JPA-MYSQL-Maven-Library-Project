@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head  th:replace="./Layout/managerfragment :: html_head (pageTitle='Manager')" >
+				<meta charset="utf-8">
+	</head>
+	<body  class="hold-transition sidebar-mini">
+ 		<div class="wrapper" >
+	 		<nav th:replace="./Layout/managerfragment :: topNavbar">
+	 		</nav>
+ 			<aside th:replace="./Layout/managerfragment :: leftNavbar">
+ 			</aside>
+			  <!-- Content Wrapper. Contains page content -->
+			  <div class="content-wrapper">
+			    <!-- Content Header (Page header) -->
+			    <section class="content-header">
+			      <div class="container-fluid">
+			        <div class="row mb-2">
+			          <div class="col-sm-6">
+			            <h1>Kitaplar</h1>
+			          </div>
+			        </div>
+			      </div><!-- /.container-fluid -->
+			    </section>
+			
+			    <!-- Main content -->
+			    <section class="content">
+			      <div class="container-fluid">
+			        <div class="row">
+			          <div class="col-12">
+			
+			            <div class="card">
+			              <div class="card-header">
+			              </div>
+			              <!-- /.card-header -->
+			              <div class="card-body">
+			                <table id="example1" class="table table-bordered table-striped">
+			                  <thead>
+			                  <tr>
+			                    <th sec:authorize="hasAnyAuthority('ADMIN')">User Id</th>
+			                    <th sec:authorize="hasAnyAuthority('ADMIN')">Publisher Id</th>
+			                    <th sec:authorize="hasAnyAuthority('ADMIN')">Author Id</th>
+			                    <th>Kitap Adı</th>
+			                    <th>Kitap Alt Adı</th>
+			                    <th>Kitap Seri Adı</th>
+			                    <th>ISBN No</th>
+			                    <th>Kitap Dili</th>
+			                    <th>Yayın Tarihi</th>
+			                    <th></th>
+			                    <th></th>	                    
+			                  </tr>
+			                  </thead>
+			                  <tbody>
+			                  <tr th:each="book : ${listBooks}">
+			                    <td th:text="${book.BookId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
+			                    <td th:text="${book.AuthorId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
+			                    <td th:text="${book.PublisherId}" sec:authorize="hasAnyAuthority('ADMIN')"></td>
+			                    <td th:text="${book.BookName}"></td>
+			                    <td th:text="${book.BookSubName}"></td>
+			                    <td th:text="${book.BookSeriesName}"></td>
+			                    <td th:text="${book.BookIsbnNo}"></td>
+			                    <td th:text="${book.BookLanguage}"></td>
+			                    <td th:text="${book.BookReleaseDate}"></td>
+			                    <td>
+									<a th:href="@{'/manager/edit/' + ${book.BookId}}" class="btn btn-block btn-warning btn-sm">Edit</a>                 
+			                    </td>
+			                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+									<a th:href="@{'/manager/delete/' + ${book.BookId}}" class="btn btn-block btn-danger btn-sm">Sil</a>                 
+			                    </td>
+			                  </tr>
+			                  </tbody>
+			                </table>
+			              </div>
+			              <!-- /.card-body -->
+			            </div>
+			            <!-- /.card -->
+			          </div>
+			          <!-- /.col -->
+			        </div>
+			        <!-- /.row -->
+			      </div>
+			      <!-- /.container-fluid -->
+			    </section>
+			    <!-- /.content -->
+			  </div>
+			  <!-- /.content-wrapper -->
+			<footer th:replace="./Layout/managerfragment :: footer">
+			</footer>
+ 		</div>
+	</body>
+	<div th:replace="./Layout/managerfragment :: managerPanelScript">
+	</div>
+</html>
