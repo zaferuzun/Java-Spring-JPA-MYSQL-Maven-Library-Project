@@ -1,0 +1,140 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitap Detaylar')">
+		<meta charset="utf-8">
+	</head> 
+	
+	
+	<body onload="getAuthor();getPublisher();">
+	     <div th:replace="./Layout/userpanelfragment :: search">
+     	</div>
+		<div class="main-content-wrapper d-flex clearfix">
+     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
+     		</div>
+     		<div th:replace="./Layout/userpanelfragment :: header-area">
+     		</div>		     		
+	        <!-- Product Details Area Start -->
+	        <div class="single-product-area section-padding-100 clearfix" th:object="${author}">
+	            <div class="container-fluid">
+	                <div class="row">
+	                    <div class="col-12 col-lg-7">
+	                        <div class="single_product_thumb">
+	                            <div class="carousel-item active">
+	                                <a class="gallery_img" href="/UserPanel/img/product-img/pro-big-1.jpg">
+	                                    <img class="d-block w-100" src="/UserPanel/img/product-img/pro-big-1.jpg" alt="First slide">
+	                                </a>
+	                            </div>
+	                            
+	                        </div>
+	                    </div>
+	                    <div class="col-12 col-lg-5">
+	                        <div class="single_product_desc">
+	                            <!-- Product Meta Data -->
+	                            <div class="product-meta-data">
+	                                <div class="line"></div>
+	                                <a>
+	                                	<h5>Yazar</h5>			
+	                                    <h6 th:text="${author.AuthorName} + '   ' + ${author.AuthorSurname}"></h6>
+	                                </a>
+	                                <!-- Ratings & Review -->
+	                                <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
+	                                    <div class="ratings">
+	                                        <i class="fa fa-star" aria-hidden="true"></i>
+	                                        <i class="fa fa-star" aria-hidden="true"></i>
+	                                        <i class="fa fa-star" aria-hidden="true"></i>
+	                                        <i class="fa fa-star" aria-hidden="true"></i>
+	                                        <i class="fa fa-star" aria-hidden="true"></i>
+	                                    </div>
+	                                </div>
+	                            </div>
+			                    <div class="cart-table clearfix">
+		                            <table class="table table-responsive">
+		                                <tbody>
+		                                    <tr>
+		                                        <td class="cart_product_desc">
+		                                            <h5>İletişim: </h5>
+		                                        </td>
+		                                        <td class="price">
+		                                            <span th:text="${author.AuthorContact}"></span>
+		                                        </td>
+		                                    </tr>	                                    
+		                                </tbody>
+		                            </table>
+		                        </div>
+	
+	                            <!-- Add to Cart Form -->
+	                            <form class="cart clearfix" method="post">
+	                                <div class="amado-btn-group mt-30 mb-100">
+	                                    <a href="#" class="btn amado-btn mb-15" sec:authorize="hasAnyAuthority('ADMIN')">Ekle</a>
+	                                    <a href="#" class="btn amado-btn active" sec:authorize="hasAnyAuthority('ADMIN')">Edit</a>
+	                                </div>
+	                            </form>
+	
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row" style="margin-top: -10%;">
+	                <div class="col-12 col-lg-12">
+	                    <h2>Yazar Açıklaması </h2>
+
+	                    <div class="short_overview my-12">
+							<p  th:text="${author.AuthorDefination}" ></p>
+	                    </div>
+	                </div>
+	                </div>
+	                <h3 class="short_overview my-12" >Yazarın Diğer Kitapları</h3>
+	                <div class="row" >
+	                    <div class="col-12 col-lg-4" th:each="book : ${listBooks}">
+	                        <a th:href="@{'/books/details/' + ${book.BookId}}">
+	                            <img src="/UserPanel/img/bg-img/1.jpg" alt="">
+	                            <p th:text="${book.BookName}"></p>
+	                        </a>
+	                    </div>
+
+	                </div>
+	            </div>
+	        </div>
+	        <!-- Product Details Area End -->			
+		</div>
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>			
+
+     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
+     	</div>
+     	<script type="text/javascript">
+	     	function getAuthor()
+	     	{
+	     		id=document.getElementById("AuthorId").innerText;
+		    	$(document).ready(function () {
+		    	    $.ajax({ 
+		    	      type : "GET",
+		    	       contentType : "application/json",
+		    	       url : "http://localhost:8080/getAuthor/"+id,
+		    	       dataType : 'json',
+		    	       success: function (data) { 
+		                  author= data.authorName;
+						  document.getElementById("AuthorId").innerHTML=author;
+		    	        }
+		    	    });
+		    	});     		
+	     	}
+	     	function getPublisher()
+	     	{
+	     		id=document.getElementById("PublisherId").innerText;
+		    	$(document).ready(function () {
+		    	    $.ajax({ 
+		    	      type : "GET",
+		    	       contentType : "application/json",
+		    	       url : "http://localhost:8080/getPublisher/"+id,
+		    	       dataType : 'json',
+		    	       success: function (data) { 
+		    	    	   publisher= data.publisherName;
+						  document.getElementById("PublisherId").innerHTML=publisher;
+		    	        }
+		    	    });
+		    	});     		
+	     	}
+
+     	</script>
+	</body>
+	
+</html>

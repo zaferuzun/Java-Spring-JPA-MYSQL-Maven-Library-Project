@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 @Table(name = "books")
 public class Books {
@@ -43,6 +45,9 @@ public class Books {
 
 	@Column(name = "BookDefination")
 	private String BookDefination;
+
+	@Column(name = "BookImage")
+	private String BookImage;
 
 	public Books() {
 	}
@@ -125,6 +130,22 @@ public class Books {
 
 	public void setBookDefination(String bookDefination) {
 		BookDefination = bookDefination;
+	}
+
+	public String getBookImage() {
+		return BookImage;
+	}
+
+	public void setBookImage(String bookImage) {
+		BookImage = bookImage;
+	}
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (BookImage == null || BookId == null)
+			return null;
+
+		return "/user-photos/" + BookId + "/" + BookImage;
 	}
 
 }

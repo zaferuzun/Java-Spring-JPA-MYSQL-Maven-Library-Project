@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitaplar')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" />
 	<body>
 	     <div th:replace="./Layout/userpanelfragment :: search">
      	</div>
@@ -13,13 +13,13 @@
             	<div class="amado-pro-catagory clearfix" >
             	
 	            	<!-- Single Catagory -->
-	                <div class="single-products-catagory clearfix" th:each="book : ${listBooks}">
-	                    <a th:href="@{'/books/details/' + ${book.BookId}}">
-	                        <img th:src="@{${book.photosImagePath}}" width="500" height="700" alt="">
+	                <div class="single-products-catagory clearfix" th:each="author : ${listAuthors}">
+	                    <a th:href="@{'/authors/details/' + ${author.AuthorId}}">
+	                        <img src="/UserPanel/img/bg-img/1.jpg" width="500" height="700" alt="">
 	                        <!-- Hover Content -->
 	                        <div class="hover-content">
 	                            <div class="line"></div>
-	                            <h4 th:text="${book.BookName}"></h4>	                            
+	                            <h4 th:text="${author.AuthorName}"></h4>	                            
 	                        </div>
 	                    </a>
 	                </div>

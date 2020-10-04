@@ -1,5 +1,6 @@
 package com.zenontechnology.libraryproject.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -7,16 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zenontechnology.libraryproject.entity.Authors;
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.entity.Publishers;
 import com.zenontechnology.libraryproject.entity.Users;
+import com.zenontechnology.libraryproject.function.FileUploadUtil;
 import com.zenontechnology.libraryproject.repository.UserRepository;
 import com.zenontechnology.libraryproject.service.AuthorsService;
 import com.zenontechnology.libraryproject.service.BooksService;
@@ -75,8 +80,15 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/manager/bookSave", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("book") Books book) {
+	public String saveUser(@ModelAttribute("book") Books book, @RequestParam("image") MultipartFile multipartFile)
+			throws IOException {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		book.setBookImage(fileName);
 		booksService.save(book);
+
+		String uploadDir = "user-photos/" + book.getBookId();
+
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return "redirect:/manager/book";
 	}
 
