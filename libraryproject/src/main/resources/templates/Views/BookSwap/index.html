@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" />
+	<body>
+	     <div th:replace="./Layout/userpanelfragment :: search">
+     	</div>
+		<div class="main-content-wrapper d-flex clearfix">
+     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
+     		</div>
+     		<div th:replace="./Layout/userpanelfragment :: header-area">
+     		</div>		     		
+		    <div class="products-catagories-area clearfix">
+            	<div class="amado-pro-catagory clearfix" >
+            	
+	            	<!-- Single Catagory -->
+	                <div  th:each="bookSwap : ${bookSwapSuccess}" >
+						<table style="width:100%" >
+						
+						  <tr>
+						    <th>SenderId</th>
+						    <th>SenderBookId</th>
+						    <th>SenderCheck</th>
+						    <th>TargetId</th>
+						    <th>TargetBookId</th>
+						    <th>SenderCheck</th>
+						    <th>SwapStatus</th>
+						    <th>LocationMeetway</th>
+						  </tr>
+						  <tr>
+						    <td th:text="${bookSwap.SenderId}"></td>
+						    <td th:text="${bookSwap.SenderBookId}"></td>
+						    <td th:text="${bookSwap.SenderCheck}"></td>
+						    <td th:text="${bookSwap.TargetId}"></td>
+						    <td th:text="${bookSwap.TargetBookId}"></td>
+						    <td th:text="${bookSwap.TargetCheck}"></td>
+						    <td th:text="${bookSwap.SwapStatus}"></td>
+						    <td th:text="${bookSwap.LocationMeetway}"></td>
+						  </tr>
+						</table>
+						
+	                </div>
+
+            	</div>
+      	
+		    </div>			
+		</div>
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>			
+
+     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
+	</body>
+</html>

@@ -30,4 +30,9 @@ public class BookSwapService {
 		bookSwapRepository.deleteById(id);
 	}
 
+	public List<BookSwap> getSuccessSwapByUserId(Long UserId) {
+
+		return bookSwapRepository.getSuccessSwapByUserId(UserId);
+
+	}
 }

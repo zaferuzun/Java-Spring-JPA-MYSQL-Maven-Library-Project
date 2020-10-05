@@ -108,7 +108,7 @@
 	                                	<form id="BookEdit" action="#" th:action="@{'/usersbook/edit/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post">
 	  										<button  class="btn amado-btn mb-15"  type="submit">Kitabımı Güncelle</button>
 	                                	</form>
-	                                	<form id="BookSwap" action="#" th:action="@{'/usersbook/delete/' + ${usersbook.UserBookId}}" method="get">
+	                                	<form id="BookSwap" action="#" th:action="@{'/bookSwap/swapCreate/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post">
 	  										<button class="btn amado-btn cancel" type="submit">Kitap Takas</button>
 	                                	</form>	   
 	                                </div>
