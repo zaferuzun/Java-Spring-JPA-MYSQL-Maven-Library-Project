@@ -5,58 +5,40 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zenontechnology.libraryproject.entity.Books;
-import com.zenontechnology.libraryproject.repository.BooksRepository;
+import com.zenontechnology.libraryproject.entity.UsersBook;
+import com.zenontechnology.libraryproject.repository.UsersBookRepository;
 
 @Service
 public class UsersBookService {
 
 	@Autowired
-	private BooksRepository booksRepository;
+	private UsersBookRepository usersBookRepository;
 
-	public List<Books> listAll() {
-		return booksRepository.findAll();
+	public List<UsersBook> listAll() {
+		return usersBookRepository.findAll();
 	}
 
-	public void save(Books book) {
-		booksRepository.save(book);
+	public void save(UsersBook usersBook) {
+		usersBookRepository.save(usersBook);
 	}
 
-	/**/
-	public int findAllActiveUsers() {
-		return booksRepository.findAllActiveUsers();
-	}
-
-	public int AuthorBookNumber(Long AuthorId) {
-		return booksRepository.AuthorBookNumber(AuthorId);
-	}
-
-	public int PublisherBookNumber(Long PublisherId) {
-		return booksRepository.PublisherBookNumber(PublisherId);
-	}
-
-	public int AllBookNumbers() {
-		return booksRepository.AllBookNumbers();
-	}
-
-	public List<Books> listRandomBooks(int limitNumber) {
-		return booksRepository.listRandomBooks(limitNumber);
-	}
-
-	public List<Books> listBooksByAuthorId(Long AuthorId) {
-		return booksRepository.listBooksByAuthorId(AuthorId);
-	}
-
-	public List<Books> listBooksByPublisherId(Long PublisherId) {
-		return booksRepository.listBooksByPublisherId(PublisherId);
-	}
-
-	/**/
-	public Books get(Long id) {
-		return booksRepository.findById(id).get();
+	public UsersBook get(Long id) {
+		return usersBookRepository.findById(id).get();
 	}
 
 	public void delete(Long id) {
-		booksRepository.deleteById(id);
+		usersBookRepository.deleteById(id);
+	}
+
+	public int CheckHasUserBook(Long UserId, Long UserBookId) {
+
+		return usersBookRepository.CheckHasUserBook(UserId, UserBookId);
+
+	}
+
+	public List<UsersBook> getUsersBookByUserId(Long UserId) {
+
+		return usersBookRepository.getUsersBookByUserId(UserId);
+
 	}
 }

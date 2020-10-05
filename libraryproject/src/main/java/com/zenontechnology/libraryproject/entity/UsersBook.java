@@ -1,7 +1,5 @@
 package com.zenontechnology.libraryproject.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +31,10 @@ public class UsersBook {
 	private String UserAddress;
 
 	@Column(name = "UserBookImage")
-	private LocalDate UserBookImage;
+	private String UserBookImage;
+
+	@Column(name = "UserBookDefination")
+	private String UserBookDefination;
 
 	public UsersBook() {
 
@@ -87,12 +88,20 @@ public class UsersBook {
 		UserAddress = userAddress;
 	}
 
-	public LocalDate getUserBookImage() {
+	public String getUserBookImage() {
 		return UserBookImage;
 	}
 
-	public void setUserBookImage(LocalDate userBookImage) {
+	public void setUserBookImage(String userBookImage) {
 		UserBookImage = userBookImage;
+	}
+
+	public String getUserBookDefination() {
+		return UserBookDefination;
+	}
+
+	public void setUserBookDefination(String userBookDefination) {
+		UserBookDefination = userBookDefination;
 	}
 
 }

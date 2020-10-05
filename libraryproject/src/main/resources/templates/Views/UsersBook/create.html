@@ -4,24 +4,32 @@
 	<body>
 		<div th:replace="./Layout/libraryfragment :: menu">
 		</div>
-		<form action="#" th:action="@{/authors/save}" th:object="${author}" method="post">
+		<form action="#" th:action="@{/usersbook/save}" th:object="${usersbook}" method="post">
             <table border="0" cellpadding="10">
                 <tr>
-                    <td>AuthorName:</td>
-                    <td><input type="text" th:field="*{AuthorName}" /></td>
+                    <td>UserBookName:</td>
+                    <td><input type="text" th:field="*{UserBookName}" /></td>
                 </tr>
                 <tr>
-                    <td>AuthorSurname:</td>
-                    <td><input type="text" th:field="*{AuthorSurname}" /></td>
+                    <td>UserBookAuthor:</td>
+                    <td><input type="text" th:field="*{UserBookAuthor}" /></td>
                 </tr>    
                 <tr>
-                    <td>AuthorContact:</td>
-                    <td><input type="text" th:field="*{AuthorContact}" /></td>
+                    <td>UserBookPublisher:</td>
+                    <td><input type="text" th:field="*{UserBookPublisher}" /></td>
                 </tr>
                 <tr>
-                    <td>AuthorDefination:</td>
-                    <td><input type="text" th:field="*{AuthorDefination}" /></td>
-                </tr>                        
+                    <td>UserAddress:</td>
+                    <td><input type="text" th:field="*{UserAddress}" /></td>
+                </tr>
+                <tr>
+                    <td>UserBookImage:</td>
+                    <td><input type="text" th:field="*{UserBookImage}" /></td>
+                </tr>         
+                <tr>
+                    <td>UserBookImage:</td>
+                    <td><input type="text" th:field="*{UserBookDefination}" /></td>
+                </tr>                               
                 <tr>
                     <td colspan="2"><button type="submit">Save</button> </td>
                 </tr>

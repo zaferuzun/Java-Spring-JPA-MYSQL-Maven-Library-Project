@@ -4,7 +4,7 @@
 	</head> 
 	
 	
-	<body onload="getAuthor();getPublisher();">
+	<body onload="checkBook();">
 	     <div th:replace="./Layout/userpanelfragment :: search">
      	</div>
 		<div class="main-content-wrapper d-flex clearfix">
@@ -13,7 +13,7 @@
      		<div th:replace="./Layout/userpanelfragment :: header-area">
      		</div>		     		
 	        <!-- Product Details Area Start -->
-	        <div class="single-product-area section-padding-100 clearfix" th:object="${author}">
+	        <div class="single-product-area section-padding-100 clearfix" th:object="${usersbook}">
 	            <div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-12 col-lg-7">
@@ -32,8 +32,7 @@
 	                            <div class="product-meta-data">
 	                                <div class="line"></div>
 	                                <a>
-	                                	<h5>Yazar</h5>			
-	                                    <h6 th:text="${author.AuthorName} + '   ' + ${author.AuthorSurname}"></h6>
+	                                    <h6 th:text="${usersbook.UserBookName}"></h6>
 	                                </a>
 	                                <!-- Ratings & Review -->
 	                                <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -45,52 +44,89 @@
 	                                        <i class="fa fa-star" aria-hidden="true"></i>
 	                                    </div>
 	                                </div>
+	                                <!-- Avaiable -->
+	                                <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
 	                            </div>
 			                    <div class="cart-table clearfix">
 		                            <table class="table table-responsive">
 		                                <tbody>
 		                                    <tr>
 		                                        <td class="cart_product_desc">
-		                                            <h5>İletişim: </h5>
+		                                            <h5>Yayıncı Adı: </h5>
 		                                        </td>
 		                                        <td class="price">
-		                                            <span th:text="${author.AuthorContact}"></span>
+		                                            <u><a th:href="@{'/authors/details/' + ${usersbook.UserBookId}}" id="AuthorId" th:text="${usersbook.UserId}" style="font-size: 16px;"></a></u>
 		                                        </td>
-		                                    </tr>	                                    
+		                                    </tr>
+		                                    <tr>
+		                                        <td class="cart_product_desc">
+		                                            <h5>Yazar: </h5>
+		                                        </td>
+		                                        <td class="price">
+		                                            <u><a th:href="@{'/publishers/details/' + ${usersbook.UserBookId}}" id="PublisherId" th:text="${usersbook.UserBookAuthor}"   style="font-size: 16px;"  ></a><u>
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td class="cart_product_desc">
+		                                            <h5>Yayın Evi : </h5>
+		                                        </td>
+		                                        <td class="price">
+		                                            <u><a th:href="@{'/publishers/details/' + ${usersbook.UserBookId}}" id="PublisherId" th:text="${usersbook.UserBookPublisher}"   style="font-size: 16px;"  ></a><u>
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td class="cart_product_desc">
+		                                            <h5>Kitap Alt </h5>
+		                                        </td>
+		                                        <td class="price">
+		                                            <span th:text="${usersbook.UserBookName}"></span>
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td class="cart_product_desc">
+		                                            <h5>Adres </h5>
+		                                        </td>
+		                                        <td class="price">
+		                                            <span th:text="${usersbook.UserAddress}"></span>
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td class="cart_product_desc">
+		                                            <h5>Resim</h5>
+		                                        </td>
+		                                        <td class="price">
+		                                            <span th:text="${usersbook.UserBookImage}"></span>
+		                                        </td>
+		                                    </tr>                   
 		                                </tbody>
 		                            </table>
 		                        </div>
 	
 	                            <!-- Add to Cart Form -->
-	                            <form class="cart clearfix" method="post">
+	                            <div class="cart clearfix" >
 	                                <div class="amado-btn-group mt-30 mb-100">
-	                                    <a href="#" class="btn amado-btn mb-15" sec:authorize="hasAnyAuthority('ADMIN')">Ekle</a>
-	                                    <a href="#" class="btn amado-btn active" sec:authorize="hasAnyAuthority('ADMIN')">Edit</a>
+	                                	<form id="BookEdit" action="#" th:action="@{'/usersbook/edit/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post">
+	  										<button  class="btn amado-btn mb-15"  type="submit">Kitabımı Güncelle</button>
+	                                	</form>
+	                                	<form id="BookSwap" action="#" th:action="@{'/usersbook/delete/' + ${usersbook.UserBookId}}" method="get">
+	  										<button class="btn amado-btn cancel" type="submit">Kitap Takas</button>
+	                                	</form>	   
 	                                </div>
-	                            </form>
+	                            </div>
 	
 	                        </div>
 	                    </div>
 	                </div>
 	                <div class="row" style="margin-top: -10%;">
 	                <div class="col-12 col-lg-12">
-	                    <h2>Yazar Açıklaması </h2>
+	                    <h2>Kitap Açıklaması </h2>
 
 	                    <div class="short_overview my-12">
-							<p  th:text="${author.AuthorDefination}" ></p>
+							<p  th:text="${usersbook.UserBookDefination}" ></p>
 	                    </div>
 	                </div>
 	                </div>
-	                <h3 class="short_overview my-12" >Yazarın Diğer Kitapları</h3>
-	                <div class="row" >
-	                    <div class="col-12 col-lg-4" th:each="book : ${listBooks}">
-	                        <a th:href="@{'/books/details/' + ${book.BookId}}">
-	                            <img src="/UserPanel/img/bg-img/1.jpg" alt="">
-	                            <p th:text="${book.BookName}"></p>
-	                        </a>
-	                    </div>
-
-	                </div>
+	                <h3 class="short_overview my-12" >Benzer Kitaplar</h3>
 	            </div>
 	        </div>
 	        <!-- Product Details Area End -->			
@@ -100,40 +136,38 @@
 
      	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
      	</div>
-     	<script type="text/javascript">
-	     	function getAuthor()
+     	<script th:inline="javascript">
+	     	function checkBook()
 	     	{
-	     		id=document.getElementById("AuthorId").innerText;
+	     	    var bookObject = /*[[${usersbook}]]*/ 'default';
+	     	    console.log(bookObject);
+	     	    var BookId= bookObject.userBookId
 		    	$(document).ready(function () {
-		    	    $.ajax({ 
-		    	      type : "GET",
-		    	       contentType : "application/json",
-		    	       url : "http://localhost:8080/getAuthor/"+id,
-		    	       dataType : 'json',
-		    	       success: function (data) { 
-		                  author= data.authorName;
-						  document.getElementById("AuthorId").innerHTML=author;
-		    	        }
-		    	    });
+		    		$.ajax({
+		    		    type: "GET", //Made Change
+		    		    url: "http://localhost:8080/usersbook/userCheckBook",
+		    		    data: {"UserBookId" : BookId},
+		    		    success: function (result) {
+		    		    	DisplayForm(result);
+		    		    } 
+		    		});
 		    	});     		
 	     	}
-	     	function getPublisher()
+	     	function DisplayForm(checkResult)
 	     	{
-	     		id=document.getElementById("PublisherId").innerText;
-		    	$(document).ready(function () {
-		    	    $.ajax({ 
-		    	      type : "GET",
-		    	       contentType : "application/json",
-		    	       url : "http://localhost:8080/getPublisher/"+id,
-		    	       dataType : 'json',
-		    	       success: function (data) { 
-		    	    	   publisher= data.publisherName;
-						  document.getElementById("PublisherId").innerHTML=publisher;
-		    	        }
-		    	    });
-		    	});     		
+		     	var formBookSwap = document.getElementById("BookSwap");
+		     	var formBookEdit = document.getElementById("BookEdit");
+				console.log(checkResult)
+		     	if (checkResult) {
+		     		formBookEdit.style.display = "block";
+		     		formBookSwap.style.display = "none";
+		     		
+		     	} else {
+		     		formBookSwap.style.display = "block";
+		     		formBookEdit.style.display = "none";
+		     				     		
+		     	}    		
 	     	}
-
      	</script>
 	</body>
 	
