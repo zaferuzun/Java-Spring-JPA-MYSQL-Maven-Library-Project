@@ -1,202 +1,288 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitap Detaylar')">
+
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitap Detayları')" >
 		<meta charset="utf-8">
-	</head> 
+	</head>
+	<body onload="getAuthor();getPublisher();checkBook();">
+		<div th:replace="./Layout/userpanelfragment :: top-side">		
+		</div>
+		<div th:replace="./Layout/userpanelfragment :: navbar">		
+		</div>
+		<!-- BOOK DETAILS PAGE-->
+		<section class="ftco-section ftco-degree-bg" th:object="${book}">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-lg-6 ftco-animate">
+	          	<p>
+	              <img th:src="@{${book.photosImagePath}}" alt=""  width="500px" height="500px">
+	            </p>
+	              <div class="tag-widget post-tag-container mb-5 mt-5">
+	              <div class="tagcloud">
+	              </div>
+	            </div>
+	          </div> <!-- .col-md-8 -->
+	          <div class="col-lg-5 sidebar pl-lg-5 ftco-animate">
 	
-	
-	<body onload="getAuthor();getPublisher();checkBook()">
-	     <div th:replace="./Layout/userpanelfragment :: search">
-     	</div>
-		<div class="main-content-wrapper d-flex clearfix">
-     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
-     		</div>
-     		<div th:replace="./Layout/userpanelfragment :: header-area">
-     		</div>		     		
-	        <!-- Product Details Area Start -->
-	        <div class="single-product-area section-padding-100 clearfix" th:object="${book}">
-	            <div class="container-fluid">
-	                <div class="row">
-	                    <div class="col-12 col-lg-7">
-	                        <div class="single_product_thumb">
-	                            <div class="carousel-item active">
-	                                <a class="gallery_img" href="/UserPanel/img/product-img/pro-big-1.jpg">
-	                                    <img class="d-block w-100" src="/UserPanel/img/product-img/pro-big-1.jpg" alt="First slide">
-	                                </a>
-	                            </div>
-	                            
-	                        </div>
-	                    </div>
-	                    <div class="col-12 col-lg-5">
-	                        <div class="single_product_desc">
-	                            <!-- Product Meta Data -->
-	                            <div class="product-meta-data">
-	                                <div class="line"></div>
-	                                <a>
-	                                    <h6 th:text="${book.BookName}"></h6>
-	                                </a>
-	                                <!-- Ratings & Review -->
-	                                <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
-	                                    <div class="ratings">
-	                                        <i class="fa fa-star" aria-hidden="true"></i>
-	                                        <i class="fa fa-star" aria-hidden="true"></i>
-	                                        <i class="fa fa-star" aria-hidden="true"></i>
-	                                        <i class="fa fa-star" aria-hidden="true"></i>
-	                                        <i class="fa fa-star" aria-hidden="true"></i>
-	                                    </div>
-	                                </div>
-	                                <!-- Avaiable -->
-	                                <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
-	                            </div>
-			                    <div class="cart-table clearfix">
-		                            <table class="table table-responsive">
-		                                <tbody>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Yazar: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <u><a th:href="@{'/authors/details/' + ${book.AuthorId}}" id="AuthorId" th:text="${book.AuthorId}" style="font-size: 16px;"></a></u>
-		                                        </td>
-		                                    </tr>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Yayıncı: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <u><a th:href="@{'/publishers/details/' + ${book.PublisherId}}" id="PublisherId" th:text="${book.PublisherId}"   style="font-size: 16px;"  ></a><u>
-		                                        </td>
-		                                    </tr>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Kitap Alt Adı: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <span th:text="${book.BookSubName}"></span>
-		                                        </td>
-		                                    </tr>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Kitap Seri Adı: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <span th:text="${book.BookSeriesName}"></span>
-		                                        </td>
-		                                    </tr>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Kitap ISBN: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <span th:text="${book.BookIsbnNo}"></span>
-		                                        </td>
-		                                    </tr>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Dil: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <span th:text="${book.BookLanguage}"></span>
-		                                        </td>
-		                                    </tr>
-		                                    <tr>
-		                                        <td class="cart_product_desc">
-		                                            <h5>Yayın Tarihi: </h5>
-		                                        </td>
-		                                        <td class="price">
-		                                            <span th:text="${book.BookReleaseDate}"></span>
-		                                        </td>
-		                                    </tr>		                                    
-		                                </tbody>
-		                            </table>
-		                        </div>
-	
-	                            <!-- Add to Cart Form -->
-	                            <div class="cart clearfix" >
-	                                <div class="amado-btn-group mt-30 mb-100">
-	                                	<form id="BookBorrow" action="#" th:action="@{/orders/save}" th:object="${book}" method="post">
-	                                		<input type="hidden" th:field="*{BookId}" />
-	  										<button  class="btn amado-btn mb-15"  type="submit">Kitap Al</button>
-	                                	</form>
-	                                	<form id="BookReturn" action="#" th:action="@{'/orders/delete2/' + ${book.BookId}}" method="get">
-	                                		<input type="hidden" th:field="*{BookId}" />
-	  										<button class="btn amado-btn cancel" type="submit">İade Et</button>
-	                                	</form>	                          
-	                                    <a href="#" class="btn amado-btn mb-15" sec:authorize="hasAnyAuthority('ADMIN')">Ekle</a>
-	                                    <a href="#" class="btn amado-btn active" sec:authorize="hasAnyAuthority('ADMIN')">Edit</a>
-	                                </div>
-	                            </div>
-	
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="row" style="margin-top: -10%;">
-	                <div class="col-12 col-lg-12">
-	                    <h2>Kitap Açıklaması </h2>
-
-	                    <div class="short_overview my-12">
-							<p  th:text="${book.BookDefination}" ></p>
-	                    </div>
-	                </div>
-	                </div>
-	                <h3 class="short_overview my-12" >Benzer Kitaplar</h3>
-	                <div class="row" >
-	                    <div class="col-12 col-lg-4" th:each="book : ${listBooks}">
-	                        <a th:href="@{'/books/details/' + ${book.BookId}}">
-	                            <img src="/UserPanel/img/bg-img/1.jpg" alt="">
-	                            <p th:text="${book.BookName}"></p>
-	                        </a>
-	                    </div>
-
+	            <div class="sidebar-box ftco-animate">
+	              <h3 th:text="${book.BookName}"></h3>
+	              <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+	              <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
+	                <div class="ratings">
+	                    <i class="fa fa-star" aria-hidden="true"></i>
+	                    <i class="fa fa-star" aria-hidden="true"></i>
+	                    <i class="fa fa-star" aria-hidden="true"></i>
+	                    <i class="fa fa-star" aria-hidden="true"></i>
+	                    <i class="fa fa-star" aria-hidden="true"></i>
+	                    <i >  5 / 5</i>
 	                </div>
 	            </div>
+	            <h5 >Yazar  :   <span>    <a th:href="@{'/authors/details/' + ${book.AuthorId}}" th:text="${book.AuthorId}" id="AuthorId"> </a></span> </h5> 
+	            <h5>Yayın Evi  :   <span>    <a th:href="@{'/publishers/details/' + ${book.PublisherId}}" id="PublisherId" th:text="${book.PublisherId}"> deneme</a></span> </h5> 
+	            <h5 >Kitap Sayısı  :   <span>    <a> deneme</a></span> </h5> 
+	              <div class="sidebar-box ftco-animate">
+	                <form id="BookBorrow" action="#" th:action="@{/orders/save}" th:object="${book}" method="post" class="form-group" >
+	                  <input type="hidden" th:field="*{BookId}" />
+	                  <button  class="btn py-4 btn-block btn-success"  type="submit" >Kitap Al</button>
+	                </form>
+	                <form id="BookReturn" action="#" th:action="@{'/orders/delete2/' + ${book.BookId}}" method="get" class="form-group">
+	                  <input type="hidden" th:field="*{BookId}" />
+	                  <button class="btn py-4 btn-block btn-danger" type="button" >İade Et</button>
+	                </form>	                          
+	                  <a href="#" class="btn py-4 btn-block btn-warning" sec:authorize="hasAnyAuthority('ADMIN')"> d </a>
+	                  <a href="#" class="btn py-4 btn-block btn-secondary" sec:authorize="hasAnyAuthority('ADMIN')" >Edit</a>
+	                  
+	              </div>
+	            </div>
+	          </div>
+	          <!-- Book Details-->
+	          <div class="sidebar-box ftco-animate">
+	            <h3 >Kitap Detayları</h3>
+	            <table class="col-lg-6 table table-borderless" style="color:black">
+	              <tbody>
+	                <tr>
+	                  <th style="font-weight: bold;" >Kitap Adı:</th>
+	                  <td th:text="${book.BookName}"></td>
+	                  <td style="font-weight: bold;">Yazar Adı:</td>
+	                  <td th:text="${book.AuthorId}" id="AuthorId2"></td>
+	                </tr>                
+	                <tr>
+	                  <th style="font-weight: bold;" >Yayın Evi:</th>
+	                  <td th:text="${book.PublisherId}" id="PublisherId2"></td>
+	                  <td style="font-weight: bold;">Kitap Alt Adı:</td>
+	                  <td th:text="${book.BookSubName}"></td>
+	                </tr>                
+	                <tr>
+	                  <th style="font-weight: bold;" >Kitap Seri Adı:</th>
+	                  <td th:text="${book.BookSeriesName}"></td>
+	                  <td style="font-weight: bold;">Kitap ISBN No:</td>
+	                  <td th:text="${book.BookIsbnNo}"></td>
+	                </tr>                
+	                <tr>
+	                  <th style="font-weight: bold;" >Kitap Dili:</th>
+	                  <td th:text="${book.BookLanguage}"></td>
+	                  <td style="font-weight: bold;">Kitap Yayınlanma Tarihi:</td>
+	                  <td th:text="${book.BookReleaseDate}"></td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	          <!--END-->
+	          <!-- Book Details-->
+	
+	          <!-- Book Defination-->
+	          <div class="sidebar-box ftco-animate">
+	            <h3>Kitap Açıklaması:</h3>
+	            <p th:text="${book.BookDefination}"></p>
+	          </div>
+	          <!-- END-->
+	          <!-- Book Defination-->
+	
+	          <!-- Author Comment-->
+	            
+	          <div class="about-author d-flex p-4 bg-light">
+	            <div class="bio mr-5">
+	              <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-3">
+	            </div>
+	            <div class="desc">
+	              <h3>George Washington</h3>
+	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+	            </div>
+	          </div>
+	          <!--END -->
+	          <!-- Author Comment-->
+	          
+	
+	          <!-- Book Comment-->
+	          <div class="pt-5 mt-5">
+	            <h3 class="mb-5">6 Comments</h3>
+	            <ul class="comment-list">
+	              <li class="comment">
+	                <div class="vcard bio">
+	                  <img src="images/person_1.jpg" alt="Image placeholder">
+	                </div>
+	                <div class="comment-body">
+	                  <h3>John Doe</h3>
+	                  <div class="meta">April 12, 2020 at 1:21am</div>
+	                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                  <p><a href="#" class="reply">Reply</a></p>
+	                </div>
+	              </li>
+	
+	              <li class="comment">
+	                <div class="vcard bio">
+	                  <img src="images/person_1.jpg" alt="Image placeholder">
+	                </div>
+	                <div class="comment-body">
+	                  <h3>John Doe</h3>
+	                  <div class="meta">April 12, 2020 at 1:21am</div>
+	                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                  <p><a href="#" class="reply">Reply</a></p>
+	                </div>
+	
+	                <ul class="children">
+	                  <li class="comment">
+	                    <div class="vcard bio">
+	                      <img src="images/person_1.jpg" alt="Image placeholder">
+	                    </div>
+	                    <div class="comment-body">
+	                      <h3>John Doe</h3>
+	                      <div class="meta">April 12, 2020 at 1:21am</div>
+	                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                      <p><a href="#" class="reply">Reply</a></p>
+	                    </div>
+	
+	
+	                    <ul class="children">
+	                      <li class="comment">
+	                        <div class="vcard bio">
+	                          <img src="images/person_1.jpg" alt="Image placeholder">
+	                        </div>
+	                        <div class="comment-body">
+	                          <h3>John Doe</h3>
+	                          <div class="meta">April 12, 2020 at 1:21am</div>
+	                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                          <p><a href="#" class="reply">Reply</a></p>
+	                        </div>
+	
+	                          <ul class="children">
+	                            <li class="comment">
+	                              <div class="vcard bio">
+	                                <img src="images/person_1.jpg" alt="Image placeholder">
+	                              </div>
+	                              <div class="comment-body">
+	                                <h3>John Doe</h3>
+	                                <div class="meta">April 12, 2020 at 1:21am</div>
+	                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                                <p><a href="#" class="reply">Reply</a></p>
+	                              </div>
+	                            </li>
+	                          </ul>
+	                      </li>
+	                    </ul>
+	                  </li>
+	                </ul>
+	              </li>
+	
+	              <li class="comment">
+	                <div class="vcard bio">
+	                  <img src="images/person_1.jpg" alt="Image placeholder">
+	                </div>
+	                <div class="comment-body">
+	                  <h3>John Doe</h3>
+	                  <div class="meta">April 12, 2020 at 1:21am</div>
+	                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+	                  <p><a href="#" class="reply">Reply</a></p>
+	                </div>
+	              </li>
+	            </ul>
+	            <!-- END -->
+	            <!-- Comment-->   
+	
+	          <!-- Comment Form-->
+	            <div class="comment-form-wrap pt-5">
+	              <h3 class="mb-5">Leave a comment</h3>
+	              <form action="#" class="p-5 bg-light">
+	                <div class="form-group">
+	                  <label for="name">Name *</label>
+	                  <input type="text" class="form-control" id="name">
+	                </div>
+	                <div class="form-group">
+	                  <label for="email">Email *</label>
+	                  <input type="email" class="form-control" id="email">
+	                </div>
+	                <div class="form-group">
+	                  <label for="website">Website</label>
+	                  <input type="url" class="form-control" id="website">
+	                </div>
+	
+	                <div class="form-group">
+	                  <label for="message">Message</label>
+	                  <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+	                </div>
+	                <div class="form-group">
+	                  <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+	                </div>
+	
+	              </form>
+	            </div>
+	            <!-- END -->
+	            <!-- Comment Form-->
+	
+	          </div>
 	        </div>
-	        <!-- Product Details Area End -->			
-		</div>
+	      </div>
+	    </section>				
+				
+		<!-- END-->
+		<!-- BOOK DETAILS PAGE-->
+		
 	   	<footer th:replace="./Layout/userpanelfragment :: footer">
-	    </footer>			
+	    </footer>
+	    <div th:replace="./Layout/userpanelfragment :: loader">
+	    </div>			
 
-     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
+     	<div th:replace="./Layout/userpanelfragment :: user-script">
      	</div>
-     	<script type="text/javascript" >
-	     	function getAuthor()
+     	<script th:inline="javascript">
+	    	function getAuthor()
 	     	{
-	     		id=document.getElementById("AuthorId").innerText;
-		    	$(document).ready(function () {
-		    	    $.ajax({ 
-		    	      type : "GET",
-		    	       contentType : "application/json",
-		    	       url : "http://localhost:8080/getAuthor/"+id,
-		    	       dataType : 'json',
-		    	       success: function (data) { 
-		                  author= data.authorName;
-						  document.getElementById("AuthorId").innerHTML=author;
-		    	        }
-		    	    });
-		    	});     		
+	     		id=document.getElementById("AuthorId").text;
+	     		authorUrl="/getAuthor/"+id;
+	        	$(document).ready(function () {
+	        	    $.ajax({ 
+	        	      type : "GET",
+	        	       url : authorUrl,
+	        	       dataType : 'json',
+	        	       success: function (data) { 
+	                      author= data.authorName;
+	    				  document.getElementById("AuthorId").innerHTML=author;
+	    				  document.getElementById("AuthorId2").innerHTML=author;
+	        	        }
+	        	    });
+	        	});     		
 	     	}
 	     	function getPublisher()
 	     	{
-	     		id=document.getElementById("PublisherId").innerText;
-		    	$(document).ready(function () {
-		    	    $.ajax({ 
-		    	      type : "GET",
-		    	       contentType : "application/json",
-		    	       url : "http://localhost:8080/getPublisher/"+id,
-		    	       dataType : 'json',
-		    	       success: function (data) { 
-		    	    	   publisher= data.publisherName;
-						  document.getElementById("PublisherId").innerHTML=publisher;
-		    	        }
-		    	    });
-		    	});     		
-	     	}
+	     		id=document.getElementById("PublisherId").text;
+	     		publisherUrl="/getPublisher/"+id;
+	        	$(document).ready(function () {
+	        	    $.ajax({ 
+	        	      type : "GET",
+	        	       url : publisherUrl,
+	        	       dataType : 'json',
+	        	       success: function (data) { 
+	        	    	  publisher= data.publisherName;
+	    				  document.getElementById("PublisherId").innerHTML=publisher;
+	    				  document.getElementById("PublisherId2").innerHTML=publisher;
 
-     	</script>
-     	<script th:inline="javascript">
+	        	        }
+	        	    });
+	        	});     		
+	     	}	     	
 	     	function checkBook()
 	     	{
 	     	    var bookObject = /*[[${book}]]*/ 'default';
-	     	    console.log(bookObject);
 	     	    var BookId= bookObject.bookId
 		    	$(document).ready(function () {
 		    		$.ajax({
@@ -213,7 +299,6 @@
 	     	{
 		     	var formBookBorrow = document.getElementById("BookBorrow");
 		     	var formBookReturn = document.getElementById("BookReturn");
-				console.log(checkResult)
 		     	if (checkResult) {
 		     		formBookReturn.style.display = "block";
 		     		formBookBorrow.style.display = "none";
@@ -226,5 +311,4 @@
 	     	}
      	</script>
 	</body>
-	
 </html>

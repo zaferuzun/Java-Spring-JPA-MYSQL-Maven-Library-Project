@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitaplar')" />
-	<body>
+	<body onload="ChangeClass();">
 		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
 		<div th:replace="./Layout/userpanelfragment :: navbar">		
 		</div>
 		
+			<!-- BOOK INDEX PAGE-->
+			
 			<section class="ftco-section ftco-no-pt">
 	    	<div class="container-fluid px-md-4">
 	    		<div class="row justify-content-center pb-5 mb-3">
@@ -17,25 +19,21 @@
 	    		<div class="row" >
 	    			<div class="col-md-6 col-lg-4 d-flex" th:each="book : ${listBooks}">
 	    				<div class="book-wrap d-lg-flex">
-	    					<div class="img d-flex justify-content-end" th:style="'background-image:url('+ @{${book.photosImagePath}} +');'">
+	    					<div class="img d-flex justify-content-end" th:style="'background-image:url('+ @{${book.photosImagePath}} +');'" >
 	    						<div class="in-text">
-	    							<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Add to cart">
-	    								<span class="flaticon-shopping-cart"></span>
-	    							</a>
+	    					
 	    							<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Add to Wishlist">
 	    								<span class="flaticon-heart-1"></span>
 	    							</a>
-	    							<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Quick View">
+	    							<a th:href="@{'/books/details/' + ${book.BookId}}" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Quick View">
 	    								<span class="flaticon-search"></span>
 	    							</a>
-	    							<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Compare">
-	    								<span class="flaticon-visibility"></span>
-	    							</a>
+
 	    						</div>
 	    					</div>
-	    					<div class="text p-4">
+	    					<div th:id="'defination' + ${listBooks.indexOf(book)}">
 	    						<h2><a href="#" th:text="${book.BookName}"></a></h2>
-	    						<span class="position">By John Nathan Muller</span>
+	    						<span class="position" th:text="${book.AuthorName}"></span>
 	    					</div>
 	    				</div>
 	    			</div>
@@ -43,6 +41,9 @@
 	    		</div>
 	    	</div>
 	    </section>		
+	    
+			<!-- END -->
+			<!--BOOK INDEX PAGE-->
 		
 		
 	   	<footer th:replace="./Layout/userpanelfragment :: footer">
@@ -51,5 +52,31 @@
 	    </div>			
 
      	<div th:replace="./Layout/userpanelfragment :: user-script">
+     	</div>
+		<script th:inline="javascript">
+	     	function ChangeClass()
+	     	{			
+	     	    var bookObject = /*[[${listBooks}]]*/ 'default';
+	     	    var bookObjectSize = bookObject.length;
+     	   		check= false;
+	     	   	for (var i = 0; i < bookObjectSize; i++) 
+	     	   	{
+	     	   		if(check)
+	     	   		{
+		     	   		defination=document.getElementById("defination"+i).className = "text p-4 order-md-first";	     	   				     	   			
+	     	   		}
+	     	   		else
+	     	   		{
+		     	   		defination=document.getElementById("defination"+i).className = "text p-4";	     	   				     	   				     	   			
+	     	   		}
+	     	   		if(i%3==2)
+	     	   		{
+	     	   			check=!check;
+	     	   		}
+	     		}
+	     	}
+		
+		</script>     	
+
 	</body>
 </html>

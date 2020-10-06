@@ -2,6 +2,8 @@ package com.zenontechnology.libraryproject.dto;
 
 import javax.persistence.Column;
 
+import org.springframework.data.annotation.Transient;
+
 public class BookAuthorDto {
 
 	@Column(name = "BookName")
@@ -15,6 +17,9 @@ public class BookAuthorDto {
 
 	@Column(name = "AuthorId")
 	private Long AuthorId;
+
+	@Column(name = "BookImage")
+	private String BookImage;
 
 	public BookAuthorDto() {
 	}
@@ -51,4 +56,19 @@ public class BookAuthorDto {
 		AuthorId = authorId;
 	}
 
+	public String getBookImage() {
+		return BookImage;
+	}
+
+	public void setBookImage(String bookImage) {
+		BookImage = bookImage;
+	}
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (BookImage == null || BookId == null)
+			return null;
+
+		return "/user-photos/" + BookId + "/" + BookImage;
+	}
 }

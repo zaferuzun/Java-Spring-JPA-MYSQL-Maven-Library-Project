@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zenontechnology.libraryproject.dto.BookAuthorDto;
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.service.BooksService;
 import com.zenontechnology.libraryproject.service.MapService;
@@ -30,7 +31,7 @@ public class BooksController {
 
 	@RequestMapping("/books")
 	public String viewbookssPage(Model model) {
-		List<Books> listBooks = booksService.listAll();
+		// List<Books> listBooks = booksService.listAll();
 		/*
 		 * Object[] denemeList = booksService.listBooks().toArray();
 		 * 
@@ -43,12 +44,16 @@ public class BooksController {
 		 * 
 		 * System.out.print(bookAuthorDto.getBookName() + "\n"); }
 		 */
-		List<Books> books = booksService.listByPublisherId();
+		/*
+		 * List<Books> books = booksService.listByPublisherId();
+		 * 
+		 * for (Books books2 : books) {
+		 * System.out.print(books2.getAuthors().getAuthorName() + "\n"); }
+		 */
 
-		for (Books books2 : books) {
-			System.out.print(books2.getAuthors().getAuthorName() + "\n");
-		}
-		model.addAttribute("listBooks", listBooks);
+		List<BookAuthorDto> bookAuthorDto = mapService.getAllUsersLocation2();
+
+		model.addAttribute("listBooks", bookAuthorDto);
 		return "./Views/Books/index";
 	}
 
