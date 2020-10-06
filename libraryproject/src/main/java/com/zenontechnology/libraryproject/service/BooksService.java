@@ -51,7 +51,16 @@ public class BooksService {
 		return booksRepository.listBooksByPublisherId(PublisherId);
 	}
 
+	public List<Books> listByPublisherId() {
+		return booksRepository.listBooks();
+	}
+
 	/**/
+
+	/*
+	 * public List<Array> listBooks() { return booksRepository.listBooks(); }
+	 */
+
 	public Books get(Long id) {
 		return booksRepository.findById(id).get();
 	}

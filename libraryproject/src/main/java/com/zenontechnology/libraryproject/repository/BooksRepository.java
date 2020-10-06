@@ -31,4 +31,11 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
 	@Query("SELECT b FROM Books b WHERE b.PublisherId = :PublisherId")
 	public List<Books> listBooksByPublisherId(@Param("PublisherId") Long PublisherId);
 
+	/*
+	 * @Query(value = "SELECT BookName,AuthorName,BookId," + "books.AuthorId\r\n" +
+	 * "FROM books\r\n" + "INNER JOIN authors ON authors.AuthorId=books.AuthorId",
+	 * nativeQuery = true) public List<BookAuthorDto> listByPublisherId();
+	 */
+	@Query(value = "SELECT BookId,BookName,AuthorName,b.AuthorId FROM authors b,books a WHERE a.AuthorId=b.AuthorId", nativeQuery = true)
+	public List<Books> listBooks();
 }

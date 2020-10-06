@@ -2,195 +2,219 @@
     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<head th:fragment="html_head (pageTitle)">
 		<meta charset="utf-8">
-
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    
+	    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+	    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 	
-	    <!-- Favicon  -->
-	    <link rel="icon" href="/UserPanel/img/core-img/favicon.ico">
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	    <!-- Core Style CSS -->
-	    <link rel="stylesheet" href="/UserPanel/css/core-style.css">
-	    <link rel="stylesheet" href="/UserPanel/style.css">
+	    <link rel="stylesheet" href="/UserPanel/css/animate.css">
+	    
+	    <link rel="stylesheet" href="/UserPanel/css/owl.carousel.min.css">
+	    <link rel="stylesheet" href="/UserPanel/css/owl.theme.default.min.css">
+	    <link rel="stylesheet" href="/UserPanel/css/magnific-popup.css">
+	    
+	    <link rel="stylesheet" href="/UserPanel/css/flaticon.css">
+	    <link rel="stylesheet" href="/UserPanel/css/style.css">
 	    
 		<title> [[${pageTitle}]]-
 			Library Project
 		</title>
 	</head>
 	<body>
-    <!-- Search Wrapper Area Start -->
-	    <div class="search-wrapper section-padding-100" th:fragment="search">
-	        <div class="search-close">
-	            <i class="fa fa-close" aria-hidden="true"></i>
+    <!-- Top Side -->
+  	<div class="container-fluid px-md-5  pt-4 pt-md-5"  style="background-color:rgb(255, 128, 128)" th:fragment="top-side" > 
+			<div class="row justify-content-between">
+				<div class="col-md-8 order-md-last">
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<a class="navbar-brand" href="index.html">Zenon <span>Technology</span> <small> Online Kitapcım </small></a>
+						</div>
+						<div class="col-md-6 d-md-flex justify-content-end mb-md-0 mb-3">
+							<form action="#" class="searchform order-lg-last">
+			          <div class="form-group d-flex">
+			            <input type="text" class="form-control pl-3" placeholder="Search">
+			            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+			          </div>
+			        </form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 d-flex">
+					<div class="social-media">
+		    		<p class="mb-0 d-flex">
+		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+		    		</p>
 	        </div>
-	        <div class="container">
-	            <div class="row">
-	                <div class="col-12">
-	                    <div class="search-content">
-	                        <form action="#" method="get">
-	                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-	                            <button type="submit"><img src="/UserPanel/img/core-img/search.png" alt=""></button>
-	                        </form>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <!-- Search Wrapper Area End -->	
-	
-	
-	    <!-- Mobile Nav (max width 767px)-->
-		<div class="mobile-nav" th:fragment="mobile-nav">
-            <!-- Navbar Brand -->
-            <div class="amado-navbar-brand">
-                <a href="index.html"><img src="/UserPanel/img/core-img/logo.png" alt=""></a>
-            </div>
-            <!-- Navbar Toggler -->
-            <div class="amado-navbar-toggler">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-         <!-- Header Area Start -->
-         
-        <header class="header-area clearfix" th:fragment="header-area">
-            <!-- Close Icon -->
-            <div class="nav-close">
-                <i class="fa fa-close" aria-hidden="true"></i>
-            </div>
-            <!-- Logo -->
-            <div class="logo">
-                <a href="index.html"><img src="/UserPanel/img/core-img/logo.png" alt=""></a>
-            </div>
-            <!-- Amado Nav -->
-            <nav class="amado-nav">
-                <ul>
-                    <li class="active" sec:authorize ="isAuthenticated()"><a span sec:authentication="name">Username</a></li>
-                    <li><a href="/books">KİTAPLAR</a></li>
-                    <li><a href="/authors">YAZARLAR</a></li>
-                    <li><a href="/publishers">YAYIN EVLERİ</a></li>
-                    <li><a href="/orders">KİTAPLARIM</a></li>
-                    <li><a href="checkout.html">BAĞIŞ</a></li>
-                    <li><a href="/usersbook">TAKAS</a></li>
-                    <li><a href="/usersbook/create">KİTAP EKLE</a></li>
-                    <li><a href="/usersbook/myBook">KİTAPlarım</a></li>
-                    <li><a href="/bookSwap">TAKASLARIM</a></li>
-                    
-                    
-                    
-					<li><a href="/manager" sec:authorize="hasAnyAuthority('ADMIN','EDITOR')">EDİTOR PANEL</a></li>
-					<li><a href="/manager" sec:authorize="hasAnyAuthority('ADMIN')">ADMİN PANEL</a></li>
-                   	<li><form th:action="@{/logout}" method="post">
-    						<input type="submit" value="Logout" />
-						</form>
-					</li>					
-					
-
-
-                </ul>
-            </nav>
-            <!-- Cart Menu -->
-            <div class="cart-fav-search mb-100">
-                <a href="#" class="search-nav"><img src="/UserPanel/img/core-img/search.png" alt=""> Search</a>
-            </div>
-
-            <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
-        </header>
-        <!-- Header Area End -->   
-        
-		<div class="row" th:fragment="row">
-         	<div class="col-6">
-            <!-- Pagination -->
-	            <nav aria-label="navigation">
-		            <ul class="pagination justify-content-end mt-50">
-			            <li class="page-item active"><a class="page-link" href="#">01.</a></li>
-			            <li class="page-item"><a class="page-link" href="#">02.</a></li>
-			            <li class="page-item"><a class="page-link" href="#">03.</a></li>
-			            <li class="page-item"><a class="page-link" href="#">04.</a></li>
-		            </ul>
-	            </nav>
-            </div>
-		</div>            
-	    <footer class="footer_area clearfix" th:fragment="footer">
-	        <div class="container">
-	            <div class="row align-items-center">
-	                <!-- Single Widget Area -->
-	                <div class="col-12 col-lg-4">
-	                    <div class="single_widget_area">
-	                        <!-- Logo -->
-	                        <div class="footer-logo mr-50">
-	                            <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
-	                        </div>
-	                        <!-- Copywrite Text -->
-	                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	Copyright &copy;<script>document.write(new Date().getFullYear());</script> Zenon Technology <i class="fa fa-heart-o" aria-hidden="true"></i>  <a href="https://colorlib.com" target="_blank"></a>
-	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-	                    </div>
-	                </div>
-	                <!-- Single Widget Area -->
-	                <div class="col-12 col-lg-8">
-	                    <div class="single_widget_area">
-	                        <!-- Footer Menu -->
-	                        <div class="footer_menu">
-	                            <nav class="navbar navbar-expand-lg justify-content-end">
-	                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-	                                <div class="collapse navbar-collapse" id="footerNavContent">
-	                                    <ul class="navbar-nav ml-auto">
-	                                        <li class="nav-item active">
-	                                            <a class="nav-link" href="index.html">Home</a>
-	                                        </li>
-	                                        <li class="nav-item">
-	                                            <a class="nav-link" href="shop.html">Shop</a>
-	                                        </li>
-	                                        <li class="nav-item">
-	                                            <a class="nav-link" href="product-details.html">Product</a>
-	                                        </li>
-	                                        <li class="nav-item">
-	                                            <a class="nav-link" href="cart.html">Cart</a>
-	                                        </li>
-	                                        <li class="nav-item">
-	                                            <a class="nav-link" href="checkout.html">Checkout</a>
-	                                        </li>
-	                                    </ul>
-	                                </div>
-	                            </nav>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </footer>        
-		
-		<div th:fragment="userPanelScript">
-			<!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-			<script src="/UserPanel/js/jquery/jquery-2.2.4.min.js"></script>
-			<!-- Popper js -->
-			<script src="/UserPanel/js/popper.min.js"></script>
-			<!-- Bootstrap js -->
-			<script src="/UserPanel/js/bootstrap.min.js"></script>
-			<!-- Plugins js -->
-			<script src="/UserPanel/js/plugins.js"></script>
-			<!-- Active js -->
-			<script src="/UserPanel/js/active.js"></script>
-			<script type="text/javascript">
-			 	function logout()
-			 	{
-			 		$(document).ready(function () {
-			 			console.log("logout");
-			 			event.preventDefault(); //prevent default action 
-			 			var post_url = "http://localhost:8080/logout"; //get form action url
-			 			var form_data = $(this).serialize(); //Encode form elements for submission
-			 			
-			 			$.post( post_url, form_data, function( response ) {
-							console.log(response);
-			 			});
-			 		});
-			 	}
-
-			</script>
+				</div>
+			</div>
 		</div>
+		<!-- End-->
+		<!-- Top Side -->
+				
+		
+		<!-- Navbar -->
+		
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" th:fragment="navbar">
+	    <div class="container-fluid">
+	    
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+	        	<li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+				<li class="nav-item"><a href="about.html" class="nav-link">About</a>
+				</li>
+	        	<li class="nav-item"><a href="coming-soon.html" class="nav-link">Coming Soon</a></li>
+	        	<li class="nav-item"><a href="top-seller.html" class="nav-link">Top Seller</a></li>
+	        	<li class="nav-item"><a href="book.html" class="nav-link">Books</a></li>
+	        	<li class="nav-item"><a href="author.html" class="nav-link">Author</a></li>
+				<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+	
+			  <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+			  
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Dropdown
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="#">Action</a>
+				  <a class="dropdown-item" href="#">Another action</a>
+				  <div class="dropdown-divider"></div>
+				  <a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			  </li>	
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END -->
+	<!-- Navbar -->
+	
+	
+	<!-- Page Tittle -->
+	    <section class="hero-wrap hero-wrap-2" style="background-image: url('/UserPanel/images/bg_5.jpg');" data-stellar-background-ratio="0.5" th:fragment="pagetittle">
+	      <div class="overlay"></div>
+	      <div class="container">
+	        <div class="row no-gutters slider-text align-items-center justify-content-center">
+	          <div class="col-md-9 ftco-animate mb-0 text-center">	          
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+	<!-- END -->
+	<!-- Page Tittle -->
+
+
+		<!-- Footer -->
+
+    <footer class="ftco-footer" th:fragment="footer">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-sm-12 col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2 logo"><a href="#">Connect</a></h2>
+              <p>Far far away, behind the word mountains, far from the countries.</p>
+              <ul class="ftco-footer-social list-unstyled mt-2">
+                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Extra Links</h2>
+              <ul class="list-unstyled">
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Affiliate Program</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Business Services</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Education Services</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Gift Cards</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Legal</h2>
+              <ul class="list-unstyled">
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Join us</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Privacy &amp; Policy</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Term &amp; Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Company</h2>
+              <ul class="list-unstyled">
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>About Us</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Contact</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Careers</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon fa fa-map marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+	                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+	                <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">info@yourdomain.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid px-0 py-5 bg-black">
+      	<div class="container">
+      		<div class="row">
+	          <div class="col-md-12">
+		
+	            <p class="mb-0" style="color: rgba(255,255,255,.5);"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+	  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+	          </div>
+	        </div>
+      	</div>
+      </div>
+    </footer>         
+    <!-- End -->
+    <!-- Footer -->
+    
+       <!-- Loader -->
+    
+           <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" th:fragment="loader"/></svg></div>
+      <!-- End -->
+     <!-- Loader -->
+      
+      <div th:fragment="user-script">
+		  <script src="/UserPanel/js/jquery.min.js"></script>
+		  <script src="/UserPanel/js/jquery-migrate-3.0.1.min.js"></script>
+		  <script src="/UserPanel/js/popper.min.js"></script>
+		  <script src="/UserPanel/js/bootstrap.min.js"></script>
+		  <script src="/UserPanel/js/jquery.easing.1.3.js"></script>
+		  <script src="/UserPanel/js/jquery.waypoints.min.js"></script>
+		  <script src="/UserPanel/js/jquery.stellar.min.js"></script>
+		  <script src="/UserPanel/js/owl.carousel.min.js"></script>
+		  <script src="/UserPanel/js/jquery.magnific-popup.min.js"></script>
+		  <script src="/UserPanel/js/jquery.animateNumber.min.js"></script>
+		  <script src="/UserPanel/js/scrollax.min.js"></script>
+		  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+		  <script src="/UserPanel/js/google-map.js"></script>
+		  <script src="/UserPanel/js/main.js"></script>      
+      
+      </div>   
+         
+
 	</body>
 </html>

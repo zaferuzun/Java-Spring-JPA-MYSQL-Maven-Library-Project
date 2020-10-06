@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.service.BooksService;
+import com.zenontechnology.libraryproject.service.MapService;
 
 @Controller
 public class BooksController {
@@ -22,11 +23,31 @@ public class BooksController {
 	@Autowired
 	private BooksService booksService;
 
+	@Autowired
+	private MapService mapService;
+
 	private int bookShow = 3;
 
 	@RequestMapping("/books")
 	public String viewbookssPage(Model model) {
 		List<Books> listBooks = booksService.listAll();
+		/*
+		 * Object[] denemeList = booksService.listBooks().toArray();
+		 * 
+		 * for (Object object : denemeList) { System.out.print(object.toString() +
+		 * "\n"); }
+		 */
+		/*
+		 * List<BookAuthorDto> usersLocation = mapService.getAllUsersLocation(); for
+		 * (BookAuthorDto bookAuthorDto : usersLocation) {
+		 * 
+		 * System.out.print(bookAuthorDto.getBookName() + "\n"); }
+		 */
+		List<Books> books = booksService.listByPublisherId();
+
+		for (Books books2 : books) {
+			System.out.print(books2.getAuthors().getAuthorName() + "\n");
+		}
 		model.addAttribute("listBooks", listBooks);
 		return "./Views/Books/index";
 	}

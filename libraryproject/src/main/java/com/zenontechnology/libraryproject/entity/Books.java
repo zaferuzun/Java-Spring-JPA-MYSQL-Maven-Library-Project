@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
@@ -48,6 +50,14 @@ public class Books {
 
 	@Column(name = "BookImage")
 	private String BookImage;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "AuthorId", referencedColumnName = "AuthorId", insertable = false, updatable = false)
+	private Authors authors;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "PublisherId", referencedColumnName = "PublisherId", insertable = false, updatable = false)
+	private Publishers publishers;
 
 	public Books() {
 	}
@@ -146,6 +156,22 @@ public class Books {
 			return null;
 
 		return "/user-photos/" + BookId + "/" + BookImage;
+	}
+
+	public Authors getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Authors authors) {
+		this.authors = authors;
+	}
+
+	public Publishers getPublishers() {
+		return publishers;
+	}
+
+	public void setPublishers(Publishers publishers) {
+		this.publishers = publishers;
 	}
 
 }
