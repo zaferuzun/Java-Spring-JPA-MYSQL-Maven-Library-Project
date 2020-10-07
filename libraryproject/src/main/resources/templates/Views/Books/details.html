@@ -47,7 +47,7 @@
 	                </form>
 	                <form id="BookReturn" action="#" th:action="@{'/orders/delete2/' + ${book.BookId}}" method="get" class="form-group">
 	                  <input type="hidden" th:field="*{BookId}" />
-	                  <button class="btn py-4 btn-block btn-danger" type="button" >İade Et</button>
+	                  <button class="btn py-4 btn-block btn-danger" type="submit" >İade Et</button>
 	                </form>	                          
 	                  <a href="#" class="btn py-4 btn-block btn-warning" sec:authorize="hasAnyAuthority('ADMIN')"> d </a>
 	                  <a href="#" class="btn py-4 btn-block btn-secondary" sec:authorize="hasAnyAuthority('ADMIN')" >Edit</a>

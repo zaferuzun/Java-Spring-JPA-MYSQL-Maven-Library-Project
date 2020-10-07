@@ -69,9 +69,9 @@ public class UsersBookController {
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("./Views/UsersBook/edit");
 		UsersBook usersBook = usersBookService.get(id);
+		usersBook.setUserBookId(id);
 
 		mav.addObject("usersBook", usersBook);
-		usersBook.setUserBookId(id);
 
 		return mav;
 	}
@@ -89,7 +89,7 @@ public class UsersBookController {
 		}
 	}
 
-	@RequestMapping("/myBook")
+	@RequestMapping("/mybook")
 	public String viewbooksddsPage(Model model, Principal principal) {
 		Users user = userService.getByUserName(principal.getName());
 		List<UsersBook> listUserBooks = usersBookService.getUsersBookByUserId(user.getUserId());

@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
-	<body>
-		<div th:replace="./Layout/libraryfragment :: menu">
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kullanıcı Kitaplar')" >
+			<meta charset="utf-8">
+	</head>
+	<body onload="ChangeClass();">
+		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
+		<div th:replace="./Layout/userpanelfragment :: navbar">		
+		</div>
+		
+		<!-- USER BOOK CREATE PAGE-->
 		<form action="#" th:action="@{/usersbook/save}" th:object="${usersbook}" method="post">
             <table border="0" cellpadding="10">
                 <tr>
@@ -34,8 +40,19 @@
                     <td colspan="2"><button type="submit">Save</button> </td>
                 </tr>
             </table>
-		</form>
-		<div th:replace="./Layout/libraryfragment :: footer">
-		</div>		  
+		</form>			
+	    
+		<!-- END -->
+		<!--USER BOOK CREATE PAGE-->
+		
+		
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>
+	    <div th:replace="./Layout/userpanelfragment :: loader">
+	    </div>			
+
+     	<div th:replace="./Layout/userpanelfragment :: user-script">
+     	</div> 	
+
 	</body>
 </html>

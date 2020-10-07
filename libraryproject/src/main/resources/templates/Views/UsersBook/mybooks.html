@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitaplarım')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kitap')" >
+			<meta charset="utf-8">
+	</head>
 	<body>
-	     <div th:replace="./Layout/userpanelfragment :: search">
-     	</div>
-		<div class="main-content-wrapper d-flex clearfix">
-     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
-     		</div>
-     		<div th:replace="./Layout/userpanelfragment :: header-area">
-     		</div>		     		
-		    <div class="products-catagories-area clearfix">
-            	<div class="amado-pro-catagory clearfix" >
-	            	<!-- Single Catagory -->
-	                <div class="single-products-catagory clearfix" th:each="usersbook : ${listUserBooks}">
-	                    <a th:href="@{'/usersbook/details/' + ${usersbook.UserBookId}}">
-	                        <img src="/UserPanel/img/bg-img/1.jpg" width="500" height="700" alt="">
-	                        <!-- Hover Content -->
-	                        <div class="hover-content">
-	                            <div class="line"></div>
-	                            <h4 th:text="${usersbook.UserBookName}"></h4>	                            
-	                        </div>
-	                    </a>
-	                </div>
-
-            	</div>            	
-		    </div>			
+		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
-	   	<footer th:replace="./Layout/userpanelfragment :: footer">
-	    </footer>			
+		<div th:replace="./Layout/userpanelfragment :: navbar">		
+		</div>
+		
+			<!-- USER  MY BOOK PAGE-->
+			
+			<section class="ftco-section ftco-no-pt">
+	    	<div class="container-fluid px-md-4">
+	    		<div class="row justify-content-center pb-5 mb-3">
+	          <div class="col-md-7 heading-section text-center ftco-animate">
+	            <h2>KitaplarÄ±m</h2>
+	          </div>
+	        </div>
+	    		<div class="row" >
+	    			<div class="col-md-6 col-lg-4 d-flex" th:each="usersbook : ${listUserBooks}">
+	    				<div class="book-wrap d-lg-flex">
+	    					<div class="img d-flex justify-content-end" style="background-image: url(/UserPanel/images/staff-1.jpg)" >
+	    						<div class="in-text">
+	    					
+	    							<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Add to Wishlist">
+	    								<span class="flaticon-heart-1"></span>
+	    							</a>
+	    							<a th:href="@{'/usersbook/details/' + ${usersbook.UserBookId}}" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Quick View">
+	    								<span class="flaticon-search"></span>
+	    							</a>
 
-     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
+	    						</div>
+	    					</div>
+	    					<div class="text p-4">
+	    						<h2><a th:text="${usersbook.UserBookName}"></a></h2>
+	    						<span class="position" th:text="${usersbook.UserBookAuthor}"></span>
+	    					</div>
+	    				</div>
+	    			</div>
+
+	    		</div>
+	    	</div>
+	    </section>		
+	    
+		<!-- END -->
+		<!--USER MY BOOK PAGE-->
+		
+		
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>
+	    <div th:replace="./Layout/userpanelfragment :: loader">
+	    </div>			
+
+     	<div th:replace="./Layout/userpanelfragment :: user-script">
+     	</div>   	
+
 	</body>
 </html>

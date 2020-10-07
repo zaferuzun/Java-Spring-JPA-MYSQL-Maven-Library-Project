@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/libraryfragment :: html_head (pageTitle='Authors')" />
-	<body>
-		<div th:replace="./Layout/libraryfragment :: menu">
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kullanıcı Kitaplar')" >
+			<meta charset="utf-8">
+	</head>
+	<body onload="ChangeClass();">
+		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
-        <form action="#" th:action="@{/usersbook/save}" th:object="${usersBook}"
-            method="post">
-            
- 			<input type="hidden" th:field="*{UserBookId}" />
- 			<input type="hidden" th:field="*{UserId}" />
- 			
- 			
-            <table border="0" cellpadding="10"> 
-
+		<div th:replace="./Layout/userpanelfragment :: navbar">		
+		</div>
+		
+		<!-- USER BOOK EDIT PAGE-->
+		<form action="#" th:action="@{/usersbook/save}" th:object="${usersBook}" method="post">
+            <table border="0" cellpadding="10">
                 <tr>
                     <td>UserBookName:</td>
                     <td><input type="text" th:field="*{UserBookName}" /></td>
-                </tr>     
+                </tr>
                 <tr>
                     <td>UserBookAuthor:</td>
                     <td><input type="text" th:field="*{UserBookAuthor}" /></td>
-                </tr>     
+                </tr>    
                 <tr>
                     <td>UserBookPublisher:</td>
                     <td><input type="text" th:field="*{UserBookPublisher}" /></td>
-                </tr>           
+                </tr>
                 <tr>
                     <td>UserAddress:</td>
                     <td><input type="text" th:field="*{UserAddress}" /></td>
-                </tr>           
+                </tr>
                 <tr>
                     <td>UserBookImage:</td>
                     <td><input type="text" th:field="*{UserBookImage}" /></td>
-                </tr>                     
-                           
+                </tr>         
+                <tr>
+                    <td>UserBookImage:</td>
+                    <td><input type="text" th:field="*{UserBookDefination}" /></td>
+                </tr>                               
                 <tr>
                     <td colspan="2"><button type="submit">Save</button> </td>
                 </tr>
             </table>
-        </form>
-		<div th:replace="./Layout/libraryfragment :: footer">
-		</div>		  
+		</form>				
+	    
+		<!-- END -->
+		<!--USER BOOK EDIT PAGE-->
+		
+		
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>
+	    <div th:replace="./Layout/userpanelfragment :: loader">
+	    </div>			
+
+     	<div th:replace="./Layout/userpanelfragment :: user-script">
+     	</div>	
+
 	</body>
 </html>
