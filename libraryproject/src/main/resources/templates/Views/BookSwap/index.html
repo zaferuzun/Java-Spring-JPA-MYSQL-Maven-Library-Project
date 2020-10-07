@@ -1,52 +1,218 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" />
-	<body>
-	     <div th:replace="./Layout/userpanelfragment :: search">
-     	</div>
-		<div class="main-content-wrapper d-flex clearfix">
-     		<div th:replace="./Layout/userpanelfragment :: mobile-nav">
-     		</div>
-     		<div th:replace="./Layout/userpanelfragment :: header-area">
-     		</div>		     		
-		    <div class="products-catagories-area clearfix">
-            	<div class="amado-pro-catagory clearfix" >
-            	
-	            	<!-- Single Catagory -->
-	                <div  th:each="bookSwap : ${bookSwapSuccess}" >
-						<table style="width:100%" >
-						
-						  <tr>
-						    <th>SenderId</th>
-						    <th>SenderBookId</th>
-						    <th>SenderCheck</th>
-						    <th>TargetId</th>
-						    <th>TargetBookId</th>
-						    <th>SenderCheck</th>
-						    <th>SwapStatus</th>
-						    <th>LocationMeetway</th>
-						  </tr>
-						  <tr>
-						    <td th:text="${bookSwap.SenderId}"></td>
-						    <td th:text="${bookSwap.SenderBookId}"></td>
-						    <td th:text="${bookSwap.SenderCheck}"></td>
-						    <td th:text="${bookSwap.TargetId}"></td>
-						    <td th:text="${bookSwap.TargetBookId}"></td>
-						    <td th:text="${bookSwap.TargetCheck}"></td>
-						    <td th:text="${bookSwap.SwapStatus}"></td>
-						    <td th:text="${bookSwap.LocationMeetway}"></td>
-						  </tr>
-						</table>
-						
-	                </div>
-
-            	</div>
-      	
-		    </div>			
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Takaslarım')" >
+		<meta charset="utf-8">
+	</head>
+	<body onload="DisplayTable();">
+		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
+		<div th:replace="./Layout/userpanelfragment :: navbar">		
+		</div>
+		
+			<!-- SWAP INDEX PAGE-->
+			<div class="col-md-12 heading-section text-center ftco-animate">
+	    		<h2 id="swapTittle"></h2>
+	    	</div>
+			<section class="ftco-section ftco-degree-bg" th:object="${usersbook}" >
+			    <div class="container">
+				    <div class="row">
+					    <div class="col-lg-12 ftco-animate">
+					    	<div class="row">
+							    <div class="col-md-4 d-flex">
+									<button type="button" onclick="DisplayTable()" class="btn btn-secondary btn-lg btn-block">Tamamlanmış Takaslar</button>
+							    </div>
+							    <div class="col-md-4 d-flex">
+									<button type="button" onclick="DisplayTable('request')" class="btn btn-secondary btn-lg btn-block">Takas İsteklerim</button>
+							    </div>
+							    <div class="col-md-4 d-flex">
+							    	<button type="button" onclick="DisplayTable('received')" class="btn btn-secondary btn-lg btn-block">Gelen Takaslar</button>
+							    </div>	
+						    </div>
+					    </div>
+				    </div>
+				    <div class="row">
+				    		<!-- Succes Table  -->
+					    <div class="col-lg-12 ftco-animate">
+					    	<div id="successTable" >
+								<table class="table table-borderless" style="border: 1px solid black;" th:each="bookSwap : ${bookSwapSuccess}" >
+								  <thead>
+								    <tr>
+								      <th scope="col"></th>
+								      <th scope="col">Gönderici</th>
+								      <th scope="col"></th>
+								      <th scope="col">Alıcı</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <th scope="row">Adı</th>
+								      <td th:text="${bookSwap.SenderName}" id="successSenderId">Sender </td>
+								      <td><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwap.TargetName}" id="successTargetId" > Target</td>
+								    </tr>
+								      <th scope="row">Kitap Adı</th>
+								      <td th:text="${bookSwap.SenderBookName}" >Sender </td>
+								      <td> <span class="fa fa-arrow-left"></td>
+								      <td th:text="${bookSwap.TargetBookName}" >Target</td>
+								    </tr>
+								    <tr>
+								      <th scope="row"> Onay Durumu</th>
+								      <td th:text="${bookSwap.SenderCheck}" ></td>
+								      <td><span class="fa fa-arrow-left"><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwap.TargetCheck}" ></td>
+								    </tr>
+								    <tr>
+								      <th scope="row">Durum Mesajı <span class="fa fa-check"> </th>
+								      <td colspan="3" th:text="${bookSwap.SwapStatus}" > </td>
+								    </tr>
+								  </tbody>
+								</table>	
+								</div>
+				    		<!-- END  -->
+				    		<!-- Success Table  -->
+				    		
+	
+				    		<!-- SwapRequest Table  -->
+				    		
+					    	<div id="requestTable" >			    				
+								<table class="table table-borderless" style="border: 1px solid black;" th:each="bookSwapRequest : ${bookSwapRequest}" >
+								  <thead>
+								    <tr>
+								      <th scope="col"></th>
+								      <th scope="col">Gönderici</th>
+								      <th scope="col"></th>
+								      <th scope="col">Alıcı</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <th scope="row">Adı</th>
+								      <td th:text="${bookSwapRequest.SenderName}">Sender </td>
+								      <td><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwapRequest.TargetName}"  > Target</td>
+								    </tr>
+								      <th scope="row">Kitap Adı</th>
+								      <td th:text="${bookSwapRequest.SenderBookName}" >Sender </td>
+								      <td> <span class="fa fa-arrow-left"></td>
+								      <td th:text="${bookSwapRequest.TargetBookName}" >Target</td>
+								    </tr>
+								    <tr>
+								      <th scope="row"> Onay Durumu</th>
+								      <td th:text="${bookSwapRequest.SenderCheck}" ></td>
+								      <td><span class="fa fa-arrow-left"><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwapRequest.TargetCheck}" ></td>
+								    </tr>
+								    <tr>
+								      <th scope="row">Durum Mesajı <span class="fa fa-check"> </th>
+								      <td colspan="3" th:text="${bookSwapRequest.SwapStatus}" > </td>
+								    </tr>
+								  </tbody>
+								</table>	
+							</div>
+				    		<!-- END  -->
+				    		<!-- Swap Request Table  -->	
+				    		
+				    		<!-- Received Request Table  -->	
+				    		
+					    	<div id="receivedTable" >			    				
+								<table class="table table-borderless" style="border: 1px solid black;" th:each="bookSwapReceived : ${bookSwapReceived}"  >
+								  <thead>
+								    <tr>
+								      <th scope="col"></th>
+								      <th scope="col">Gönderici</th>
+								      <th scope="col"></th>
+								      <th scope="col">Alıcı</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <th scope="row">Adı</th>
+								      <td th:text="${bookSwapReceived.SenderName}">Sender </td>
+								      <td><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwapReceived.TargetName}"> Target</td>
+								    </tr>
+								      <th scope="row">Kitap Adı</th>
+								      <td th:text="${bookSwapReceived.SenderBookName}" >Sender </td>
+								      <td> <span class="fa fa-arrow-left"></td>
+								      <td th:text="${bookSwapReceived.TargetBookName}" >Target</td>
+								    </tr>
+								    <tr>
+								      <th scope="row"> Onay Durumu</th>
+								      <td th:text="${bookSwapReceived.SenderCheck}" ></td>
+								      <td><span class="fa fa-arrow-left"><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwapReceived.TargetCheck}" ></td>
+								    </tr>
+								    <tr>
+								      <th scope="row">Durum Mesajı <span class="fa fa-check"> </th>
+								      <td colspan="2" th:text="${bookSwapReceived.SwapStatus}" > </td>
+								      <td>
+								      	<form action="#" th:action="@{'/bookswap/acceptswap/' + ${bookSwapReceived.SwapId}}" method="get" class="form-group">
+						                  <button class="btn btn-primary btn-lg" type="submit" >Kitap Seç ve Onayla</button>
+						                </form>	
+								      </td>
+								      <td>
+						                <form action="#" th:action="@{'/bookswap/rejectswap/' + ${bookSwapReceived.SwapId}}" method="get" class="form-group">
+						                  <button class="btn btn-primary btn-lg" type="submit" >İsteği Reddet</button>
+						                </form>	
+								      </td>
+								    </tr>
+								  </tbody>
+								</table>
+							</div>	
+				    		<!-- END  -->
+				    		<!-- Received Request Table  -->		
+					    </div>
+				    </div>
+			    </div>
+		    </section>
+	    
+			<!-- END -->
+			<!--SWAP INDEX PAGE-->
+		
+		
 	   	<footer th:replace="./Layout/userpanelfragment :: footer">
-	    </footer>			
+	    </footer>
+	    <div th:replace="./Layout/userpanelfragment :: loader">
+	    </div>			
 
-     	<div th:replace="./Layout/userpanelfragment :: userPanelScript">
+     	<div th:replace="./Layout/userpanelfragment :: user-script">
+     	</div>
+
+		<script th:inline="javascript">
+			function DisplayTable(tableControl)
+			{
+				
+		     	var formSuccessTable = document.getElementById("successTable");
+		     	var formRequestTable = document.getElementById("requestTable");
+		     	var formReceivedTable = document.getElementById("receivedTable");
+		     	var swapTitle = document.getElementById("swapTittle");
+			
+				if(tableControl=="request")
+					{
+				     	formRequestTable.style.display = "block";
+				     	formSuccessTable.style.display = "none";
+				     	formReceivedTable.style.display = "none";		
+				     	swapTitle.innerHTML="Takas İstekleri";
+
+					}
+				else if(tableControl=="received")
+					{
+				     	formRequestTable.style.display = "none";
+				     	formSuccessTable.style.display = "none";
+				     	formReceivedTable.style.display = "block";
+				     	swapTitle.innerHTML="Alınan Takaslar";
+
+					}
+				else
+					{
+				     	formRequestTable.style.display = "none";
+				     	formSuccessTable.style.display = "block";
+				     	formReceivedTable.style.display = "none";
+				     	swapTitle.innerHTML="Tamamlanmış Takaslar";
+					}
+			}
+		
+		</script>     	
+
 	</body>
 </html>

@@ -19,4 +19,7 @@ public interface UsersBookRepository extends JpaRepository<UsersBook, Long> {
 	@Query("SELECT Count(b) FROM UsersBook b WHERE b.UserId = :UserId")
 	int UserBookNumberByUserId(@Param("UserId") Long UserId);
 
+	@Query("SELECT b.UserBookName FROM UsersBook b WHERE b.UserBookId = :UserBookId")
+	String getUsersBookNamebyBookId(@Param("UserBookId") Long UserBookId);
+
 }

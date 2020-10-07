@@ -47,4 +47,11 @@ public class UsersBookService {
 		return usersBookRepository.UserBookNumberByUserId(UserId);
 
 	}
+
+	public String getUsersBookNamebyBookId(Long UserBookId) {
+
+		return usersBookRepository.getUsersBookNamebyBookId(UserBookId);
+
+	}
+
 }

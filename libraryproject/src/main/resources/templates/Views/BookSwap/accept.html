@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" >
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div th:replace="./Layout/userpanelfragment :: top-side">		
+		</div>
+		<div th:replace="./Layout/userpanelfragment :: navbar">		
+		</div>
+		
+		<!-- AUTHOR INDEX PAGE-->
+		<div class="col-md-12 heading-section text-center ftco-animate">
+	    	<h2>Kitap Seçiniz</h2>
+	    </div>
+		<section class="ftco-section ftco-degree-bg">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-lg-6 ftco-animate">
+	          	<p>
+	          		<!-- th:src="@{${book.photosImagePath}}" -->
+	              <img id="imageSrc"  alt=""  width="500px" height="500px">
+	            </p>
+	              <div class="tag-widget post-tag-container mb-5 mt-5">
+	              <div class="tagcloud">
+	              </div>
+	            </div>
+	          </div> <!-- .col-md-8 -->
+	          <div class="col-lg-5 sidebar pl-lg-5 ftco-animate">
+                    <select id="bookSelect"  class="custom-select custom-select-lg mb-3" onchange="selectChange();" >
+                         <option value=""> -- </option>
+                         <option th:each="userBook : ${usersBook}" 
+                            th:value="${userBook.UserBookId}"
+                            th:utext="${userBook.UserBookName}"/>
+                  </select>
+                  	<div class="sidebar-box ftco-animate" style="margin-top:5%;">
+			            <h3>Kitap Hakkında :</h3>
+			            	<h5 >Kitap Adı  :<span id="Book"></span> </h5> 
+				            <h5 >Yazar  :    <span  id="Author"></span> </h5> 
+				            <h5 >Yayın Evi  :<span id="Publisher"></span> </h5> 
+				            <h5 >Kitap Açıklama  :<span id="Defination"></span> </h5>
+				             
+						    <button onclick="SwapSuccess();" class="btn btn-success btn-lg btn-block" type="submit" >Kitap Seç ve Onayla</button>
+						    <br />
+						    <form action="#" th:action="@{'/bookswap/rejectswap/' + ${bookSwap.SwapId}}" method="get" class="form-group">
+						        <button class="btn btn-danger btn-lg btn-block" type="submit" >İsteği Reddet</button>
+						    </form>					            
+	       	       	</div>
+	       	       </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+		
+		<!-- END -->
+		<!--AUTHOR INDEX PAGE-->
+		
+	   	<footer th:replace="./Layout/userpanelfragment :: footer">
+	    </footer>
+	    <div th:replace="./Layout/userpanelfragment :: loader">
+	    </div>			
+
+     	<div th:replace="./Layout/userpanelfragment :: user-script">
+     	</div>
+		<script th:inline="javascript">
+			function selectChange()
+			{
+	     	   var usersBookList = /*[[${usersBook}]]*/ 'default';
+	     	   bookSelectId= document.getElementById("bookSelect").value;
+			   var bookObject;
+			   for(var i=0; i< usersBookList.length; i++)
+				   {
+				   		if(bookSelectId==usersBookList[i].userBookId)
+				   			bookObject= usersBookList[i];
+				   }
+			   document.getElementById("imageSrc").src = "/UserPanel/images/staff-1.jpg";
+			   document.getElementById("Book").innerHTML = bookObject.userBookName;
+			   document.getElementById("Author").innerHTML = bookObject.userBookAuthor;
+			   document.getElementById("Publisher").innerHTML = bookObject.userBookPublisher; 
+			   document.getElementById("Defination").innerHTML = bookObject.userBookDefination; 
+			   
+	   		   return bookObject;
+			}
+			function SwapSuccess()
+			{
+		     	var bookSwap = /*[[${bookSwap}]]*/ 'default';
+		     	var bookObject= selectChange();
+		     	var swapUrl= "http://localhost:8080/bookswap/acceptsave/"+bookSwap.swapId+"/"+bookObject.userBookId;
+		     	console.log(swapUrl);
+	        	$(document).ready(function () {
+	        	    $.ajax({ 
+	        	      type : "GET",
+	        	       url : swapUrl,
+	        	       success: function (response) {
+	        	    	   console.log(response);
+	                       window.location = '/'+response;
+
+	                   },
+	        	    });
+	        	});   
+
+		    }
+		
+		</script>
+		
+	</body>
+</html>

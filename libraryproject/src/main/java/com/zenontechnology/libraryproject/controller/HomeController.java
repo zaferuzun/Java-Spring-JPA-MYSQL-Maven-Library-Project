@@ -19,7 +19,7 @@ public class HomeController {
 	private int bookShow = 12;
 
 	@RequestMapping("/")
-	public String HomePage(Model model) {
+	public String homeIndex(Model model) {
 		int allBookNumber = 0;
 		allBookNumber = booksService.AllBookNumbers();
 		List<Books> listBooks = null;
@@ -39,12 +39,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/contact")
-	public String ContactPage() {
+	public String homeContact() {
 		return "./Views/Home/contact";
 	}
 
 	@RequestMapping("/about")
-	public String AboutPage() {
+	public String homeAbout() {
 		return "./Views/Home/about";
 	}
 

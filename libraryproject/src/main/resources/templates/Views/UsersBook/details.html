@@ -44,7 +44,7 @@
 	                <form id="BookEdit" th:action="@{'/usersbook/edit/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post" class="form-group" >
 	                  <button  class="btn py-4 btn-block btn-success"  type="submit" >Kitabımı Güncelle</button>
 	                </form>
-	                <form id="BookSwap" action="#" th:action="@{'/bookSwap/swapCreate/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post" class="form-group">
+	                <form id="BookSwap" action="#" th:action="@{'/bookswap/swapcreate/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post" class="form-group">
 	                  <button class="btn py-4 btn-block btn-danger" type="submit" >Kitap Takas</button>
 	                </form>	                          
 	                  <a href="#" class="btn py-4 btn-block btn-warning" sec:authorize="hasAnyAuthority('ADMIN')"> d </a>

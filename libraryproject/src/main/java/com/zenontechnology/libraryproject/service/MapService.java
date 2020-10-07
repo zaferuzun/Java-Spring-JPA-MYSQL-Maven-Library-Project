@@ -1,5 +1,6 @@
 package com.zenontechnology.libraryproject.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zenontechnology.libraryproject.dto.BookAuthorDto;
+import com.zenontechnology.libraryproject.dto.UserSwapDto;
 import com.zenontechnology.libraryproject.entity.Authors;
+import com.zenontechnology.libraryproject.entity.BookSwap;
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.repository.BooksRepository;
+import com.zenontechnology.libraryproject.repository.UserRepository;
+import com.zenontechnology.libraryproject.repository.UsersBookRepository;
 
 @Service
 public class MapService {
@@ -21,6 +26,12 @@ public class MapService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+
+	@Autowired
+	private UserRepository usersRepository;
+
+	@Autowired
+	private UsersBookRepository usersBookRepository;
 
 	/**
 	 * 
@@ -40,6 +51,39 @@ public class MapService {
 		bookAuthorDto.setAuthorName(author.getAuthorName());
 
 		return bookAuthorDto;
+	}
+
+	/**
+	 * 
+	 * Manuel mapping
+	 **/
+	public List<UserSwapDto> convertDTO(List<BookSwap> bookSwaps) {
+		List<UserSwapDto> userSwapDtos = new ArrayList<UserSwapDto>();
+
+		for (BookSwap bookSwap : bookSwaps) {
+			UserSwapDto userSwapDto = new UserSwapDto();
+			String senderUserEmail = usersRepository.getUserNamebyUserId(bookSwap.getSenderId());
+			String targetUserEmail = usersRepository.getUserNamebyUserId(bookSwap.getTargetId());
+			String senderBookName = usersBookRepository.getUsersBookNamebyBookId(bookSwap.getSenderBookId());
+			String targetBookName = usersBookRepository.getUsersBookNamebyBookId(bookSwap.getTargetBookId());
+
+			userSwapDto.setSwapId(bookSwap.getSwapId());
+			userSwapDto.setSenderBookId(bookSwap.getSenderBookId());
+			userSwapDto.setSenderBookName(senderBookName);
+			userSwapDto.setSenderId(bookSwap.getSenderId());
+			userSwapDto.setSenderName(senderUserEmail);
+			userSwapDto.setSenderCheck(bookSwap.getSenderCheck());
+			userSwapDto.setSwapStatus(bookSwap.getSwapStatus());
+
+			userSwapDto.setTargetBookId(bookSwap.getTargetBookId());
+			userSwapDto.setTargetBookName(targetBookName);
+			userSwapDto.setTargetCheck(bookSwap.getTargetCheck());
+			userSwapDto.setTargetId(bookSwap.getTargetId());
+			userSwapDto.setTargetName(targetUserEmail);
+			userSwapDto.setLocationMeetway(bookSwap.getLocationMeetway());
+			userSwapDtos.add(userSwapDto);
+		}
+		return userSwapDtos;
 	}
 
 	/**

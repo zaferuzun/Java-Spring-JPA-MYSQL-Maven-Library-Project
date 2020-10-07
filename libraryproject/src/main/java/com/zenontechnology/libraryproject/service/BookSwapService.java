@@ -35,4 +35,13 @@ public class BookSwapService {
 		return bookSwapRepository.getSuccessSwapByUserId(UserId);
 
 	}
+
+	public List<BookSwap> getRequestSwapByUserId(Long UserId) {
+		return bookSwapRepository.getRequestSwapByUserId(UserId);
+
+	}
+
+	public List<BookSwap> getReceivedSwapByUserId(Long UserId) {
+		return bookSwapRepository.getReceivedSwapByUserId(UserId);
+	}
 }

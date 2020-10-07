@@ -29,19 +29,53 @@ public class UsersBookController {
 	@Autowired
 	UserRepository userService;
 
+	/*************************************************************************************
+	 * Kullanıcı kitapları, Üye olup giriş yapan kullanıcılar için oluşturulmuştur.
+	 * Burada ki kitaplar kütüphanede olan kitaplardan bağımsızdır. Kitapları
+	 * kullanıcılar kendileri ekler. Yayın evi ve yazar gibi değişkenleri kendileri
+	 * belirtir. Burada ki kitaplar takaslanmak için bulunur ve kullanıcılar bu
+	 * kitapları birbiriyle takaslayabilmektedir.
+	 * 
+	 ************************************************************************************
+	 * Normal kütüphanede olan kitapların yazarları ve yayın evleri hakkında
+	 * bilgiler admin tarafından veritabanından eklenmektedir. Burada ki yazar,
+	 * yayın evleri kullanıcı tarafından eklendiği için veritabanına
+	 * kaydedilmemektedir. Yani kullanıcı kitapları veritabanında bir yazar Id veya
+	 * yayın evi Id sine sahip degiller sadece isim olarak kaydedilmektedir.
+	 * 
+	 * *********************************************************************************
+	 * 
+	 * Bu durumlar ADMIN, USER, EDITOR için geçerlidir. Lakin Admin ve Editor
+	 * panellerinden bu işlemlerin editlenmesi gibi işlemler bulunmamaktadır.
+	 * 
+	 * ***********************************************************************************
+	 */
+
+	/**
+	 * Temel olarak kullanıcıların eklediği kitapların gösterimidir.
+	 */
+	/*********** http://localhost:8080/usersbook *************/
 	@RequestMapping("")
-	public String viewbookssPage(Model model) {
+	public String usersBookIndex(Model model) {
 		List<UsersBook> listUserBooks = usersBookService.listAll();
 		model.addAttribute("listUserBooks", listUserBooks);
 		return "./Views/UsersBook/index";
 	}
 
+	/**
+	 * Kullanıcıların kitaplarını silmesi.
+	 */
+	/*********** http://localhost:8080/usersbook/delete/{id} *************/
 	@RequestMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Long id) {
 		usersBookService.delete(id);
 		return "redirect:/usersbook";
 	}
 
+	/**
+	 * Kullanıcıların kitap oluşturması için kullanılan sayfa.
+	 */
+	/*********** http://localhost:8080/usersbook/create *************/
 	@RequestMapping("/create")
 	public String showNewUserForm(Model model) {
 		UsersBook usersbook = new UsersBook();
@@ -50,6 +84,10 @@ public class UsersBookController {
 		return "./Views/UsersBook/create";
 	}
 
+	/**
+	 * Kullanıcıların kitap oluşturulan kitabın veritabanına kaydedilmesi
+	 */
+	/*********** http://localhost:8080/usersbook/save *************/
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("usersbook") UsersBook usersbook, Principal principal) {
 		Users user = userService.getByUserName(principal.getName());
@@ -58,6 +96,10 @@ public class UsersBookController {
 		return "redirect:/usersbook";
 	}
 
+	/**
+	 * Kullanıcıların kitapların detaylarını gördüğü sayfa
+	 */
+	/*********** http://localhost:8080/usersbook/details/{id} *************/
 	@RequestMapping("/details/{id}")
 	public String detaiage(@PathVariable(name = "id") Long id, Model model, Principal principal) {
 		UsersBook usersbook = usersBookService.get(id);
@@ -65,6 +107,10 @@ public class UsersBookController {
 		return "./Views/UsersBook/details";
 	}
 
+	/**
+	 * Kullanıcıların kitaplarını düzenlediği sayfa
+	 */
+	/*********** http://localhost:8080/usersbook/edit/{id} *************/
 	@RequestMapping("/edit/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("./Views/UsersBook/edit");
@@ -76,6 +122,11 @@ public class UsersBookController {
 		return mav;
 	}
 
+	/**
+	 * Kullanıcının eklediği bir kitap olup olmadığını kontrolüdür. Kullanıcının
+	 * başka bir kitap ile takas yapabilmesi için kitabı olması gereklidir.
+	 */
+	/*********** http://localhost:8080/usersbook/userCheckBook *************/
 	@RequestMapping(value = "/userCheckBook", method = RequestMethod.GET)
 	@ResponseBody
 	public Boolean userHasBook(@RequestParam("UserBookId") int UserBookId, Principal principal) {
@@ -89,6 +140,10 @@ public class UsersBookController {
 		}
 	}
 
+	/**
+	 * Kullanıcının kendi eklediği kitapları gördüğü sayfadır.
+	 */
+	/*********** http://localhost:8080/usersbook/mybook *************/
 	@RequestMapping("/mybook")
 	public String viewbooksddsPage(Model model, Principal principal) {
 		Users user = userService.getByUserName(principal.getName());
