@@ -69,6 +69,6 @@ public class BookAuthorDto {
 		if (BookImage == null || BookId == null)
 			return null;
 
-		return "/user-photos/" + BookId + "/" + BookImage;
+		return "/images/books-photos/" + BookId + "/" + BookImage;
 	}
 }

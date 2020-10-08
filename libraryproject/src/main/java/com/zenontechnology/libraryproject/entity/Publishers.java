@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 @Table(name = "publishers")
 public class Publishers {
@@ -24,12 +26,13 @@ public class Publishers {
 	@Column(name = "PublisherDefination")
 	private String PublisherDefination;
 
+	@Column(name = "PublisherImage")
+	private String PublisherImage;
+
 	public Publishers() {
 
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getPublisherId() {
 		return PublisherId;
 	}
@@ -62,4 +65,19 @@ public class Publishers {
 		PublisherDefination = publisherDefination;
 	}
 
+	public String getPublisherImage() {
+		return PublisherImage;
+	}
+
+	public void setPublisherImage(String publisherImage) {
+		PublisherImage = publisherImage;
+	}
+
+	@Transient
+	public String getPublishersPhotosImagePath() {
+		if (PublisherImage == null || PublisherId == null)
+			return null;
+
+		return "/images/publishers-photos/" + PublisherId + "/" + PublisherImage;
+	}
 }

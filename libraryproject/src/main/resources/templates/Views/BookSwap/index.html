@@ -18,14 +18,17 @@
 				    <div class="row">
 					    <div class="col-lg-12 ftco-animate">
 					    	<div class="row">
-							    <div class="col-md-4 d-flex">
+							    <div class="col-md-3 d-flex">
 									<button type="button" onclick="DisplayTable()" class="btn btn-secondary btn-lg btn-block">Tamamlanmış Takaslar</button>
 							    </div>
-							    <div class="col-md-4 d-flex">
+							    <div class="col-md-3 d-flex">
 									<button type="button" onclick="DisplayTable('request')" class="btn btn-secondary btn-lg btn-block">Takas İsteklerim</button>
 							    </div>
-							    <div class="col-md-4 d-flex">
+							    <div class="col-md-3 d-flex">
 							    	<button type="button" onclick="DisplayTable('received')" class="btn btn-secondary btn-lg btn-block">Gelen Takaslar</button>
+							    </div>								    
+							    <div class="col-md-3 d-flex">
+							    	<button type="button" onclick="DisplayTable('reject')" class="btn btn-secondary btn-lg btn-block">Reddedilmiş Takaslar</button>
 							    </div>	
 						    </div>
 					    </div>
@@ -161,6 +164,45 @@
 							</div>	
 				    		<!-- END  -->
 				    		<!-- Received Request Table  -->		
+				    		
+				    		<!-- Reject  Table  -->	
+					    	<div id="rejectTable" >			    				
+								<table class="table table-borderless" style="border: 1px solid black;" th:each="bookSwapReject : ${bookSwapReject}"  >
+								  <thead>
+								    <tr>
+								      <th scope="col"></th>
+								      <th scope="col">Gönderici</th>
+								      <th scope="col"></th>
+								      <th scope="col">Alıcı</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <th scope="row">Adı</th>
+								      <td th:text="${bookSwapReject.SenderName}">Sender </td>
+								      <td><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwapReject.TargetName}"> Target</td>
+								    </tr>
+								      <th scope="row">Kitap Adı</th>
+								      <td th:text="${bookSwapReject.SenderBookName}" >Sender </td>
+								      <td> <span class="fa fa-arrow-left"></td>
+								      <td th:text="${bookSwapReject.TargetBookName}" >Target</td>
+								    </tr>
+								    <tr>
+								      <th scope="row"> Onay Durumu</th>
+								      <td th:text="${bookSwapReject.SenderCheck}" ></td>
+								      <td><span class="fa fa-arrow-left"><span class="fa fa-arrow-right"></td>
+								      <td th:text="${bookSwapReject.TargetCheck}" ></td>
+								    </tr>
+								    <tr>
+								      <th scope="row">Durum Mesajı <span class="fa fa-check"> </th>
+								      <td colspan="3" th:text="${bookSwapReject.SwapStatus}" > </td>
+								    </tr>
+								  </tbody>
+								</table>
+							</div>	
+				    		<!-- END  -->
+				    		<!-- Reject Table  -->	
 					    </div>
 				    </div>
 			    </div>
@@ -185,6 +227,7 @@
 		     	var formSuccessTable = document.getElementById("successTable");
 		     	var formRequestTable = document.getElementById("requestTable");
 		     	var formReceivedTable = document.getElementById("receivedTable");
+		     	var formRejectTable = document.getElementById("rejectTable");
 		     	var swapTitle = document.getElementById("swapTittle");
 			
 				if(tableControl=="request")
@@ -192,22 +235,35 @@
 				     	formRequestTable.style.display = "block";
 				     	formSuccessTable.style.display = "none";
 				     	formReceivedTable.style.display = "none";		
+				     	formRejectTable.style.display = "none";		
 				     	swapTitle.innerHTML="Takas İstekleri";
 
 					}
 				else if(tableControl=="received")
-					{
-				     	formRequestTable.style.display = "none";
-				     	formSuccessTable.style.display = "none";
-				     	formReceivedTable.style.display = "block";
-				     	swapTitle.innerHTML="Alınan Takaslar";
+				{
+			     	formRequestTable.style.display = "none";
+			     	formSuccessTable.style.display = "none";
+			     	formReceivedTable.style.display = "block";
+			     	formRejectTable.style.display = "none";		
+			     	swapTitle.innerHTML="Alınan Takaslar";
 
-					}
+				}				
+				else if(tableControl=="reject")
+				{
+			     	formRequestTable.style.display = "none";
+			     	formSuccessTable.style.display = "none";
+			     	formReceivedTable.style.display = "none"
+				    formRejectTable.style.display = "block";		
+;
+			     	swapTitle.innerHTML="Reddedilen Takaslar";
+
+				}
 				else
 					{
 				     	formRequestTable.style.display = "none";
 				     	formSuccessTable.style.display = "block";
 				     	formReceivedTable.style.display = "none";
+				     	formRejectTable.style.display = "none";		
 				     	swapTitle.innerHTML="Tamamlanmış Takaslar";
 					}
 			}

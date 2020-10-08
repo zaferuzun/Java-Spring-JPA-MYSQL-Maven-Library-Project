@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 @Table(name = "authors")
 public class Authors {
@@ -27,6 +29,9 @@ public class Authors {
 
 	@Column(name = "AuthorDefination")
 	private String AuthorDefination;
+
+	@Column(name = "AuthorImage")
+	private String AuthorImage;
 
 	public Authors() {
 	}
@@ -71,4 +76,19 @@ public class Authors {
 		AuthorDefination = authorDefination;
 	}
 
+	public String getAuthorImage() {
+		return AuthorImage;
+	}
+
+	public void setAuthorImage(String authorImage) {
+		AuthorImage = authorImage;
+	}
+
+	@Transient
+	public String getAuthorsPhotosImagePath() {
+		if (AuthorImage == null || AuthorId == null)
+			return null;
+
+		return "/images/authors-photos/" + AuthorId + "/" + AuthorImage;
+	}
 }

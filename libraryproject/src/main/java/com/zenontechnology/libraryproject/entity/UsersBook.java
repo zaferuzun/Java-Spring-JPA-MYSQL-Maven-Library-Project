@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 @Table(name = "usersbook")
 public class UsersBook {
@@ -104,4 +106,11 @@ public class UsersBook {
 		UserBookDefination = userBookDefination;
 	}
 
+	@Transient
+	public String getUsersBookPhotosImagePath() {
+		if (UserBookImage == null || UserBookId == null)
+			return null;
+
+		return "/images/usersbook-photos/" + UserBookId + "/" + UserBookImage;
+	}
 }

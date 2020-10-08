@@ -156,19 +156,23 @@ public class BookSwapController {
 	@RequestMapping("")
 	/*********** http://localhost:8080/bookswap *************/
 	public String bookSwapIndex(Model model, Principal principal) {
-		Users user = userService.getByUserName(principal.getName());
+		Long userId = userService.getUserIdbyUserEmail(principal.getName());
 
-		List<BookSwap> bookSwapSuccess = bookSwapService.getSuccessSwapByUserId(user.getUserId());
-		List<BookSwap> bookSwapRequest = bookSwapService.getRequestSwapByUserId(user.getUserId());
-		List<BookSwap> bookSwapReceived = bookSwapService.getReceivedSwapByUserId(user.getUserId());
+		List<BookSwap> bookSwapSuccess = bookSwapService.getSuccessSwapByUserId(userId);
+		List<BookSwap> bookSwapRequest = bookSwapService.getRequestSwapByUserId(userId);
+		List<BookSwap> bookSwapReceived = bookSwapService.getReceivedSwapByUserId(userId);
+		List<BookSwap> bookSwapReject = bookSwapService.getRejectSwapByUserId(userId);
 
 		List<UserSwapDto> bookSwapSuccessDtos = mapService.convertDTO(bookSwapSuccess);
 		List<UserSwapDto> bookSwapRequestDtos = mapService.convertDTO(bookSwapRequest);
 		List<UserSwapDto> bookSwapReceivedDtos = mapService.convertDTO(bookSwapReceived);
+		List<UserSwapDto> bookSwapRejectDtos = mapService.convertDTO(bookSwapReject);
 
 		model.addAttribute("bookSwapSuccess", bookSwapSuccessDtos);
 		model.addAttribute("bookSwapRequest", bookSwapRequestDtos);
 		model.addAttribute("bookSwapReceived", bookSwapReceivedDtos);
+		model.addAttribute("bookSwapReject", bookSwapRejectDtos);
+
 		return "./Views/BookSwap/index";
 	}
 

@@ -18,4 +18,7 @@ public interface BookSwapRepository extends JpaRepository<BookSwap, Long> {
 
 	@Query("SELECT b FROM BookSwap b WHERE  b.TargetId = :UserId and (SenderCheck=null and TargetCheck= null)")
 	List<BookSwap> getReceivedSwapByUserId(@Param("UserId") Long UserId);
+
+	@Query("SELECT b FROM BookSwap b WHERE (b.SenderId = :UserId or b.TargetId = :UserId) and (SenderCheck=false or TargetCheck= false)")
+	List<BookSwap> getRejectSwapByUserId(@Param("UserId") Long UserId);
 }

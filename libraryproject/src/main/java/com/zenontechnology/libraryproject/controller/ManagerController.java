@@ -86,7 +86,7 @@ public class ManagerController {
 		book.setBookImage(fileName);
 		booksService.save(book);
 
-		String uploadDir = "user-photos/" + book.getBookId();
+		String uploadDir = "images/books-photos/" + book.getBookId();
 
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return "redirect:/manager/book";
@@ -128,8 +128,15 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/manager/publisherSave", method = RequestMethod.POST)
-	public String saUser(@ModelAttribute("publisher") Publishers publisher) {
+	public String saUser(@ModelAttribute("publisher") Publishers publisher,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		publisher.setPublisherImage(fileName);
 		publishersService.save(publisher);
+
+		String uploadDir = "images/publishers-photos/" + publisher.getPublisherId();
+
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return "redirect:/manager/publisher";
 	}
 
@@ -169,8 +176,15 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/manager/authorSave", method = RequestMethod.POST)
-	public String saUer(@ModelAttribute("author") Authors author) {
+	public String saUer(@ModelAttribute("author") Authors author, @RequestParam("image") MultipartFile multipartFile)
+			throws IOException {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		author.setAuthorImage(fileName);
 		authorsService.save(author);
+
+		String uploadDir = "images/authors-photos/" + author.getAuthorId();
+
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return "redirect:/manager/author";
 	}
 

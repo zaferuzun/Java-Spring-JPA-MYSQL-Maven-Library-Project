@@ -1,21 +1,25 @@
 package com.zenontechnology.libraryproject.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zenontechnology.libraryproject.entity.Users;
 import com.zenontechnology.libraryproject.entity.UsersBook;
+import com.zenontechnology.libraryproject.function.FileUploadUtil;
 import com.zenontechnology.libraryproject.repository.UserRepository;
 import com.zenontechnology.libraryproject.service.UsersBookService;
 
@@ -89,10 +93,16 @@ public class UsersBookController {
 	 */
 	/*********** http://localhost:8080/usersbook/save *************/
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("usersbook") UsersBook usersbook, Principal principal) {
+	public String saveUser(@ModelAttribute("usersbook") UsersBook usersbook, Principal principal,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		usersbook.setUserBookImage(fileName);
 		Users user = userService.getByUserName(principal.getName());
 		usersbook.setUserId(user.getUserId());
 		usersBookService.save(usersbook);
+		String uploadDir = "images/usersbook-photos/" + usersbook.getUserBookId();
+
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return "redirect:/usersbook";
 	}
 

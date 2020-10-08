@@ -10,7 +10,6 @@
 		</div>
 		
 			<!-- USER BOOK INDEX PAGE-->
-			
 			<section class="ftco-section ftco-no-pt">
 	    	<div class="container-fluid px-md-4">
 	    		<div class="row justify-content-center pb-5 mb-3">
@@ -22,7 +21,7 @@
 	    			<div class="col-md-6 col-lg-4 d-flex" th:each="userBook : ${listUserBooks}">
 	    				<div class="book-wrap d-lg-flex">
 	    				<!-- th:style="'background-image:url('+ @{${book.photosImagePath}} +');'" -->
-	    					<div class="img d-flex justify-content-end" style="background-image: url(/UserPanel/images/staff-1.jpg)"  >
+	    					<div class="img d-flex justify-content-end" th:style="'background-image:url('+ @{${userBook.UsersBookPhotosImagePath}} +');'"  >
 	    						<div class="in-text">
 	    					
 	    							<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Add to Wishlist">

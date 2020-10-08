@@ -19,7 +19,7 @@
 					<div class="col-md-6 col-lg-3 ftco-animate" th:each="publisher : ${listPublishers}">
 						<div class="staff">
 							<div class="img-wrap d-flex align-items-stretch">
-								<div class="img align-self-stretch" style="background-image: url(/UserPanel/images/staff-1.jpg);"></div>
+								<div class="img align-self-stretch" th:style="'background-image:url('+ @{${publisher.PublishersPhotosImagePath}} +');'"></div>
 							</div>
 							<div class="text pt-3 px-3 pb-4 text-center">
 								<h3 th:text="${publisher.PublisherName}" ></h3>
