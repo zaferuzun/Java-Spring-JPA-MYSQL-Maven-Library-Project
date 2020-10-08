@@ -24,6 +24,7 @@ public class AuthorsController {
 	@Autowired
 	private BooksService booksService;
 
+	// deneme
 	/**
 	 * Yazar işlemleri, Temel listelenme, detayları ve kitapları şeklindedir. Yazar
 	 * sekmesi için kullanıcılar arasında bir ayrım vardır, USER----> Yazarın temel
