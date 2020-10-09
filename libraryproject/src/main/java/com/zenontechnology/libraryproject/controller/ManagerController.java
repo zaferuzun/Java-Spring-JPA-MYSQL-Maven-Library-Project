@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zenontechnology.libraryproject.dto.CommentsDto;
 import com.zenontechnology.libraryproject.entity.Authors;
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.entity.Publishers;
@@ -25,6 +26,8 @@ import com.zenontechnology.libraryproject.function.FileUploadUtil;
 import com.zenontechnology.libraryproject.repository.UserRepository;
 import com.zenontechnology.libraryproject.service.AuthorsService;
 import com.zenontechnology.libraryproject.service.BooksService;
+import com.zenontechnology.libraryproject.service.CommentsService;
+import com.zenontechnology.libraryproject.service.MapService;
 import com.zenontechnology.libraryproject.service.PublisherService;
 
 @Controller
@@ -40,6 +43,12 @@ public class ManagerController {
 
 	@Autowired
 	private AuthorsService authorsService;
+
+	@Autowired
+	private CommentsService commentsService;
+
+	@Autowired
+	private MapService mapService;
 
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -241,4 +250,30 @@ public class ManagerController {
 		return "redirect:/manager/user";
 	}
 
+	/**
+	 * 
+	 * Comment
+	 * 
+	 */
+	@RequestMapping("/manager/comment")
+	public String allComment(Model model) {
+		List<CommentsDto> bookComments = mapService.getAllComment();
+
+		model.addAttribute("bookComments", bookComments);
+		return "./Views/Manager/commentIndex";
+	}
+
+	@RequestMapping("/manager/commentcontrol")
+	public String commentControl(Model model) {
+		List<CommentsDto> allComments = mapService.getAllComment();
+
+		model.addAttribute("allComments", allComments);
+		return "./Views/Manager/commentIndex";
+	}
+
+	@RequestMapping("/manager/commentdelete/{id}")
+	public String commentDelete(@PathVariable(name = "id") Long id) {
+		commentsService.delete(id);
+		return "redirect:/manager/commentcontrol";
+	}
 }

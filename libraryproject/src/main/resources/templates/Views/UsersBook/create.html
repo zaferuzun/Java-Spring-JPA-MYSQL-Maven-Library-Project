@@ -11,13 +11,14 @@
 		  background-size: cover;
 		}
 	</style>
-	<body onload="ChangeClass();">
+	<body >
 		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
 		<div th:replace="./Layout/userpanelfragment :: navbar">		
 		</div>
 		
-		<section id="section" class="ftco-section ftco-degree-bg" th:object="${book}">
+		<!-- USER BOOK CREATE -->
+		<section id="section" class="ftco-section ftco-degree-bg" >
 	
 	      <div class="container">
 	    	<div class="container-fluid px-md-4" style="margin-top:-6%;">
@@ -29,51 +30,36 @@
 	        </div>
 	        <div class="row" >
 	          <div class="col-lg-6 ftco-animate">
-				<form>
-					<div class="form-row">
-					    <div class="form-group col-md-6">
-					      <label for="inputEmail4">Email</label>
-					      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-					    </div>
-					    <div class="form-group col-md-6">
-					      <label for="inputPassword4">Password</label>
-					      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-					    </div>
+				<form   th:action="@{/usersbook/save}" th:object="${usersbook}" method="post" enctype="multipart/form-data">
+					  <div class="form-group">
+					    <label for="inputBookName">Kitap Adı</label>
+					    <input type="text" class="form-control"  th:field="*{UserBookName}" placeholder="Kitap Adı">
 					  </div>
 					  <div class="form-group">
-					    <label for="inputAddress">Address</label>
-					    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+					    <label for="inputBookName">Yazar Adı</label>
+					    <input type="text" class="form-control"  th:field="*{UserBookAuthor}" placeholder="Yazar Adı">
 					  </div>
 					  <div class="form-group">
-					    <label for="inputAddress2">Address 2</label>
-					    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+					    <label for="inputBookName">Yayın Evi</label>
+					    <input type="text" class="form-control"  th:field="*{UserBookPublisher}" placeholder="Kitap Adı">
 					  </div>
-					  <div class="form-row">
-					    <div class="form-group col-md-6">
-					      <label for="inputCity">City</label>
-					      <input type="text" class="form-control" id="inputCity">
-					    </div>
-					    <div class="form-group col-md-4">
-					      <label for="inputState">State</label>
-					      <select id="inputState" class="form-control">
-					        <option selected>Choose...</option>
-					        <option>...</option>
-					      </select>
-					    </div>
-					    <div class="form-group col-md-2">
-					      <label for="inputZip">Zip</label>
-					      <input type="text" class="form-control" id="inputZip">
-					    </div>
-					  </div>
+
 					  <div class="form-group">
-					    <div class="form-check">
-					      <input class="form-check-input" type="checkbox" id="gridCheck">
-					      <label class="form-check-label" for="gridCheck">
-					        Check me out
-					      </label>
-					    </div>
+					    <label for="inputAddress2">Kullanıcı Adres</label>
+					    <input type="text" class="form-control"  placeholder="Adres" th:field="*{UserAddress}" >
 					  </div>
-					  <button type="submit" class="btn btn-primary">Sign in</button>
+	
+					  <div class="form-group">
+					    <label for="exampleFormControlTextarea1">Kitap Açıklaması</label>
+					    <textarea class="form-control" th:field="*{UserBookDefination}" rows="3"></textarea>
+					  </div>			
+					  		  
+					  <div class="form-group">
+					    <label for="exampleFormControlFile1">Kitap Resmi</label>
+					    <input type="file" name="image" accept="image/png, image/jpeg" class="form-control-file">
+					  </div>
+					  					  
+						<button type="submit" class="btn btn-secondary btn-lg btn-block">Kitap Kaydet</button>
 					</form>     
 		        </div>
 	        	<div class="col-lg-3 ftco-animate">
@@ -82,6 +68,8 @@
 	         </div>
 	      </div>
 	     </section>
+	    <!-- END -->
+	    <!-- USER BOOK CREATE -->
 	    		
 		
 		

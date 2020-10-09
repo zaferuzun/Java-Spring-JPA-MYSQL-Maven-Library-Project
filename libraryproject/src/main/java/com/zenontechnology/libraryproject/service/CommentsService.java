@@ -17,7 +17,31 @@ public class CommentsService {
 		return commentsRepository.getBookCommentsByBookId(BookId);
 	}
 
+	public List<Comments> getAuthorCommentsByAuthorId(Long BookId) {
+		return commentsRepository.getAuthorCommentsByAuthorId(BookId);
+	}
+
+	public List<Comments> getPublisherCommentsByPublisherId(Long BookId) {
+		return commentsRepository.getPublisherCommentsByPublisherId(BookId);
+	}
+
+	public List<Comments> getUserBookCommentsByUserBookId(Long BookId) {
+		return commentsRepository.getUserBookCommentsByUserBookId(BookId);
+	}
+
 	public void save(Comments comment) {
 		commentsRepository.save(comment);
+	}
+
+	public List<Comments> listAll() {
+		return commentsRepository.findAll();
+	}
+
+	public List<Comments> listBooks() {
+		return commentsRepository.listBooks();
+	}
+
+	public void delete(Long id) {
+		commentsRepository.deleteById(id);
 	}
 }

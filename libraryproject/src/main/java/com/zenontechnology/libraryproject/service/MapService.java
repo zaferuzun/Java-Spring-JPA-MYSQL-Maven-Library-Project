@@ -17,7 +17,6 @@ import com.zenontechnology.libraryproject.entity.BookSwap;
 import com.zenontechnology.libraryproject.entity.Books;
 import com.zenontechnology.libraryproject.entity.Comments;
 import com.zenontechnology.libraryproject.repository.BooksRepository;
-import com.zenontechnology.libraryproject.repository.CommentsRepository;
 import com.zenontechnology.libraryproject.repository.UserRepository;
 import com.zenontechnology.libraryproject.repository.UsersBookRepository;
 
@@ -34,7 +33,7 @@ public class MapService {
 	private UserRepository usersRepository;
 
 	@Autowired
-	private CommentsRepository commentsRepository;
+	private CommentsService commentsService;
 
 	@Autowired
 	private UsersBookRepository usersBookRepository;
@@ -109,23 +108,28 @@ public class MapService {
 
 //***/
 	public List<CommentsDto> getCommentbyBookId(Long BookId) {
-		return ((List<Comments>) commentsRepository.getBookCommentsByBookId(BookId)).stream().map(this::convertComment)
+		return ((List<Comments>) commentsService.getBookCommentsByBookId(BookId)).stream().map(this::convertComment)
 				.collect(Collectors.toList());
 	}
 
 	public List<CommentsDto> getCommentbyAuthorId(Long AuthorId) {
-		return ((List<Comments>) commentsRepository.getAuthorCommentsByAuthorId(AuthorId)).stream()
+		return ((List<Comments>) commentsService.getAuthorCommentsByAuthorId(AuthorId)).stream()
 				.map(this::convertComment).collect(Collectors.toList());
 	}
 
 	public List<CommentsDto> getCommentbyPublisherId(Long PublisherId) {
-		return ((List<Comments>) commentsRepository.getPublisherCommentsByPublisherId(PublisherId)).stream()
+		return ((List<Comments>) commentsService.getPublisherCommentsByPublisherId(PublisherId)).stream()
 				.map(this::convertComment).collect(Collectors.toList());
 	}
 
 	public List<CommentsDto> getCommentbyUserBookId(Long UserBookId) {
-		return ((List<Comments>) commentsRepository.getUserBookCommentsByUserBookId(UserBookId)).stream()
+		return ((List<Comments>) commentsService.getUserBookCommentsByUserBookId(UserBookId)).stream()
 				.map(this::convertComment).collect(Collectors.toList());
+	}
+
+	public List<CommentsDto> getAllComment() {
+		return ((List<Comments>) commentsService.listAll()).stream().map(this::convertComment)
+				.collect(Collectors.toList());
 	}
 
 	private CommentsDto convertComment(Comments comment) {
@@ -133,4 +137,5 @@ public class MapService {
 		CommentsDto commentDto = modelMapper.map(comment, CommentsDto.class);
 		return commentDto;
 	}
+
 }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head  th:replace="./Layout/managerfragment :: html_head (pageTitle='Manager')" >
+				<meta charset="utf-8">
+	</head>
+	<body  class="hold-transition sidebar-mini" onload="CommentDisplay()">
+ 		<div class="wrapper" >
+	 		<nav th:replace="./Layout/managerfragment :: topNavbar">
+	 		</nav>
+ 			<aside th:replace="./Layout/managerfragment :: leftNavbar">
+ 			</aside>
+			  <!-- Content Wrapper. Contains page content -->
+			  <div class="content-wrapper">
+			    <!-- Content Header (Page header) -->
+			    <section class="content-header">
+			      <div class="container-fluid">
+			        <div class="row mb-2">
+			          <div class="col-sm-6">
+			            <h1 id="pageTittle">Yorumlar</h1>
+			          </div>
+			        </div>
+			      </div><!-- /.container-fluid -->
+			    </section>
+			
+			    <!-- Main content -->
+			    <section class="content">
+			      <div class="container-fluid">
+			        <div class="row">
+			          <div class="col-12">
+							<div class="row">
+							    <div class="col-md-3 d-flex">
+									<button type="button" onclick="CommentDisplay()" class="btn btn-secondary btn-lg btn-block">Kitap Yorumları</button>
+							    </div>
+
+							    <div class="col-md-3 d-flex">
+							    	<button type="button" onclick="CommentDisplay('author')" class="btn btn-secondary btn-lg btn-block">Yazar Yorumları</button>
+							    </div>								    
+							    <div class="col-md-3 d-flex">
+							    	<button type="button" onclick="CommentDisplay('publisher')" class="btn btn-secondary btn-lg btn-block">Yayın Evi Yorumları</button>
+							    </div>
+							    <div class="col-md-3 d-flex">
+							    	<button type="button" onclick="CommentDisplay('userbook')" class="btn btn-secondary btn-lg btn-block">Kullanıcı Kitap Yorumları</button>
+							    </div>		
+						    </div>
+			            <div class="card">
+			              <div class="card-header">
+			              </div>
+			              <!-- /.card-header -->
+			              <div class="card-body">
+			                <table id="commentTable" class="table table-bordered table-striped">
+
+			                </table>
+			              </div>
+			              <!-- /.card-body -->
+			            </div>
+			            <!-- /.card -->
+			          </div>
+			          <!-- /.col -->
+			        </div>
+			        <!-- /.row -->
+			      </div>
+			      <!-- /.container-fluid -->
+			    </section>
+			    <!-- /.content -->
+			  </div>
+			  <!-- /.content-wrapper -->
+			<footer th:replace="./Layout/managerfragment :: footer">
+			</footer>
+ 		</div>
+ 		<script th:inline="javascript">
+			function CommentDisplay(tableControl)
+			{
+		     	var allCommentList = /*[[${allComments}]]*/ 'default';
+				htmlControl='';
+				listControl="";
+				selectedArray=[];
+				
+				if(tableControl=="author")
+				{
+					htmlControl='<th>Author Id</th>';
+					listControl="authorId";
+				}
+				else if (tableControl=="publisher")
+
+				{
+					htmlControl='<th>Publisher Id</th>';
+					listControl="publisherId";
+				}
+				else if (tableControl=="userbook")
+				{
+					htmlControl='<th>UserBook Id</th>';
+					listControl="userBookId"
+				}
+				else 
+				{
+					htmlControl='<th>Book Id</th>';
+					listControl="bookId";
+				}
+				
+		        var tableHead = ' <thead><tr>'+htmlControl;
+		        tableHead+=	'<th>Comment Id</th>'+
+		        		'<th>UserEmail</th>'+
+			            '<th>AdminCheck</th>'+
+			            '<th>CommentDetails</th>'+
+			            '<th></th>'+
+			            '</tr></thead>';
+			           
+				for(var i=0;i<allCommentList.length;i++)
+				{
+					if(allCommentList[i][listControl]!=null)
+						{
+							selectedArray.push(allCommentList[i]);
+						}
+				}	
+				tableBody='<tbody>';
+				for(var i=0; i< selectedArray.length;i++)
+					{
+						var ahref='<a href="/manager/commentdelete/'+selectedArray[i].commentId+'" class="btn btn-block btn-danger btn-sm" >Sil</a>'
+						tableBody+='<tr>'+
+									'<td>'+ selectedArray[i][listControl]+'</td>'+
+									'<td>'+ selectedArray[i].commentId+'</td>'+
+									'<td>'+ selectedArray[i].userEmail+'</td>'+
+									'<td>'+ selectedArray[i].adminCheck+'</td>'+
+									'<td>'+ selectedArray[i].commentDetails+'</td>'+
+									'<td>'+ ahref +'</td>'
+									'</tr>';
+					}
+				htmlTable=tableHead+tableBody+'</tbody>';
+				$('#commentTable').html(htmlTable);
+				console.log(htmlTable);
+			}
+		</script>
+	</body>
+	<div th:replace="./Layout/managerfragment :: managerPanelScript">
+	</div>
+</html>
