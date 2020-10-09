@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zenontechnology.libraryproject.dto.CommentsDto;
+import com.zenontechnology.libraryproject.entity.Comments;
 import com.zenontechnology.libraryproject.entity.Users;
 import com.zenontechnology.libraryproject.entity.UsersBook;
 import com.zenontechnology.libraryproject.function.FileUploadUtil;
 import com.zenontechnology.libraryproject.repository.UserRepository;
+import com.zenontechnology.libraryproject.service.MapService;
 import com.zenontechnology.libraryproject.service.UsersBookService;
 
 @Controller
@@ -32,6 +35,9 @@ public class UsersBookController {
 
 	@Autowired
 	UserRepository userService;
+
+	@Autowired
+	private MapService mapService;
 
 	/*************************************************************************************
 	 * Kullanıcı kitapları, Üye olup giriş yapan kullanıcılar için oluşturulmuştur.
@@ -113,6 +119,13 @@ public class UsersBookController {
 	@RequestMapping("/details/{id}")
 	public String detaiage(@PathVariable(name = "id") Long id, Model model, Principal principal) {
 		UsersBook usersbook = usersBookService.get(id);
+
+		List<CommentsDto> userbookComments = mapService.getCommentbyUserBookId(id);
+		Comments userbookComment = new Comments();
+		userbookComment.setUserBookId(id);
+		model.addAttribute("userbookComment", userbookComment);
+		model.addAttribute("userbookComments", userbookComments);
+
 		model.addAttribute("usersbook", usersbook);
 		return "./Views/UsersBook/details";
 	}

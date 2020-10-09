@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zenontechnology.libraryproject.dto.BookAuthorDto;
+import com.zenontechnology.libraryproject.dto.CommentsDto;
 import com.zenontechnology.libraryproject.entity.Books;
+import com.zenontechnology.libraryproject.entity.Comments;
 import com.zenontechnology.libraryproject.service.BooksService;
+import com.zenontechnology.libraryproject.service.CommentsService;
 import com.zenontechnology.libraryproject.service.MapService;
 
 @Controller
@@ -18,6 +21,9 @@ public class BooksController {
 
 	@Autowired
 	private BooksService booksService;
+
+	@Autowired
+	private CommentsService commentsService;
 
 	@Autowired
 	private MapService mapService;
@@ -84,9 +90,14 @@ public class BooksController {
 		} else {
 			listBooks = booksService.listRandomBooks(bookShow);
 		}
+
+		List<CommentsDto> bookComments = mapService.getCommentbyBookId(id);
+		Comments bookComment = new Comments();
+		bookComment.setBookId(id);
+		model.addAttribute("bookComment", bookComment);
+		model.addAttribute("bookComments", bookComments);
 		model.addAttribute("listBooks", listBooks);
 		model.addAttribute("book", book);
-		model.addAttribute("listBooks", listBooks);
 		return "./Views/Books/details";
 	}
 

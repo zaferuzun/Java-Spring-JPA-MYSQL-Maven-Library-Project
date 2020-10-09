@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zenontechnology.libraryproject.dto.CommentsDto;
 import com.zenontechnology.libraryproject.entity.Books;
+import com.zenontechnology.libraryproject.entity.Comments;
 import com.zenontechnology.libraryproject.entity.Publishers;
 import com.zenontechnology.libraryproject.service.BooksService;
+import com.zenontechnology.libraryproject.service.MapService;
 import com.zenontechnology.libraryproject.service.PublisherService;
 
 @Controller
@@ -23,6 +26,9 @@ public class PublishersController {
 
 	@Autowired
 	private BooksService booksService;
+
+	@Autowired
+	private MapService mapService;
 
 	/**
 	 * Yayın Evi işlemleri, Temel listelenme, detayları ve kitapları şeklindedir.
@@ -53,6 +59,13 @@ public class PublishersController {
 	public String publishersDetails(@PathVariable(name = "id") Long id, Model model) {
 		Publishers publisher = publishersService.get(id);
 		List<Books> listBooks = booksService.listBooksByPublisherId(publisher.getPublisherId());
+
+		List<CommentsDto> publisherComments = mapService.getCommentbyPublisherId(id);
+		Comments publisherComment = new Comments();
+		publisherComment.setPublisherId(id);
+		model.addAttribute("publisherComment", publisherComment);
+		model.addAttribute("publisherComments", publisherComments);
+
 		model.addAttribute("publisher", publisher);
 		model.addAttribute("listBooks", listBooks);
 

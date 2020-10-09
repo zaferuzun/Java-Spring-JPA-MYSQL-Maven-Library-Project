@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zenontechnology.libraryproject.dto.CommentsDto;
 import com.zenontechnology.libraryproject.entity.Authors;
 import com.zenontechnology.libraryproject.entity.Books;
+import com.zenontechnology.libraryproject.entity.Comments;
 import com.zenontechnology.libraryproject.service.AuthorsService;
 import com.zenontechnology.libraryproject.service.BooksService;
+import com.zenontechnology.libraryproject.service.MapService;
 
 @Controller
 public class AuthorsController {
@@ -23,6 +26,9 @@ public class AuthorsController {
 
 	@Autowired
 	private BooksService booksService;
+
+	@Autowired
+	private MapService mapService;
 
 	// deneme
 	/**
@@ -54,6 +60,13 @@ public class AuthorsController {
 	public String authorDetails(@PathVariable(name = "id") Long id, Model model) {
 		Authors author = authorsService.get(id);
 		List<Books> listBooks = booksService.listBooksByAuthorId(author.getAuthorId());
+
+		List<CommentsDto> authorComments = mapService.getCommentbyAuthorId(id);
+		Comments authorComment = new Comments();
+		authorComment.setAuthorId(id);
+		model.addAttribute("authorComment", authorComment);
+		model.addAttribute("authorComments", authorComments);
+
 		model.addAttribute("author", author);
 		model.addAttribute("listBooks", listBooks);
 
