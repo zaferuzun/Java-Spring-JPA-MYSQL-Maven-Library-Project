@@ -14,7 +14,7 @@
 						<div class="row no-gutters">
 						
 							<div class="col-md-4 ftco-animate" th:each="book : ${listBooks}">
-								<a href="/Home/images/image_7.jpg" class="photography-entry img image-popup d-flex justify-content-center align-items-center" style="background-image: url(/Home/images/image_7.jpg);">
+								<a th:href="@{${book.photosImagePath}}" class="photography-entry img image-popup d-flex justify-content-center align-items-center" th:style="'background-image:url('+ @{${book.photosImagePath}} +');'">
 									<div class="overlay"></div>
 									<div class="text text-center">
 										<h3 th:text="${book.BookName}"></h3>
