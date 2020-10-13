@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" />
+	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Yazarlar')" >
+		<meta charset="utf-8">
+	</head>
 	<body>
 		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
@@ -21,9 +23,11 @@
 							</div>
 							<div class="text pt-3 px-3 pb-4 text-center">
 								<h3 th:text="${author.AuthorName}" ></h3>
+								<h3 th:text="${author.AuthorSurname}" ></h3>
+								
 								<div class="faded">
-									<p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-									<a th:href="@{'/authors/details/' + ${author.AuthorId}}" class="btn btn-primary">View All Books</a>
+									<p>Türk töresi bozulursa, Türk'te Türklük kalmaz ki!</p>
+									<a th:href="@{'/authors/details/' + ${author.AuthorId}}" class="btn btn-primary">Daha Fazla...</a>
 									<ul class="ftco-social text-center">
 						                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a></li>
 						                <li class="ftco-animate"><a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a></li>

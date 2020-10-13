@@ -95,7 +95,7 @@ public class MapService {
 	 * 
 	 * ModelMapper with mapping
 	 **/
-	public List<BookAuthorDto> getAllUsersLocation2() {
+	public List<BookAuthorDto> getAllBooks() {
 		return ((List<Books>) booksRepository.findAll()).stream().map(this::convertToUserLocationDTO2)
 				.collect(Collectors.toList());
 	}

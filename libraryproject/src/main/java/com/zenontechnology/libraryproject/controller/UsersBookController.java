@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zenontechnology.libraryproject.dto.CommentsDto;
 import com.zenontechnology.libraryproject.entity.Comments;
@@ -25,6 +32,7 @@ import com.zenontechnology.libraryproject.function.FileUploadUtil;
 import com.zenontechnology.libraryproject.repository.UserRepository;
 import com.zenontechnology.libraryproject.service.MapService;
 import com.zenontechnology.libraryproject.service.UsersBookService;
+import com.zenontechnology.libraryproject.validation.UsersBookValidator;
 
 @Controller
 @RequestMapping("/usersbook")
@@ -38,6 +46,13 @@ public class UsersBookController {
 
 	@Autowired
 	private MapService mapService;
+
+	private final UsersBookValidator usersBookValidator = new UsersBookValidator();
+
+	@InitBinder("usersbook")
+	void setUsersBookValidator(WebDataBinder binder) {
+		binder.addValidators(usersBookValidator);
+	}
 
 	/*************************************************************************************
 	 * Kullanıcı kitapları, Üye olup giriş yapan kullanıcılar için oluşturulmuştur.
@@ -86,7 +101,7 @@ public class UsersBookController {
 	 * Kullanıcıların kitap oluşturması için kullanılan sayfa.
 	 */
 	/*********** http://localhost:8080/usersbook/create *************/
-	@RequestMapping("/create")
+	@GetMapping("create")
 	public String showNewUserForm(Model model) {
 		UsersBook usersbook = new UsersBook();
 		model.addAttribute("usersbook", usersbook);
@@ -95,21 +110,87 @@ public class UsersBookController {
 	}
 
 	/**
-	 * Kullanıcıların kitap oluşturulan kitabın veritabanına kaydedilmesi
+	 * Kullanıcıların kitap oluşturulan kitabın veritabanına kaydedilmesi Create
+	 * üzerinden gönderilen post istegi karşılanıyor. Validation işlemleri zaten
+	 * yapılmış olarak geliyor. Dosya boyutu ise controller tarafından
+	 * sağlanır.Herhangi bir hata ile karşılaşılmadığı taktirde giriş yapmış
+	 * kullanıcı email üzerinden userRepository kullanılarak kullanıcı id
+	 * belirlenir. Kullanıcının üzerine kitap eklenir. Daha sonra dosya belirtilen
+	 * yola (path) kaydedilir.Kayıtın başarılı olduğu message degişkeni ile
+	 * /usersbook/create yoluna gönderilir ve js ile message içerigi kontrol edilip
+	 * sweet alert kullanımı sağlanır.
+	 * 
+	 * **************************************************************************
+	 * Eklenecek: Kullanıcının kitap ekleme sayısı admin tarafından default olarak
+	 * belirlenecek ve kullanıcı bu kontrolden geçirilecek.
 	 */
 	/*********** http://localhost:8080/usersbook/save *************/
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("usersbook") UsersBook usersbook, Principal principal,
+	public String usersBookSave(@Valid @ModelAttribute("usersbook") UsersBook usersbook,
+			final BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal,
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		usersbook.setUserBookImage(fileName);
+
+		if (multipartFile.getSize() == 0) {
+			bindingResult.rejectValue("UserBookImage", "error.usersbook.usersBookCreating.FileError",
+					"Lütfen Yayın Evi Giriniz");
+		}
+
+		if (bindingResult.hasErrors()) {
+			return "./Views/UsersBook/create";
+		}
+
 		Users user = userService.getByUserName(principal.getName());
 		usersbook.setUserId(user.getUserId());
 		usersBookService.save(usersbook);
 		String uploadDir = "images/usersbook-photos/" + usersbook.getUserBookId();
 
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		return "redirect:/usersbook";
+		redirectAttributes.addFlashAttribute("message", "Success");
+		return "redirect:/usersbook/create";
+		/*
+		 * if (true) { redirectAttributes.addFlashAttribute("message", "Success");
+		 * return "redirect:/usersbook/create";
+		 * 
+		 * } else { return "redirect:/usersbook"; }
+		 */
+
+	}
+
+	/******
+	 * Save ile aynı işlemlere sahip lakin gelecek olan dosya boş olabilir. Edit
+	 * kısmında dosyayı degiştirilme durumu zorunlu olmadığı için kontrol sağlanır
+	 * ve ona göre kayıt işlemi yapılır.
+	 *
+	 * /*********** http://localhost:8080/usersbook/editsave
+	 *************/
+	@RequestMapping(value = "/editsave", method = RequestMethod.POST)
+	public String usersBookEdit(@Valid @ModelAttribute("usersbook") UsersBook usersbook,
+			final BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+		if (bindingResult.hasErrors()) {
+			return "./Views/UsersBook/create";
+		}
+
+		if (multipartFile.getSize() != 0) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			usersbook.setUserBookImage(fileName);
+			String uploadDir = "images/usersbook-photos/" + usersbook.getUserBookId();
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+		}
+		Users user = userService.getByUserName(principal.getName());
+		usersbook.setUserId(user.getUserId());
+		usersBookService.save(usersbook);
+
+		redirectAttributes.addFlashAttribute("message", "Success");
+
+		return "redirect:/usersbook/details/" + usersbook.getUserBookId();
+
 	}
 
 	/**
@@ -117,7 +198,7 @@ public class UsersBookController {
 	 */
 	/*********** http://localhost:8080/usersbook/details/{id} *************/
 	@RequestMapping("/details/{id}")
-	public String detaiage(@PathVariable(name = "id") Long id, Model model, Principal principal) {
+	public String userBooksDetailsPage(@PathVariable(name = "id") Long id, Model model, Principal principal) {
 		UsersBook usersbook = usersBookService.get(id);
 
 		List<CommentsDto> userbookComments = mapService.getCommentbyUserBookId(id);
@@ -125,6 +206,7 @@ public class UsersBookController {
 		userbookComment.setUserBookId(id);
 		model.addAttribute("userbookComment", userbookComment);
 		model.addAttribute("userbookComments", userbookComments);
+		model.addAttribute("user", userService.getUserNamebyUserId(usersbook.getUserId()));
 
 		model.addAttribute("usersbook", usersbook);
 		return "./Views/UsersBook/details";
@@ -137,17 +219,17 @@ public class UsersBookController {
 	@RequestMapping("/edit/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("./Views/UsersBook/edit");
-		UsersBook usersBook = usersBookService.get(id);
-		usersBook.setUserBookId(id);
+		UsersBook usersbook = usersBookService.get(id);
+		usersbook.setUserBookId(id);
 
-		mav.addObject("usersBook", usersBook);
+		mav.addObject("usersbook", usersbook);
 
 		return mav;
 	}
 
 	/**
-	 * Kullanıcının eklediği bir kitap olup olmadığını kontrolüdür. Kullanıcının
-	 * başka bir kitap ile takas yapabilmesi için kitabı olması gereklidir.
+	 * Kullanıcının details sayfasında baktığı kitabın kendisine ait olup olmadığını
+	 * kontrol ediyor.
 	 */
 	/*********** http://localhost:8080/usersbook/userCheckBook *************/
 	@RequestMapping(value = "/userCheckBook", method = RequestMethod.GET)
@@ -168,7 +250,7 @@ public class UsersBookController {
 	 */
 	/*********** http://localhost:8080/usersbook/mybook *************/
 	@RequestMapping("/mybook")
-	public String viewbooksddsPage(Model model, Principal principal) {
+	public String usersMyBook(Model model, Principal principal) {
 		Users user = userService.getByUserName(principal.getName());
 		List<UsersBook> listUserBooks = usersBookService.getUsersBookByUserId(user.getUserId());
 		model.addAttribute("listUserBooks", listUserBooks);

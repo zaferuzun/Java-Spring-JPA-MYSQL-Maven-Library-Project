@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zenontechnology.libraryproject.dto.UserSwapDto;
 import com.zenontechnology.libraryproject.entity.BookSwap;
@@ -112,7 +113,7 @@ public class BookSwapController {
 	}
 
 	/**
-	 * 
+	 * Kullanıcının talebinin gerçekleşmesi için kitabının olması gerekmektedir.
 	 * Kullanıcının diğer bir kullanıcıdan kitap takasını kayıt etmek için
 	 * kullanılan fonksiyon Kullanıcını Id, Hedef Id, Hedef Kitap Id ve mesaj ögesi
 	 * içerir.
@@ -120,7 +121,8 @@ public class BookSwapController {
 	 **/
 	/*********** http://localhost:8080/bookswap/swapcreate/id *************/
 	@RequestMapping("/swapcreate/{id}")
-	public String swapCreate(@PathVariable(name = "id") Long id, Principal principal) {
+	public String swapCreate(@PathVariable(name = "id") Long id, Principal principal,
+			RedirectAttributes redirectAttributes) {
 		UsersBook usersBook = usersBookService.get(id);
 		Users user = userService.getByUserName(principal.getName());
 		int UserBookNumber = usersBookService.UserBookNumberByUserId(user.getUserId());
@@ -141,9 +143,17 @@ public class BookSwapController {
 			bookSwap.setSwapStatus(
 					user.getUserEmail() + "Tarafından " + usersBook.getUserBookName() + " kitabı takas teklif edildi.");
 			bookSwapService.save(bookSwap);
+
+			redirectAttributes.addFlashAttribute("swapSuccessMessage", "Success");
+			// Takas İsteği gönderildi.
+			return "redirect:/usersbook";
+
+		} else {
+			// Takas isteği için kitabınızın olması gerekmektedir.
+			redirectAttributes.addFlashAttribute("swapFailedMessage", "Failed");
+			return "redirect:/usersbook";
 		}
 
-		return "redirect:/usersbook";
 	}
 
 	/**

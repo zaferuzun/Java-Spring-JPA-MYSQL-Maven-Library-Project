@@ -19,6 +19,8 @@
 	    <link rel="stylesheet" href="/UserPanel/css/flaticon.css">
 	    <link rel="stylesheet" href="/UserPanel/css/style.css">
 	    
+	    <link rel="stylesheet" href="/UserPanel/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+	    
 		<title> [[${pageTitle}]]-
 			Library Project
 		</title>
@@ -30,12 +32,12 @@
 				<div class="col-md-8 order-md-last">
 					<div class="row">
 						<div class="col-md-6 text-center">
-							<a class="navbar-brand" href="index.html">Zenon <span>Technology</span> <small> Online Kitapcım </small></a>
+							<a class="navbar-brand" href="/books">Zenon <span style="color:red !important">Technology</span> <small> ONLINE Kitapcım </small></a>
 						</div>
 						<div class="col-md-6 d-md-flex justify-content-end mb-md-0 mb-3">
 							<form action="#" class="searchform order-lg-last">
 			          <div class="form-group d-flex">
-			            <input type="text" class="form-control pl-3" placeholder="Search">
+			            <input type="text" class="form-control pl-3" placeholder="Search"><del>Search</del>
 			            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
 			          </div>
 			        </form>
@@ -50,6 +52,9 @@
 		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
 		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
 		    		</p>
+		    		<div sec:authorize ="isAuthenticated()">
+							Hoşgeldiniz <span sec:authentication="name"> Username</span>
+					</div>
 	        </div>
 				</div>
 			</div>
@@ -60,7 +65,7 @@
 		
 		<!-- Navbar -->
 		
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" th:fragment="navbar">
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light sticky-top" id="ftco-navbar" style="background-color:white !important" th:fragment="navbar">
 	    <div class="container-fluid">
 	    
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,12 +90,13 @@
 					</div>
 			  	</li>	
 	        	<li class="nav-item"><a href="/bookswap" class="nav-link">Takas</a></li>
-	        	<li class="nav-item"><a href="author.html" class="nav-link">Author</a></li>
-				<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	
-			  <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-			  
+	        	<li class="nav-item"><a href="/manager" class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">Yönetici Panel</a></li>
+				<li class="nav-item"><a href="#" class="nav-link"><del>Blog</del></a></li>
+				  
 	        </ul>
+	          <form class="form-inline" th:action="@{/logout}" method="post">
+			    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Çıkış</button>
+			  </form>
 	      </div>
 	    </div>
 	  </nav>
@@ -119,8 +125,8 @@
         <div class="row mb-5">
           <div class="col-sm-12 col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2 logo"><a href="#">Connect</a></h2>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
+              <h2 class="ftco-heading-2 logo"><a href="#">Baglantılar</a></h2>
+              <p>Sosyal medya hesaplarımızdan bizi takip edebilirsiniz...</p>
               <ul class="ftco-footer-social list-unstyled mt-2">
                 <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
@@ -130,45 +136,43 @@
           </div>
           <div class="col-sm-12 col-md">
             <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Extra Links</h2>
+              <h2 class="ftco-heading-2">Extra</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Affiliate Program</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Business Services</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Education Services</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Gift Cards</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Yapılacaklar </a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Site Açıklamaları</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Duyurular</a></li>
               </ul>
             </div>
           </div>
           <div class="col-sm-12 col-md">
             <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Legal</h2>
+              <h2 class="ftco-heading-2"> .</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Join us</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Privacy &amp; Policy</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Term &amp; Conditions</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Bize Katıl</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Blog Yazarlığı</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Gizlilik Sözleşmemiz</a></li>
               </ul>
             </div>
           </div>
           <div class="col-sm-12 col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Company</h2>
+              <h2 class="ftco-heading-2">Şirketimiz</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>About Us</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Hakkımızda</a></li>
                 <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Contact</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Careers</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>İletişim</a></li>
+                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Kariyer</a></li>
               </ul>
             </div>
           </div>
           <div class="col-sm-12 col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<h2 class="ftco-heading-2">Bize Ulaş</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon fa fa-map marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><span class="icon fa fa-map marker"></span><span class="text">X.... X.... X..... X.....</span></li>
+	                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">Telefon </span></a></li>
+	                <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">info@zenontechnology.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -181,7 +185,7 @@
 	          <div class="col-md-12">
 		
 	            <p class="mb-0" style="color: rgba(255,255,255,.5);"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+	  Copyright &copy;<script>document.write(new Date().getFullYear());</script>  <i class="fa fa-heart color-danger" aria-hidden="true"></i>  Zenon Technology
 	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
 	          </div>
 	        </div>
@@ -209,6 +213,8 @@
 		  <script src="/UserPanel/js/jquery.magnific-popup.min.js"></script>
 		  <script src="/UserPanel/js/jquery.animateNumber.min.js"></script>
 		  <script src="/UserPanel/js/scrollax.min.js"></script>
+		  <script src="/UserPanel/sweetalert2/sweetalert2.min.js"></script>
+		  
 		  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 		  <script src="/UserPanel/js/google-map.js"></script>
 		  <script src="/UserPanel/js/main.js"></script>      

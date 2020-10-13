@@ -3,6 +3,14 @@
 	<head th:replace="./Layout/userpanelfragment :: html_head (pageTitle='Kullanıcı Kitaplar')" >
 			<meta charset="utf-8">
 	</head>
+		<style>
+		#section {
+		  background-image: url('/UserPanel/images/book-background-2.jpg');
+		  background-repeat: no-repeat;
+		  background-attachment: fixed;  
+		  background-size: cover;
+		}
+	</style>
 	<body onload="ChangeClass();">
 		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
@@ -10,37 +18,65 @@
 		</div>
 		
 		<!-- USER BOOK EDIT PAGE-->
-		<form action="#" th:action="@{/usersbook/save}" th:object="${usersBook}" method="post">
-            <table border="0" cellpadding="10">
-                <tr>
-                    <td>UserBookName:</td>
-                    <td><input type="text" th:field="*{UserBookName}" /></td>
-                </tr>
-                <tr>
-                    <td>UserBookAuthor:</td>
-                    <td><input type="text" th:field="*{UserBookAuthor}" /></td>
-                </tr>    
-                <tr>
-                    <td>UserBookPublisher:</td>
-                    <td><input type="text" th:field="*{UserBookPublisher}" /></td>
-                </tr>
-                <tr>
-                    <td>UserAddress:</td>
-                    <td><input type="text" th:field="*{UserAddress}" /></td>
-                </tr>
-                <tr>
-                    <td>UserBookImage:</td>
-                    <td><input type="text" th:field="*{UserBookImage}" /></td>
-                </tr>         
-                <tr>
-                    <td>UserBookImage:</td>
-                    <td><input type="text" th:field="*{UserBookDefination}" /></td>
-                </tr>                               
-                <tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-                </tr>
-            </table>
-		</form>				
+		<section id="section" class="ftco-section ftco-degree-bg" >
+	
+	      <div class="container">
+	    	<div class="container-fluid px-md-4" style="margin-top:-6%;">
+	    		<div class="row  mb-2">
+		          <div class="col-md-6 heading-section text-center ftco-animate">
+		            <h2>Kitaplar Ekle</h2>
+		          </div>
+	          	</div>
+	        </div>
+	        <div class="row" >
+	          <div class="col-lg-6 ftco-animate">
+				<form   th:action="@{/usersbook/editsave}" th:object="${usersbook}" method="post" enctype="multipart/form-data">
+					<input type="hidden" th:field="*{UserBookId}" />
+					<input type="hidden" th:field="*{UserBookImage}" />
+					
+					  <div class="form-row">
+					    <div class="form-group col-md-6">
+					    <label for="inputBookName">Kitap Adı</label>
+					    <input type="text" class="form-control"  th:field="*{UserBookName}" placeholder="Kitap Adı">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('UserBookName')}" th:errors="*{UserBookName}">
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="inputBookName">Yazar Adı</label>
+					    <input type="text" class="form-control"  th:field="*{UserBookAuthor}" placeholder="Yazar Adı">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('UserBookAuthor')}" th:errors="*{UserBookAuthor}"> 
+					  </div>
+					 </div>
+					  <div class="form-group">
+					    <label for="inputBookName">Yayın Evi</label>
+					    <input type="text" class="form-control"  th:field="*{UserBookPublisher}" placeholder="Kitap Adı">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('*{UserBookPublisher}')}" th:errors="*{UserBookPublisher}">
+					  </div>
+
+					  <div class="form-group">
+					    <label for="inputAddress2">Kullanıcı Adres</label>
+					    <input type="text" class="form-control"  placeholder="Adres" th:field="*{UserAddress}" >
+					  </div>
+	
+					  <div class="form-group">
+					    <label for="exampleFormControlTextarea1">Kitap Açıklaması</label>
+					    <textarea class="form-control" th:field="*{UserBookDefination}" rows="3"></textarea>
+					  </div>			
+					  		  
+					  <div class="form-group">
+					    <label for="exampleFormControlFile1">Kitap Resmi</label>
+					    <input type="file" name="image" accept="image/png, image/jpeg" class="form-control-file" >
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('UserBookImage')}" th:errors="*{UserBookImage}">
+					  </div>
+					  					  
+						<button type="submit" class="btn btn-secondary btn-lg btn-block">Kitap Güncelle</button>
+					</form>     
+		        </div>
+	        	<div class="col-lg-3 ftco-animate">
+	        		<p></p>
+	        	</div>
+	         </div>
+	      </div>
+	     </section>	
 	    
 		<!-- END -->
 		<!--USER BOOK EDIT PAGE-->

@@ -52,10 +52,13 @@ public class ManagerController {
 
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+	/**
+	 * Giriş Ekranı
+	 */
+	/*********** http://localhost:8080/manager *************/
 	@RequestMapping("/manager")
-	public String shrForm(Model model) {
-		List<Books> listBooks = booksService.listAll();
-		model.addAttribute("listBooks", listBooks);
+	public String managerIndex(Model model) {
+
 		return "./Views/Manager/index";
 	}
 
@@ -64,23 +67,36 @@ public class ManagerController {
 	 * 
 	 * 
 	 **/
+
+	/**
+	 * Tüm kitapların listelendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/book *************/
 	@RequestMapping("/manager/book")
-	public String shoUserForm(Model model) {
+	public String managerBookIndex(Model model) {
 		List<Books> listBooks = booksService.listAll();
 		model.addAttribute("listBooks", listBooks);
 		return "./Views/Manager/bookIndex";
 	}
 
+	/**
+	 * Tüm kitapların eklendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/bookCreate *************/
 	@RequestMapping("/manager/bookCreate")
-	public String showNewUserForm(Model model) {
+	public String managerBookCreate(Model model) {
 		Books book = new Books();
 		model.addAttribute("book", book);
 
 		return "./Views/Manager/bookCreate";
 	}
 
+	/**
+	 * Kitapların güncellendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/bookEdit *************/
 	@RequestMapping("/manager/bookEdit/{id}")
-	public ModelAndView showEPage(@PathVariable(name = "id") Long id) {
+	public ModelAndView managerBookEdit(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("./Views/Manager/bookEdit");
 		Books book = booksService.get(id);
 		mav.addObject("book", book);
@@ -88,9 +104,13 @@ public class ManagerController {
 		return mav;
 	}
 
+	/**
+	 * Kitapların eklediği çağrıdır
+	 */
+	/*********** http://localhost:8080/manager/bookSave *************/
 	@RequestMapping(value = "/manager/bookSave", method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("book") Books book, @RequestParam("image") MultipartFile multipartFile)
-			throws IOException {
+	public String managerBookSave(@ModelAttribute("book") Books book,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		book.setBookImage(fileName);
 		booksService.save(book);
@@ -101,8 +121,31 @@ public class ManagerController {
 		return "redirect:/manager/book";
 	}
 
+	/**
+	 * Güncellenmiş kitabın eklediği çağrıdır
+	 */
+	/*********** http://localhost:8080/manager/bookEditSave *************/
+	@RequestMapping(value = "/manager/bookEditSave", method = RequestMethod.POST)
+	public String managerBookEditSave(@ModelAttribute("book") Books book,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+		if (multipartFile.getSize() != 0) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			book.setBookImage(fileName);
+			String uploadDir = "images/books-photos/" + book.getBookId();
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		}
+		booksService.save(book);
+
+		return "redirect:/manager/book";
+	}
+
+	/**
+	 * Tüm kitapların silindiği çağrıdır
+	 */
+	/*********** http://localhost:8080/manager/bookDelete/{id} *************/
 	@RequestMapping("/manager/bookDelete/{id}")
-	public String deletct(@PathVariable(name = "id") Long id) {
+	public String managerBookDelete(@PathVariable(name = "id") Long id) {
 		booksService.delete(id);
 		return "redirect:/manager/book";
 	}
@@ -112,23 +155,36 @@ public class ManagerController {
 	 * 
 	 * 
 	 **/
+
+	/**
+	 * Tüm yayın evlerinin listelendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/publisher *************/
 	@RequestMapping("/manager/publisher")
-	public String shoUForm(Model model) {
+	public String managerPublisherIndex(Model model) {
 		List<Publishers> listPublishers = publishersService.listAll();
 		model.addAttribute("listPublishers", listPublishers);
 		return "./Views/Manager/publisherIndex";
 	}
 
+	/**
+	 * Yayın evlerinin eklendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/publisherCreate *************/
 	@RequestMapping("/manager/publisherCreate")
-	public String showNewrForm(Model model) {
+	public String managerPublisherCreate(Model model) {
 		Publishers publisher = new Publishers();
 		model.addAttribute("publisher", publisher);
 
 		return "./Views/Manager/publisherCreate";
 	}
 
+	/**
+	 * Yayın evlerinin güncellendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/publisherEdit/{id} *************/
 	@RequestMapping("/manager/publisherEdit/{id}")
-	public ModelAndView shEPage(@PathVariable(name = "id") Long id) {
+	public ModelAndView managerPublisherEdit(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("./Views/Manager/publisherEdit");
 		Publishers publisher = publishersService.get(id);
 		mav.addObject("publisher", publisher);
@@ -136,8 +192,12 @@ public class ManagerController {
 		return mav;
 	}
 
+	/**
+	 * Yayın evlerinin eklendiği çağrıdır.
+	 */
+	/*********** http://localhost:8080/manager/publisherSave *************/
 	@RequestMapping(value = "/manager/publisherSave", method = RequestMethod.POST)
-	public String saUser(@ModelAttribute("publisher") Publishers publisher,
+	public String managerPublisherSave(@ModelAttribute("publisher") Publishers publisher,
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		publisher.setPublisherImage(fileName);
@@ -149,8 +209,32 @@ public class ManagerController {
 		return "redirect:/manager/publisher";
 	}
 
+	/**
+	 * Güncellenen Yayın evlerinin eklendiği çağrıdır.
+	 */
+	/*********** http://localhost:8080/manager/publisherEditSave *************/
+	@RequestMapping(value = "/manager/publisherEditSave", method = RequestMethod.POST)
+	public String managerPublisherEditSave(@ModelAttribute("publisher") Publishers publisher,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+		if (multipartFile.getSize() != 0) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			publisher.setPublisherImage(fileName);
+			String uploadDir = "images/publishers-photos/" + publisher.getPublisherId();
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		}
+
+		publishersService.save(publisher);
+
+		return "redirect:/manager/publisher";
+	}
+
+	/**
+	 * Yayın evlerinin silindiği çağrıdır.
+	 */
+	/*********** http://localhost:8080/manager/publisherEditSave *************/
 	@RequestMapping("/manager/publisherDelete/{id}")
-	public String detct(@PathVariable(name = "id") Long id) {
+	public String managerPublisherDelete(@PathVariable(name = "id") Long id) {
 		publishersService.delete(id);
 		return "redirect:/manager/publisher";
 	}
@@ -160,23 +244,36 @@ public class ManagerController {
 	 * 
 	 * 
 	 **/
+
+	/**
+	 * Tüm yazarların listelendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/author *************/
 	@RequestMapping("/manager/author")
-	public String shoUF4rm(Model model) {
+	public String managerAuthorIndex(Model model) {
 		List<Authors> listAuthors = authorsService.listAll();
 		model.addAttribute("listAuthors", listAuthors);
 		return "./Views/Manager/authorIndex";
 	}
 
+	/**
+	 * Yazarların eklendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/authorCreate *************/
 	@RequestMapping("/manager/authorCreate")
-	public String shoewrForm(Model model) {
+	public String managerAuthorCreate(Model model) {
 		Authors author = new Authors();
 		model.addAttribute("author", author);
 
 		return "./Views/Manager/authorCreate";
 	}
 
+	/**
+	 * Yazarların güncellendiği sayfadır.
+	 */
+	/*********** http://localhost:8080/manager/authorEdit/{id} *************/
 	@RequestMapping("/manager/authorEdit/{id}")
-	public ModelAndView shage(@PathVariable(name = "id") Long id) {
+	public ModelAndView managerAuthorEdit(@PathVariable(name = "id") Long id) {
 		ModelAndView mav = new ModelAndView("./Views/Manager/authorEdit");
 		Authors author = authorsService.get(id);
 		mav.addObject("author", author);
@@ -184,9 +281,32 @@ public class ManagerController {
 		return mav;
 	}
 
+	/**
+	 * Güncellenen yazarların eklendiği çağrıdır.
+	 */
+	/*********** http://localhost:8080/manager/authorEditSave *************/
+	@RequestMapping(value = "/manager/authorEditSave", method = RequestMethod.POST)
+	public String managerAuthorEditSave(@ModelAttribute("author") Authors author,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
+		if (multipartFile.getSize() != 0) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			author.setAuthorImage(fileName);
+			String uploadDir = "images/authors-photos/" + author.getAuthorId();
+
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		}
+		authorsService.save(author);
+
+		return "redirect:/manager/author";
+	}
+
+	/**
+	 * Yazarların kaydedildiği çağrıdır.
+	 */
+	/*********** http://localhost:8080/manager/authorSave *************/
 	@RequestMapping(value = "/manager/authorSave", method = RequestMethod.POST)
-	public String saUer(@ModelAttribute("author") Authors author, @RequestParam("image") MultipartFile multipartFile)
-			throws IOException {
+	public String managerAuthorSave(@ModelAttribute("author") Authors author,
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		author.setAuthorImage(fileName);
 		authorsService.save(author);
@@ -197,8 +317,12 @@ public class ManagerController {
 		return "redirect:/manager/author";
 	}
 
+	/**
+	 * Yazarların silindiği çağrıdır
+	 */
+	/*********** http://localhost:8080/manager/authorDelete/{id} *************/
 	@RequestMapping("/manager/authorDelete/{id}")
-	public String dt(@PathVariable(name = "id") Long id) {
+	public String managerAuthorDelete(@PathVariable(name = "id") Long id) {
 		authorsService.delete(id);
 		return "redirect:/manager/author";
 	}

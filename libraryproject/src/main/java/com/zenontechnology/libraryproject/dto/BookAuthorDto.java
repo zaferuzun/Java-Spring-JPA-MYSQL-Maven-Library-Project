@@ -12,6 +12,9 @@ public class BookAuthorDto {
 	@Column(name = "AuthorName")
 	private String AuthorName;
 
+	@Column(name = "AuthorSurname")
+	private String AuthorSurname;
+
 	@Column(name = "BookId")
 	private Long BookId;
 
@@ -62,6 +65,14 @@ public class BookAuthorDto {
 
 	public void setBookImage(String bookImage) {
 		BookImage = bookImage;
+	}
+
+	public String getAuthorSurname() {
+		return AuthorSurname;
+	}
+
+	public void setAuthorSurname(String authorSurname) {
+		AuthorSurname = authorSurname;
 	}
 
 	@Transient

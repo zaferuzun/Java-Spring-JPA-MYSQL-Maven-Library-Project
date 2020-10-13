@@ -37,7 +37,7 @@
 	                    <i >  5 / 5</i>
 	                </div>
 	            </div>
-	            <h5 >Yayıncı Adı  :   <span >    <a th:href="@{'/authors/details/' + ${usersbook.UserBookId}}" th:text="${usersbook.UserId}"> </a></span> </h5> 
+	            <h5 >Yayıncı Adı  :   <span >    <a th:text="${user}"> </a></span> </h5> 
 	            <h5 >Yazar  :   <span>    <a th:text="${usersbook.UserBookAuthor}"> </a></span> </h5> 
 	            <h5>Yayın Evi  :   <span>    <a th:text="${usersbook.UserBookPublisher}" > </a></span> </h5> 
 	              <div class="sidebar-box ftco-animate">
@@ -46,10 +46,7 @@
 	                </form>
 	                <form id="BookSwap" action="#" th:action="@{'/bookswap/swapcreate/'+ ${usersbook.UserBookId}}" th:object="${usersbook}" method="post" class="form-group">
 	                  <button class="btn py-4 btn-block btn-danger" type="submit" >Kitap Takas</button>
-	                </form>	                          
-	                  <a href="#" class="btn py-4 btn-block btn-warning" sec:authorize="hasAnyAuthority('ADMIN')"> d </a>
-	                  <a href="#" class="btn py-4 btn-block btn-secondary" sec:authorize="hasAnyAuthority('ADMIN')" >Edit</a>
-	                  
+	                </form>	                          	                  
 	              </div>
 	            </div>
 	          </div>

@@ -26,6 +26,7 @@
 	
 	            <div class="sidebar-box ftco-animate">
 	              <h3 th:text="${author.AuthorName}"></h3>
+	              <h3 th:text="${author.AuthorSurname}"></h3>
 	              <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
 	                <div class="ratings">
 	                    <i class="fa fa-star" aria-hidden="true"></i>
@@ -52,11 +53,11 @@
 	          <!-- Author Comment-->
 	          <div class="about-author d-flex p-4 bg-light">
 	            <div class="bio mr-5">
-	              <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-3">
+	              <img th:src="@{${author.AuthorsPhotosImagePath}}" alt="Image placeholder" class="img-fluid mb-3">
 	            </div>
 	            <div class="desc">
-	              <h3>George Washington</h3>
-	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+	              <h3 th:text="${author.AuthorName} + ${author.AuthorSurname}"></h3>
+	              <p>Baş eğmez, baş eğdirilemez yapıları ile sayılarına, güçlerine aldırmadan bütün acuna, bütün uluslara kafa tutarlar. Boyunları bağ kabul etmez. Kolları zincirleri reddeder. Yok olmayacaklarını, unutulmayacaklarını, yaptıklarının acun durdukça anlatılacağını bildikleri için korkusuzca saldırırlar hayata. Hayat onlardan çekinir yaşarken.</p>
 	            </div>
 	          </div>
 	          <!--END -->
@@ -68,7 +69,7 @@
 					<div class="row">
 						<div class="col-md-3 d-flex" th:each="book : ${listBooks}">
 								<div class="book-wrap">
-									<div class="img d-flex justify-content-end w-100" style="background-image: url(/UserPanel/images/book-1.jpg);">
+									<div class="img d-flex justify-content-end w-100" th:style="'background-image:url('+ @{${book.photosImagePath}} +');'">
 										<div class="in-text">
 											<a href="#" class="icon d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="left" title="Add to Wishlist">
 												<span class="flaticon-heart-1"></span>

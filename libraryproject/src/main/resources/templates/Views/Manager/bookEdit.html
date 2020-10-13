@@ -36,10 +36,12 @@
 
 			              <!-- /.card-header -->
 			              <!-- form start -->
-			              <form role="form" action="#" th:action="@{/manager/bookSave}" th:object="${book}" method="post">
+			              <form role="form" action="#" th:action="@{/manager/bookEditSave}" th:object="${book}" method="post" enctype="multipart/form-data">
 			                <div class="card-body">
 			                
  								<input type="hidden" th:field="*{BookId}" />
+ 								<input type="hidden" th:field="*{BookImage}" />
+ 								
 			                  <div class="row">
 			                    <div class="col-sm-6">
 
@@ -57,45 +59,42 @@
 			                  
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Kitap Adı</label>
-			                    <input type="text" th:field="*{BookName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{BookName}" class="form-control" id="exampleInputEmail1" placeholder="Kitap Adı">
 			                  </div>
 
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Kitap Alt Adı</label>
-			                    <input type="text" th:field="*{BookSubName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{BookSubName}" class="form-control" id="exampleInputEmail1" placeholder="Kitap Alt Adı">
 			                  </div>			                    
 			                    </div>
 			                    <div class="col-sm-6">
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Kitap Seri Adı</label>
-			                    <input type="text" th:field="*{BookSeriesName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{BookSeriesName}" class="form-control" id="exampleInputEmail1" placeholder="Kitap Seri Adı">
 			                  </div>
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">ISBN No</label>
-			                    <input type="text" th:field="*{BookIsbnNo}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{BookIsbnNo}" class="form-control" id="exampleInputEmail1" placeholder="ISBN No">
 			                  </div>
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Kitap Dili</label>
-			                    <input type="text" th:field="*{BookLanguage}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{BookLanguage}" class="form-control" id="exampleInputEmail1" placeholder="Kitap Dili">
 			                  </div>
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Yayın Tarihi</label>
-			                    <input type="text" th:field="*{BookReleaseDate}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{BookReleaseDate}" class="form-control" id="exampleInputEmail1" placeholder="Yayın Tarihi">
 			                  </div>			                    
 			                    </div>
 			                  </div>
-
 			                  
 			                  <div class="form-group">
-			                    <label for="exampleInputFile">File input</label>
+			                    <label for="exampleInputFile">Kitap Resmi</label>
 			                    <div class="input-group">
 			                      <div class="custom-file">
-			                        <input type="file" class="custom-file-input" id="exampleInputFile">
+			                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile" accept="image/png, image/jpeg">
 			                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
 			                      </div>
-			                      <div class="input-group-append">
-			                        <span class="input-group-text" id="">Upload</span>
-			                      </div>
+
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
@@ -107,7 +106,7 @@
 			                <!-- /.card-body -->
 			
 			                <div class="card-footer">
-			                  <button type="submit" class="btn btn-primary">Submit</button>
+			                  <button type="submit" class="btn btn-primary">Kaydet</button>
 			                </div>
 			              </form>
 			            </div>

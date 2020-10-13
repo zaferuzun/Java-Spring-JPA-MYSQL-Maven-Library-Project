@@ -18,19 +18,19 @@
 							<form action="#" th:action="@{/save}" th:object="${user}" method="post" class="login100-form validate-form p-b-33 p-t-5">
 		
 								<div class="wrap-input100 validate-input" data-validate = "Enter Email">
-									<input class="input100" type="text" th:field="*{UserName}" placeholder="User Name">
+									<input class="input100" type="text" th:field="*{UserName}" placeholder="User Name" id="userName">
 									<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 								</div>								
 								<div class="wrap-input100 validate-input" data-validate = "User Surname">
-									<input class="input100" type="text" th:field="*{UserSurname}"  placeholder="User email">
+									<input class="input100" type="text" th:field="*{UserSurname}"  placeholder="User Surname" id="userSurname">
 									<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 								</div>
 								<div class="wrap-input100 validate-input" data-validate="User Email">
-									<input class="input100" type="email" th:field="*{UserEmail}" placeholder="User Email">
+									<input class="input100" type="email" th:field="*{UserEmail}" placeholder="User Email" id="userEmail">
 									<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 								</div>									
 								<div class="wrap-input100 validate-input" data-validate="User Password">
-									<input class="input100" type="password" th:field="*{UserPassword}" placeholder="User Password">
+									<input class="input100" type="password" th:field="*{UserPassword}" placeholder="User Password" id="userPassword">
 									<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 								</div>						
 		
@@ -58,6 +58,19 @@
 		</div>
 		<div th:replace="./Layout/userfragment :: userJs">
 		</div>		
+		<script  th:inline="javascript">
+    	var message = /*[[${EmailError}]]*/ 'default';
+		if(message=="Failed")
+			{
+				Swal.fire({
+					  position: 'top-end',
+					  icon: 'error',
+					  title: 'Email adresi zaten kayýtlýdýr.',
+					  showConfirmButton: false,
+					  timer: 2000
+				});
+			}
+		</script>
 	</body>
 </html>
 

@@ -57,6 +57,6 @@ public class CommentsController {
 		userbookComment.setAdminCheck(false);
 		userbookComment.setUserId(userService.getUserIdbyUserEmail(principal.getName()));
 		commentsService.save(userbookComment);
-		return "redirect:/userbooks/details/" + userbookComment.getUserBookId();
+		return "redirect:/usersbook/details/" + userbookComment.getUserBookId();
 	}
 }

@@ -66,7 +66,7 @@ public class BooksController {
 		 * System.out.print(books2.getAuthors().getAuthorName() + "\n"); }
 		 */
 
-		List<BookAuthorDto> bookAuthorDto = mapService.getAllUsersLocation2();
+		List<BookAuthorDto> bookAuthorDto = mapService.getAllBooks();
 
 		model.addAttribute("listBooks", bookAuthorDto);
 		return "./Views/Books/index";

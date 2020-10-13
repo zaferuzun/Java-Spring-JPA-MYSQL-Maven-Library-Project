@@ -36,27 +36,39 @@
 
 			              <!-- /.card-header -->
 			              <!-- form start -->
-			              <form role="form" action="#" th:action="@{/manager/authorSave}" th:object="${author}" method="post">
+			              <form role="form" action="#" th:action="@{/manager/authorEditSave}" th:object="${author}" method="post" enctype="multipart/form-data">
 			                <div class="card-body">
 			                
  								<input type="hidden" th:field="*{AuthorId}" />
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Yazar Adı</label>
-			                    <input type="text" th:field="*{AuthorName}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{AuthorName}" class="form-control" id="authorName" placeholder="Enter email">
 			                  </div>
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Yazar Soy Adı</label>
-			                    <input type="text" th:field="*{AuthorSurname}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{AuthorSurname}" class="form-control" id="authorSurname" placeholder="Enter email">
 			                  </div>
 
 			                  <div class="form-group">
 			                    <label for="exampleInputEmail1">Yazar İletişim</label>
-			                    <input type="text" th:field="*{AuthorContact}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			                    <input type="text" th:field="*{AuthorContact}" class="form-control" id="authorContact" placeholder="Enter email">
 			                  </div>
 			                  <div class="form-group">
 		                        <label>Yazar Açıklama</label>
-		                        <textarea class="form-control" rows="3" placeholder="Enter ..." th:field="*{AuthorDefination}"></textarea>
+		                        <textarea class="form-control" rows="3" placeholder="Enter ..." id="authorDefination" th:field="*{AuthorDefination}"></textarea>
 		                   		</div>
+		                   		<div class="form-group">
+			                    <label for="exampleInputFile">File input</label>
+			                    <div class="input-group">
+			                      <div class="custom-file">
+			                        <input type="file" name="image" class="custom-file-input" id="authorImage" accept="image/png, image/jpeg">
+			                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+			                      </div>
+			                      <div class="input-group-append">
+			                        <span class="input-group-text" id="">Upload</span>
+			                      </div>
+			                    </div>
+			                  </div>
 			                </div>			               
 
 			                <!-- /.card-body -->
@@ -81,5 +93,48 @@
  		</div>
 		<div th:replace="./Layout/managerfragment :: managerPanelScript">
 		</div>
+				<script th:inline="javascript">
+		function validateAuthor()
+		{
+			  var checkBayt=10485760;
+			  var authorName = document.forms["authorForm"]["authorName"].value;
+			  var authorSurname = document.forms["authorForm"]["authorSurname"].value;
+			  var authorDefination = document.forms["authorForm"]["authorDefination"].value;
+			  
+			  var authorImage = document.getElementById('authorImage');
+			  var authorImageValue =authorImage.value;
+			  
+			  if (authorName == "" || authorSurname == "" || authorDefination == "") {
+				  	
+				  	sweetAlert("Lütfen ilgili yerleri doldurunuz");
+				    return false;
+				  }
+	            // Allowing file type 
+            var allowedExtensions =  
+                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+	              
+	          if (!allowedExtensions.exec(authorImageValue)) 
+	          { 
+	        	 //alert(authorImage.files.length);
+	        	 sweetAlert('Lütfen jpg, jpeg, png formatlarını tercih edin'); 
+	             return false; 
+	          }
+	          
+	          if(authorImage.files[0].size> checkBayt)
+	        	  {
+		        	 sweetAlert('Lütfen 10MB büyük dosya seçmeyiniz'); 
+					 return false;
+	        	  }
+	          
+		}
+		function sweetAlert(message)
+		{
+			Swal.fire({
+				  icon: 'error',
+				  title: 'Hata...',
+				  text: message,
+				})
+		}
+		</script>
 	</body>
 </html>

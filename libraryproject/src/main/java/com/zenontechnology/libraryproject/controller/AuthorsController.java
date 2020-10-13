@@ -92,7 +92,7 @@ public class AuthorsController {
 	}
 
 	/**
-	 * Tüm yazarın response olarak döndüğü çağrıdır. Projede Ajax çağrısına cevap
+	 * Yazarın response olarak döndüğü çağrıdır. Projede Ajax çağrısına cevap
 	 * vermektedir.
 	 */
 	/*********** http://localhost:8080/getAuthor/{id} *************/

@@ -77,7 +77,30 @@
 	     	   		}
 	     		}
 	     	}
-		
+	     	
+	    	var message = /*[[${swapSuccessMessage}]]*/ 'default';
+			if(message=="Success")
+				{
+					Swal.fire({
+						  position: 'top-end',
+						  icon: 'success',
+						  title: 'Takas İşleminiz başarıyla gönderildi',
+						  showConfirmButton: false,
+						  timer: 2000
+					});
+				}
+	    	var message = /*[[${swapFailedMessage}]]*/ 'default';
+			if(message=="Failed")
+				{
+					Swal.fire({
+						  position: 'top-end',
+						  icon: 'error',
+						  title: 'Takas isteği göndermek için kitap ekleyiniz',
+						  showConfirmButton: false,
+						  timer: 2000
+					});
+				}			
+			
 		</script>     	
 
 	</body>

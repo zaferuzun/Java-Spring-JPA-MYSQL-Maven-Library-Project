@@ -15,8 +15,7 @@
 		<div th:replace="./Layout/userpanelfragment :: top-side">		
 		</div>
 		<div th:replace="./Layout/userpanelfragment :: navbar">		
-		</div>
-		
+		</div>		
 		<!-- USER BOOK CREATE -->
 		<section id="section" class="ftco-section ftco-degree-bg" >
 	
@@ -31,17 +30,22 @@
 	        <div class="row" >
 	          <div class="col-lg-6 ftco-animate">
 				<form   th:action="@{/usersbook/save}" th:object="${usersbook}" method="post" enctype="multipart/form-data">
-					  <div class="form-group">
+					  <div class="form-row">
+					    <div class="form-group col-md-6">
 					    <label for="inputBookName">Kitap Adı</label>
 					    <input type="text" class="form-control"  th:field="*{UserBookName}" placeholder="Kitap Adı">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('UserBookName')}" th:errors="*{UserBookName}">
 					  </div>
-					  <div class="form-group">
+					  <div class="form-group col-md-6">
 					    <label for="inputBookName">Yazar Adı</label>
 					    <input type="text" class="form-control"  th:field="*{UserBookAuthor}" placeholder="Yazar Adı">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('UserBookAuthor')}" th:errors="*{UserBookAuthor}"> 
 					  </div>
+					 </div>
 					  <div class="form-group">
 					    <label for="inputBookName">Yayın Evi</label>
 					    <input type="text" class="form-control"  th:field="*{UserBookPublisher}" placeholder="Kitap Adı">
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('*{UserBookPublisher}')}" th:errors="*{UserBookPublisher}">
 					  </div>
 
 					  <div class="form-group">
@@ -56,7 +60,8 @@
 					  		  
 					  <div class="form-group">
 					    <label for="exampleFormControlFile1">Kitap Resmi</label>
-					    <input type="file" name="image" accept="image/png, image/jpeg" class="form-control-file">
+					    <input type="file" name="image" accept="image/png, image/jpeg" class="form-control-file" >
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('UserBookImage')}" th:errors="*{UserBookImage}">
 					  </div>
 					  					  
 						<button type="submit" class="btn btn-secondary btn-lg btn-block">Kitap Kaydet</button>
@@ -80,6 +85,18 @@
 
      	<div th:replace="./Layout/userpanelfragment :: user-script">
      	</div> 	
-
+		<script th:inline="javascript">
+	    	var message = /*[[${message}]]*/ 'default';
+			if(message=="Success")
+				{
+					Swal.fire({
+				   		width: 500,
+				    	padding: '7em',
+				    	showConfirmButton: false,
+				    	timer: 1500,
+				    	background: '#fff url(/UserPanel/images/bookSuccess.gif)',
+					});
+				}
+		</script>
 	</body>
 </html>

@@ -38,8 +38,8 @@
 	                </div>
 	            </div>
 	            <h5 >Yazar  :   <span>    <a th:href="@{'/authors/details/' + ${book.AuthorId}}" th:text="${book.AuthorId}" id="AuthorId"> </a></span> </h5> 
-	            <h5>Yayın Evi  :   <span>    <a th:href="@{'/publishers/details/' + ${book.PublisherId}}" id="PublisherId" th:text="${book.PublisherId}"> deneme</a></span> </h5> 
-	            <h5 >Kitap Sayısı  :   <span>    <a> deneme</a></span> </h5> 
+	            <h5>Yayın Evi  :   <span>    <a th:href="@{'/publishers/details/' + ${book.PublisherId}}" id="PublisherId" th:text="${book.PublisherId}"> </a></span> </h5> 
+	            <h5 >Kitap Sayısı  :   <span>    <a> </a></span> </h5> 
 	              <div class="sidebar-box ftco-animate">
 	                <form id="BookBorrow" action="#" th:action="@{/orders/save}" th:object="${book}" method="post" class="form-group" >
 	                  <input type="hidden" th:field="*{BookId}" />
@@ -170,7 +170,7 @@
 	        	       url : authorUrl,
 	        	       dataType : 'json',
 	        	       success: function (data) { 
-	                      author= data.authorName;
+	                      author= data.authorName + " " + data.authorSurname ;
 	    				  document.getElementById("AuthorId").innerHTML=author;
 	    				  document.getElementById("AuthorId2").innerHTML=author;
 	        	        }

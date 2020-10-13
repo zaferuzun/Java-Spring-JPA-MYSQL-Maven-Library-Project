@@ -34,6 +34,9 @@
 			  <link rel="stylesheet" href="/ManagerPanel/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> 		
 			  <!-- Bootstrap4 Duallistbox -->
 			  <link rel="stylesheet" href="/ManagerPanel/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">		
+			  
+			  <link rel="stylesheet" href="/UserPanel/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+			  
 		<title> [[${pageTitle}]]-
 			Library Project
 		</title>
@@ -312,6 +315,9 @@
 		<!-- Bootstrap4 Duallistbox -->
 		<script src="/ManagerPanel/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>		
 		
+				  <script src="/UserPanel/sweetalert2/sweetalert2.min.js"></script>
+		
+		
 		<script>
 		  $(function () {
 		    $("#example1").DataTable({
@@ -344,7 +350,7 @@
 		              var len = data.length;
 		
 		              for ( var i = 0; i < len; i++) {
-		                  html += '<option value="' + data[i].authorId + '">' + data[i].authorName + '</option>';
+		                  html += '<option value="' + data[i].authorId + '">' + data[i].authorName+" " +data[i].authorSurname + '</option>';
 		              }
 		              html += '</option>';
 		
