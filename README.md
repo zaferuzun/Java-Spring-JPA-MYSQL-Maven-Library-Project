@@ -81,3 +81,7 @@ Herhangi bir internet tarayıcısından
 http://localhost:8080
 
 adresi üzerinden proje deneyimlenir.
+
+Admin için Email= admin@g.com Şifre = admin
+Editor için Email editor@g.com  Şifre = editor
+User için Email user@g.com Şifre = user
